@@ -2,7 +2,11 @@
 
 Nix flake for two machines:
 - `den`: NixOS server (`x86_64-linux`)
+  - `sudo nixos-rebuild switch --flake github:rcastellotti/nics#den`  
 - `bearbook`: macOS laptop via nix-darwin (`aarch64-darwin`)
+  - `sudo darwin-rebuild -- switch --flake .#bearbook`   
+- `rcastelloti-dev`: hetzner main machine (`x86_64-linux`)
+  - `sudo nixos-rebuild switch --flake "github:rcastellotti/nics/rcastellotti-dev?dir=path/to/subdir#rcastellotti-dev"`
 
 ## `den`
 
