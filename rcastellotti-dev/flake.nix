@@ -48,7 +48,7 @@
       nixosConfigurations.rcastellotti-dev = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
-          ./rcastellotti-dev-configuration.nix
+          ./configuration.nix
           inputs.disko.nixosModules.disko
         ];
       };
