@@ -19,6 +19,8 @@
     pkgs.nixd
     pkgs.nixfmt
     pkgs.openssh
+    pkgs.age
+    pkgs.age-plugin-yubikey
 
     pkgs.google-chrome
     pkgs.raycast
