@@ -4,4 +4,8 @@ in
 {
   "HCLOUD_TOKEN.age".publicKeys = [ key ];
   "CLOUDFLARE_API_TOKEN.age".publicKeys = [ key ];
+  "AWS_ACCESS_KEY_ID.age".publicKeys = [ key ];
+  "AWS_SECRET_ACCESS_KEY.age".publicKeys = [ key ];
+  "AWS_ENDPOINT_URL_S3.age".publicKeys = [ key ];
 }
+
