@@ -10,6 +10,20 @@ terraform {
       version = "~> 4.0"
     }
   }
+  backend "s3" {
+    bucket                      = "terraform"
+    key                         = "terraform.tfstate"
+    workspace_key_prefix        = ""
+    region                      = "auto"
+    skip_credentials_validation = true
+    skip_requesting_account_id  = true
+    skip_metadata_api_check     = true
+    skip_region_validation      = true
+    use_path_style              = true
+    endpoints = {
+      s3 = "https://63540284f50c1886beda4daca5793813.r2.cloudflarestorage.com"
+    }
+  }
 }
 
 

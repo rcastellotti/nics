@@ -26,6 +26,9 @@
         secrets = {
           HCLOUD_TOKEN.file = ./secrets/HCLOUD_TOKEN.age;
           CLOUDFLARE_API_TOKEN.file = ./secrets/CLOUDFLARE_API_TOKEN.age;
+          AWS_ACCESS_KEY_ID.file = ./secrets/AWS_ACCESS_KEY_ID.age;
+          AWS_SECRET_ACCESS_KEY.file = ./secrets/AWS_SECRET_ACCESS_KEY.age;
+          AWS_ENDPOINT_URL_S3.file = ./secrets/AWS_ENDPOINT_URL_S3.age;
         };
         identityPaths = [ "/tmp/rc-ssh-key" ];
       };
