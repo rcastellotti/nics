@@ -74,14 +74,14 @@
       nixosConfigurations."den" = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
-          ./den-configuration.nix
+          ./hosts/den/configuration.nix
         ];
       };
 
       nixosConfigurations.rcastellotti-dev = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
-          ./configuration.nix
+          ./hosts/rcastellotti-dev/configuration.nix
           inputs.disko.nixosModules.disko
         ];
       };
