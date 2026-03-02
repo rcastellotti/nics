@@ -33,7 +33,7 @@
     ];
   };
   age.secrets.tailscale-authkey = {
-    file = ./hosts/rcastellotti-dev/secrets/tailscale-authkey.age;
+    file = ../secrets/tailscale-authkey.age;
   };
 
   systemd.services.tailscale-autoconnect = {
@@ -61,9 +61,10 @@
         exit 0
       fi
 
+      authkey="$(cat ${config.age.secrets.tailscale-authkey.path})"
+
       # otherwise authenticate with tailscale
       ${tailscale}/bin/tailscale up --authkey="$authkey" --ssh --accept-routes
-
     '';
   };
 
