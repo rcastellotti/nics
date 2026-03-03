@@ -32,7 +32,7 @@ Nix flake for two machines:
   3. `terraform init`
   4. `terraform apply` -> outputs ip
   5. `ssh root@9.167.105.83` and change password
-  5. `nix run github:nix-community/nixos-anywhere -- --flake .#rcastellotti-dev --target-host root@89.167.105.83 --build-on-remote -i /tmp/rc-ssh-key` 
+  5. `nix run github:nix-community/nixos-anywhere -- --flake .#rcastellotti-dev --target-host root@89.167.105.83 --build-on-remote -i /tmp/rc-ssh-key --extra-files /tmp/rc-ssh-key=/root/.ssh/rc-ssh-key` 
   6. start `tailscale` and close firewall
 
 # add a secret

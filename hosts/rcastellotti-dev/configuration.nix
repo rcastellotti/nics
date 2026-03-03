@@ -19,8 +19,10 @@
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 
   environment.systemPackages = [ pkgs.tailscale ];
-
-  # age.identityPaths = [ "/tmp/rc-ssh-key" ];
+  services.openssh = {
+    enable = true;
+  };
+  age.identityPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
 
   users.users.rc = {
     isNormalUser = true;
