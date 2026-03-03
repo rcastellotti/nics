@@ -9,7 +9,7 @@ trap cleanup EXIT
 
 install -d -m755 "$temp/etc/ssh"
 
-bw get item $(bw list items --search "rc-bw-ssh-key" | jq -r '.[].id') | jq -r '.sshKey.privateKey' > "$temp/etc/ssh/ssh_host_ed25519_key"
+bw get item $(bw list items --search "rc-ssh-key" | jq -r '.[].id') | jq -r '.sshKey.privateKey' > "$temp/etc/ssh/ssh_host_ed25519_key"
 
 chmod 600 "$temp/etc/ssh/ssh_host_ed25519_key"
 
