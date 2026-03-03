@@ -17,6 +17,7 @@
 
   networking.hostName = "rcastellotti-dev";
   networking.useDHCP = lib.mkDefault true;
+  networking.firewall.enable = false;
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 
   nix.settings.experimental-features = "nix-command flakes";
