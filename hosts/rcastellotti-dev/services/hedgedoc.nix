@@ -19,7 +19,7 @@
       allowAnonymous = false;
       allowAnonymousEdits = false;
       allowEmailRegister = true;
-      sessionSecret = builtins.readFile config.age.secrets.hedgedoc-session-secret.path;
+      sessionSecret = config.age.secrets.hedgedoc-session-secret;
     };
   };
 }
