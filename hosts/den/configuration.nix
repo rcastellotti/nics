@@ -43,8 +43,7 @@
     source ${pkgs.liquidprompt}/share/liquidprompt/liquidprompt
   '';
 
-  config.age.secrets.tailscale-authkey.file =
-    "${self}/hosts/rcastellotti-dev/secrets/tailscale-authkey.age";
+  age.secrets.tailscale-authkey.file = "${self}/hosts/rcastellotti-dev/secrets/tailscale-authkey.age";
 
   services.openssh.enable = true;
   services.tailscale = {
