@@ -18,6 +18,8 @@
   networking.useDHCP = lib.mkDefault true;
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 
+  nix.settings.experimental-features = "nix-command flakes";
+
   environment.systemPackages = [ pkgs.tailscale ];
   services.openssh.enable = true;
   age.identityPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
