@@ -8,12 +8,15 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
+  nix.settings.experimental-features = "nix-command flakes";
+  nixpkgs.config.allowUnfree = true;
+
   networking.hostName = "den";
   networking.wireless.enable = true;
   networking.networkmanager.enable = true;
+  networking.firewall.enable = false;
 
   time.timeZone = "Europe/Brussels";
-
   i18n.defaultLocale = "en_US.UTF-8";
 
   services.xserver.enable = true;
@@ -25,6 +28,9 @@
     variant = "";
   };
 
+  environment.systemPackages = with pkgs; [vim];
+  services.openssh.enable = true;
+
   users.users.rc = {
     isNormalUser = true;
     description = "rc";
@@ -32,21 +38,8 @@
       "networkmanager"
       "wheel"
     ];
-    packages = with pkgs; [
-      nushell
-    ];
+    packages = with pkgs; [ nushell ];
   };
-
-  programs.firefox.enable = true;
-
-  nixpkgs.config.allowUnfree = true;
-
-  environment.systemPackages = with pkgs; [
-    vim
-  ];
-
-  services.openssh.enable = true;
-  networking.firewall.enable = false;
 
   system.stateVersion = "25.11";
 
