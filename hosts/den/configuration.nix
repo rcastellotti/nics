@@ -40,7 +40,7 @@
   ];
 
   programs.bash.promptInit = ''
-    source ${pkgs.liquidprompt}/share/liquidprompt/liquidprompt
+    source ${pkgs.liquidprompt}/bin/  liquidprompt
   '';
 
   services.openssh.enable = true;
