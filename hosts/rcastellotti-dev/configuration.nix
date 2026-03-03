@@ -37,9 +37,7 @@
     ];
   };
 
-  age.secrets.tailscale-authkey = {
-    file = "${self}/hosts/rcastellotti-dev/secrets/tailscale-authkey.age";
-  };
+  age.secrets.tailscale-authkey.file = "${self}/hosts/rcastellotti-dev/secrets/tailscale-authkey.age";
 
   services.tailscale = {
     enable = true;
