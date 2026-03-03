@@ -1,18 +1,15 @@
-{ config, ... }:
-let
-  dnsName = "${config.networking.hostName}.gannet-kardashev.ts.net";
-in
+{ ... }:
 {
   services.hedgedoc = {
     enable = true;
     settings = {
-      domain = dnsName;
+      domain = "pad.rcastellotti.dev";
       host = "127.0.0.1";
       port = 9072;
       protocol = "https";
       protocolUseSSL = true;
       trustProxy = true;
-      allowOrigin = [ dnsName ];
+      allowOrigin = [ "pad.rcastellotti.dev" ];
       db = {
         dialect = "sqlite";
         storage = "/var/lib/hedgedoc/db.sqlite";
