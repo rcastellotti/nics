@@ -6,12 +6,12 @@ Nix flake for two machines:
 - `bearbook`: macOS laptop via nix-darwin (`aarch64-darwin`)
   - `sudo darwin-rebuild -- switch --flake .#bearbook`   
 - `rcastelloti-dev`: hetzner main machine (`x86_64-linux`)
-  - `sudo nixos-rebuild switch --flake "github:rcastellotti/nics/rcastellotti-dev?dir=path/to/subdir#rcastellotti-dev"`
+  - `sudo nixos-rebuild switch --flake "github:rcastellotti/nics#rcastellotti-dev"`
 
 ## `den`
 
 - install nixOS using the graphical ISO
-- `nix-shell --extra-experimental-features "nix-command flakes" -p vim git -- git clone https://github.com/rcastellotti/nics`
+- `nix run nixpkgs#git -- clone https://github.com/rcastellotti/nics`
 - `cd nics`
 - `nixos-generate-config --show-hardware-config > hardware-configuration.nix`
 - `sudo nixos-rebuild switch --flake .#den`
@@ -23,7 +23,8 @@ Nix flake for two machines:
 - `sh <(curl --proto '=https' --tlsv1.2 -L https://nixos.org/nix/install)`
 - `sudo reboot`
 - `git clone https://github.com/rcastellotti/nics`
-- `sudo nix --extra-experimental-features "nix-command flakes" run nix-darwin/master#darwin-rebuild -- switch --flake .#bearbook`
+- `sudo nix run nix-darwin/master#darwin-rebuild -- switch --flake .#bearbook`
+  
 
 ## rcastellotti.dev
 
