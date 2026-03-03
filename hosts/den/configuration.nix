@@ -43,18 +43,8 @@
     source ${pkgs.liquidprompt}/share/liquidprompt/liquidprompt
   '';
 
-  age.secrets.tailscale-authkey.file = "${self}/hosts/rcastellotti-dev/secrets/tailscale-authkey.age";
-
   services.openssh.enable = true;
-  services.tailscale = {
-    enable = true;
-    authKeyFile = config.age.secrets.tailscale-authkey.path;
-    openFirewall = true;
-    extraUpFlags = [
-      "--ssh"
-      "--accept-routes"
-    ];
-  };
+  services.tailscale.enable = true;
 
   users.users.rc = {
     isNormalUser = true;
