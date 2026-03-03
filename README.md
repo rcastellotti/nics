@@ -31,9 +31,7 @@ Nix flake for two machines:
 2. `nix develop`
   3. `terraform init`
   4. `terraform apply` -> outputs ip
-  5. `ssh root@9.167.105.83` and change password
-  5. `nix run github:nix-community/nixos-anywhere -- --flake .#rcastellotti-dev --target-host root@89.167.105.83 --build-on-remote -i /tmp/rc-ssh-key --extra-files /tmp/rc-ssh-key=/root/.ssh/rc-ssh-key` 
-  6. start `tailscale` and close firewall
+  5. check `deploy.sh` and run it (uploads ssh key needed to decrypt secrets) 
 
 # add a secret
 
@@ -42,7 +40,7 @@ start by extracting the ssh-key from bitwarden:
 + `bw login`
 + `export BW_SESSION="$(bw unlock --raw)"`
 + `bw list items --search "rc-ssh-key" | jq -r '.[]  | {id: .id, name: .name}'`
-+ `bw get item <OUTPUT_FROM_ABOVE> | jq -r '.sshKey.privateKey' > /tmp/rc-ssh`
++ `bw get item <OUTPUT_FROM_ABOVE> | jq -r '.sshKey.privateKey' > /tmp/rc-ssh-key`
 
 then proceed to set secret:
 
