@@ -3,6 +3,7 @@
   lib,
   pkgs,
   modulesPath,
+  self,
   age,
   ...
 }:
@@ -19,7 +20,7 @@
 
   environment.systemPackages = [ pkgs.tailscale ];
 
-  services.tailscale.enable = true;
+  age.identityPaths = [ "/tmp/rc-ssh-key" ];
 
   users.users.rc = {
     isNormalUser = true;
@@ -33,41 +34,21 @@
       tailscale
     ];
   };
+
   age.secrets.tailscale-authkey = {
-    file = secrets/tailscale-authkey.age;
+    file = "${self}/hosts/rcastellotti-dev/secrets/tailscale-authkey.age";
   };
 
-  systemd.services.tailscale-autoconnect = {
-    description = "Automatic connection to Tailscale";
-
-    after = [
-      "network-pre.target"
-      "tailscale.service"
+  services.tailscale = {
+    enable = true;
+    authKeyFile = config.age.secrets.tailscale-authkey.path; # clean!
+    # optional extras
+    openFirewall = true; # opens the UDP port
+    # interfaceName = "userspace-networking"; # or "tailscale0", etc.
+    extraUpFlags = [
+      "--ssh"
+      "--accept-routes"
     ];
-    wants = [
-      "network-pre.target"
-      "tailscale.service"
-    ];
-    wantedBy = [ "multi-user.target" ];
-
-    serviceConfig.Type = "oneshot";
-
-    script = with pkgs; ''
-      # wait for tailscaled to settle
-      sleep 2
-
-      # check if we are already authenticated to tailscale
-      status="$(${tailscale}/bin/tailscale status -json | ${jq}/bin/jq -r .BackendState)"
-      if [ $status = "Running" ]; then # if so, then do nothing
-        exit 0
-      fi
-
-      authkey="$(cat ${config.age.secrets.tailscale-authkey.path})"
-
-      # otherwise authenticate with tailscale
-      ${tailscale}/bin/tailscale up --authkey="$authkey" --ssh --accept-routes
-    '';
   };
-
   system.stateVersion = "25.11";
 }
