@@ -86,9 +86,8 @@
           agenix.nixosModules.default
         ];
         specialArgs = {
-          inherit self; # ← pass self down to ALL modules
-          inherit agenix; # if you want agenix too (optional, since you're using its module)
-          # inherit inputs;     # ← optional: pass the whole inputs set if you need other flakes
+          inherit self;
+          inherit agenix;
         };
       };
     };
