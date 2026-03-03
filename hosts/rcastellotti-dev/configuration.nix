@@ -19,9 +19,7 @@
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 
   environment.systemPackages = [ pkgs.tailscale ];
-  services.openssh = {
-    enable = true;
-  };
+  services.openssh.enable = true;
   age.identityPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
 
   users.users.rc = {
@@ -43,10 +41,8 @@
 
   services.tailscale = {
     enable = true;
-    authKeyFile = config.age.secrets.tailscale-authkey.path; # clean!
-    # optional extras
-    openFirewall = true; # opens the UDP port
-    # interfaceName = "userspace-networking"; # or "tailscale0", etc.
+    authKeyFile = config.age.secrets.tailscale-authkey.path;
+    openFirewall = true;
     extraUpFlags = [
       "--ssh"
       "--accept-routes"
