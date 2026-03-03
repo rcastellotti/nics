@@ -57,6 +57,11 @@ locals {
   }
 }
 
+resource "hcloud_ssh_key" "rc-ssh-key" {
+  name       = "my-ssh-key"
+  public_key = file("/tmp/rc-ssh-key.pub")
+}
+
 resource "hcloud_firewall" "web-firewall" {
   name = "rcastellotti-dev-web-firewall"
 
@@ -77,6 +82,7 @@ resource "hcloud_server" "rcastellotti-dev" {
   server_type = "cx23"
   image       = "ubuntu-24.04"
   location    = "hel1"
+  ssh_keys = [hcloud_ssh_key.rc-ssh-key.name]
   public_net {
     ipv4_enabled = true # unlucky
     ipv6_enabled = true

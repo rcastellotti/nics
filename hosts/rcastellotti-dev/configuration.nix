@@ -20,7 +20,7 @@
 
   environment.systemPackages = [ pkgs.tailscale ];
 
-  age.identityPaths = [ "/tmp/rc-ssh-key" ];
+  # age.identityPaths = [ "/tmp/rc-ssh-key" ];
 
   users.users.rc = {
     isNormalUser = true;
