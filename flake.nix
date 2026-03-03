@@ -77,6 +77,10 @@
         modules = [
           ./hosts/den/configuration.nix
         ];
+        specialArgs = {
+          inherit self;
+          inherit agenix;
+        };
       };
 
       nixosConfigurations.rcastellotti-dev = nixpkgs.lib.nixosSystem {
