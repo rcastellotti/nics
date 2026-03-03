@@ -36,7 +36,17 @@
   programs.bash.promptInit = ''
     source ${pkgs.liquidprompt}/share/liquidprompt/liquidprompt
   '';
+
   services.openssh.enable = true;
+  services.tailscale = {
+    enable = true;
+    authKeyFile = config.age.secrets.tailscale-authkey.path;
+    openFirewall = true;
+    extraUpFlags = [
+      "--ssh"
+      "--accept-routes"
+    ];
+  };
 
   users.users.rc = {
     isNormalUser = true;
