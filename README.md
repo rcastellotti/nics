@@ -28,7 +28,7 @@ Nix flake for two machines:
 
 ## rcastellotti.dev
 
-1. `nix shell nixpkgs#mkpasswd --command mkpasswd` and update `configuration.nix` (optional)
+1. `nix run nixpkgs#mkpasswd` and update `configuration.nix` (optional)
 2. `nix develop`
   3. `terraform init`
   4. `terraform apply` -> outputs ip
