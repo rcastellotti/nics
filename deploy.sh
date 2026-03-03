@@ -9,8 +9,7 @@ trap cleanup EXIT
 
 install -d -m755 "$temp/etc/ssh"
 
-# Decrypt your private key from the password store and copy it to the temporary directory
-cat /tmp/rc-ssh-key > "$temp/etc/ssh/ssh_host_ed25519_key"
+bw get item $(bw list items --search "rc-bw-ssh-key" | jq -r '.[].id') | jq -r '.sshKey.privateKey' > "$temp/etc/ssh/ssh_host_ed25519_key"
 
 chmod 600 "$temp/etc/ssh/ssh_host_ed25519_key"
 
