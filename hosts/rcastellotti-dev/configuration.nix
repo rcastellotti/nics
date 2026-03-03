@@ -3,6 +3,7 @@
   lib,
   pkgs,
   modulesPath,
+  age,
   ...
 }:
 
@@ -33,7 +34,7 @@
     ];
   };
   age.secrets.tailscale-authkey = {
-    file = ../secrets/tailscale-authkey.age;
+    file = secrets/tailscale-authkey.age;
   };
 
   systemd.services.tailscale-autoconnect = {
