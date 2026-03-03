@@ -14,7 +14,6 @@
         dialect = "sqlite";
         storage = "/var/lib/hedgedoc/db.sqlite";
       };
-      urlPath = "pad";
       allowAnonymous = false;
       allowAnonymousEdits = false;
       allowEmailRegister = true;
