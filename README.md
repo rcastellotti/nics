@@ -39,9 +39,7 @@ Nix flake for two machines:
 start by extracting the ssh-key from bitwarden:
 
 + `bw login`
-+ `export BW_SESSION="$(bw unlock --raw)"`
-+ `bw list items --search "rc-ssh-key" | jq -r '.[]  | {id: .id, name: .name}'`
-+ `bw get item <OUTPUT_FROM_ABOVE> | jq -r '.sshKey.privateKey' > /tmp/rc-ssh-key`
++ `bw get item $(bw list items --search "rc-ssh-key" | jq -r '.[].id') | jq -r '.sshKey.privateKey' > /tmp/rc-ssh-key`
 
 then proceed to set secret:
 
