@@ -28,7 +28,14 @@
     variant = "";
   };
 
-  environment.systemPackages = with pkgs; [vim];
+  environment.systemPackages = with pkgs; [
+    vim
+    liquidprompt
+  ];
+
+  programs.bash.promptInit = ''
+    source ${pkgs.liquidprompt}/share/liquidprompt/liquidprompt
+  '';
   services.openssh.enable = true;
 
   users.users.rc = {
