@@ -76,6 +76,7 @@
         system = "x86_64-linux";
         modules = [
           ./hosts/den/configuration.nix
+          agenix.nixosModules.default
         ];
         specialArgs = {
           inherit self;
