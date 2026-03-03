@@ -41,6 +41,8 @@
     settings = {
       theme = "dark:3024 Night,light:3024 Day";
       font-size = 12.0;
+      shell-integration-features = "sudo,ssh-terminfo,ssh-env";
+      clipboard-paste-protection = false;
     };
   };
 
