@@ -3,6 +3,8 @@
   lib,
   pkgs,
   modulesPath,
+  self,
+  age,
   ...
 }:
 
@@ -16,6 +18,10 @@
   networking.useDHCP = lib.mkDefault true;
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 
+  environment.systemPackages = [ pkgs.tailscale ];
+  services.openssh.enable = true;
+  age.identityPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
+
   users.users.rc = {
     isNormalUser = true;
     description = "rc";
@@ -26,6 +32,20 @@
     packages = with pkgs; [
       nushell
       tailscale
+    ];
+  };
+
+  age.secrets.tailscale-authkey = {
+    file = "${self}/hosts/rcastellotti-dev/secrets/tailscale-authkey.age";
+  };
+
+  services.tailscale = {
+    enable = true;
+    authKeyFile = config.age.secrets.tailscale-authkey.path;
+    openFirewall = true;
+    extraUpFlags = [
+      "--ssh"
+      "--accept-routes"
     ];
   };
   system.stateVersion = "25.11";
