@@ -13,6 +13,7 @@
     ./hardware-configuration.nix
     ./disko-config.nix
     ./services/caddy.nix
+    ./services/hedgedoc.nix
   ];
 
   networking.hostName = "rcastellotti-dev";
