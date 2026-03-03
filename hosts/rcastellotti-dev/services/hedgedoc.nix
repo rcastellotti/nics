@@ -1,5 +1,7 @@
-{ ... }:
+{ self, age, ... }:
 {
+  age.secrets.hedgedoc-session-secret.file = "${self}/hosts/rcastellotti-dev/secrets/hedgedoc-session-secret.age";
+
   services.hedgedoc = {
     enable = true;
     settings = {
@@ -17,7 +19,7 @@
       allowAnonymous = false;
       allowAnonymousEdits = false;
       allowEmailRegister = true;
-      sessionSecret = "HEDGEDOC_SESSION_SECRET";
+      sessionSecret = builtins.readFile age.secrets.hedgedoc-session-secret.path;
     };
   };
 }

@@ -46,4 +46,4 @@ then proceed to set secret:
 + add secret to `secrets.nix`
 + `nix develop --command agenix -e <SECRET_NAME>.age -i /tmp/rc-ssh-key`
 + (optional) `mv <SECRET_NAME>.age secrets/`
-+ register secret `installationScript` in `flake.nix`
++ register secret `installationScript` in `flake.nix` (if needed)

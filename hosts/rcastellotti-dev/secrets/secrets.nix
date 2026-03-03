@@ -8,4 +8,5 @@ in
   "AWS_SECRET_ACCESS_KEY.age".publicKeys = [ key ];
   "AWS_ENDPOINT_URL_S3.age".publicKeys = [ key ];
   "tailscale-authkey.age".publicKeys = [ key ];
+  "hedgedoc-session-secret.age".publicKeys = [ key ];
 }
