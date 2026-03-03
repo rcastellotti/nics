@@ -35,6 +35,7 @@
     packages = with pkgs; [
       nushell
       tailscale
+      git
     ];
   };
 
