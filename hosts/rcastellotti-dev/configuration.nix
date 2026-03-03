@@ -12,6 +12,7 @@
   imports = [
     ./hardware-configuration.nix
     ./disko-config.nix
+    ./services/caddy.nix
   ];
 
   networking.hostName = "rcastellotti-dev";

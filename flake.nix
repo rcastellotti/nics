@@ -52,6 +52,7 @@
           pkgs.age
           pkgs.age-plugin-yubikey
           pkgs.bitwarden-cli
+          pkgs.nh
         ];
         shellHook = ''
           source ${pkgs.lib.getExe agenixShellScript}
