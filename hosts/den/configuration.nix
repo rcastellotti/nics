@@ -1,4 +1,5 @@
 {
+  self,
   config,
   age,
   pkgs,
@@ -41,6 +42,8 @@
   programs.bash.promptInit = ''
     source ${pkgs.liquidprompt}/share/liquidprompt/liquidprompt
   '';
+
+  age.secrets.tailscale-authkey.file = "${self}/hosts/rcastellotti-dev/secrets/tailscale-authkey.age";
 
   services.openssh.enable = true;
   services.tailscale = {
