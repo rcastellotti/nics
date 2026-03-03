@@ -18,6 +18,7 @@
 
   security.pam.services.sudo_local.touchIdAuth = true;
 
+  services.tailscale.enable = true;
   system = {
     stateVersion = 6;
     primaryUser = "rc";

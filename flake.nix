@@ -60,13 +60,13 @@
 
       darwinConfigurations."bearbook" = nix-darwin.lib.darwinSystem {
         modules = [
-          ./bearbook-configuration.nix
+          ./hosts/bearbook/configuration.nix
           home-manager.darwinModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.backupFileExtension = "hm-backup";
-            home-manager.users.rc = ./bearbook-home.nix;
+            home-manager.users.rc = ./hosts/bearbook/home.nix;
           }
         ];
       };

@@ -58,7 +58,7 @@ locals {
 }
 
 resource "hcloud_ssh_key" "rc-ssh-key" {
-  name       = "my-ssh-key"
+  name       = "rc-ssh-key"
   public_key = file("/tmp/rc-ssh-key.pub")
 }
 

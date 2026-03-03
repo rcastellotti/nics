@@ -46,14 +46,12 @@
 
   programs.git = {
     enable = true;
-    extraConfig = {
-      init.defaultBranch = "main";
-      pull.rebase = true;
-    };
     settings = {
       user = {
         name = "Roberto Castellotti";
         email = "me@rcastellotti.dev";
+        init.defaultBranch = "main";
+        pull.rebase = true;
       };
     };
   };
