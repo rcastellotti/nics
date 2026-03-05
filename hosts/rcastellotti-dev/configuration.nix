@@ -38,6 +38,8 @@
       nushell
       tailscale
       git
+      htop
+      fastfetch
     ];
   };
 

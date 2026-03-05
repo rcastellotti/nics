@@ -33,7 +33,6 @@ locals {
     secondary = "rcast.dev"
   }
 
-  # The same server IPs are used for all domains
   server_ipv4 = hcloud_server.rcastellotti-dev.ipv4_address
   server_ipv6 = hcloud_server.rcastellotti-dev.ipv6_address
 }

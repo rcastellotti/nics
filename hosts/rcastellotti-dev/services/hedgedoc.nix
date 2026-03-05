@@ -11,7 +11,10 @@
       protocol = "https";
       protocolUseSSL = true;
       trustProxy = true;
-      allowOrigin = [ "pad.rcastellotti.dev" ];
+      allowOrigin = [
+        "pad.rcastellotti.dev"
+        "pad.rcast.dev"
+      ];
       db = {
         dialect = "sqlite";
         storage = "/var/lib/hedgedoc/db.sqlite";
