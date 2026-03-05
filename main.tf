@@ -27,24 +27,41 @@ terraform {
 }
 
 
-data "cloudflare_zone" "domain" {
-  name = "rcastellotti.dev"
+locals {
+  domains = {
+    primary   = "rcastellotti.dev"
+    secondary = "rcast.dev"
+  }
+
+  # The same server IPs are used for all domains
+  server_ipv4 = hcloud_server.rcastellotti-dev.ipv4_address
+  server_ipv6 = hcloud_server.rcastellotti-dev.ipv6_address
+}
+
+data "cloudflare_zone" "zones" {
+  for_each = local.domains
+
+  name = each.value
 }
 
 resource "cloudflare_record" "wildcard_ipv6" {
-  zone_id = data.cloudflare_zone.domain.id
+  for_each = local.domains
+
+  zone_id = data.cloudflare_zone.zones[each.key].id
   name    = "*"
   type    = "AAAA"
-  content = hcloud_server.rcastellotti-dev.ipv6_address
+  content = local.server_ipv6
   ttl     = 1
   proxied = false
 }
 
 resource "cloudflare_record" "wildcard_ipv4" {
-  zone_id = data.cloudflare_zone.domain.id
+  for_each = local.domains
+
+  zone_id = data.cloudflare_zone.zones[each.key].id
   name    = "*"
   type    = "A"
-  content = hcloud_server.rcastellotti-dev.ipv4_address
+  content = local.server_ipv4
   ttl     = 1
   proxied = false
 }
