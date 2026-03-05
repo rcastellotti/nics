@@ -40,6 +40,7 @@
       git
       htop
       fastfetch
+      vim
     ];
   };
 

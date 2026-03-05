@@ -21,6 +21,7 @@
     pkgs.openssh
     pkgs.age
     pkgs.age-plugin-yubikey
+    pkgs.nixos-nixos-rebuild
 
     pkgs.google-chrome
     pkgs.raycast

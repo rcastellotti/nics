@@ -12,6 +12,10 @@ in
           header_up X-Real-IP {remote_host}
         }
       }
+      home.rcast.dev, me.rcast.dev, rcast.dev, home.rcastellotti.dev {
+        root    * /var/www
+        file_server
+      }
     '';
   };
 }
