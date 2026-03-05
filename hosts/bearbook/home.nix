@@ -14,6 +14,7 @@
     pkgs.delta
     pkgs.gh
     pkgs.yazi
+    pkgs.liquidprompt
 
     pkgs.nil
     pkgs.nixd
@@ -21,7 +22,7 @@
     pkgs.openssh
     pkgs.age
     pkgs.age-plugin-yubikey
-    pkgs.nixos-nixos-rebuild
+    pkgs.nixos-rebuild
 
     pkgs.google-chrome
     pkgs.raycast
@@ -98,13 +99,22 @@
     defaultEditor = true;
   };
 
+  programs.bash = {
+    enable = true;
+    initExtra = ''
+      if [[ -n "$PS1" ]]; then
+        source ${pkgs.liquidprompt}/bin/liquidprompt
+      fi
+    '';
+  };
+
   programs.nushell = {
     enable = true;
     extraConfig = "$env.config.show_banner = false";
   };
 
   programs.starship = {
-    enable = true;
+    enable = false;
     settings = {
       # "$schema" = "https://starship.rs/config-schema.json";
       # https://gist.githubusercontent.com/s-a-c/0e44dc7766922308924812d4c019b109/raw/ac779c68568d0b5f433ab843585eb47967caf509/starship.nix
