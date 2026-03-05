@@ -1,18 +1,17 @@
 { self, config, ... }:
 {
-  age.secrets.hedgedoc-session-secret.file = "${self}/hosts/rcastellotti-dev/secrets/hedgedoc-session-secret.age";
+  age.secrets.hedgedoc-session-secret.file = "${self}/hosts/rcast-dev/secrets/hedgedoc-session-secret.age";
 
   services.hedgedoc = {
     enable = true;
     settings = {
-      domain = "pad.rcastellotti.dev";
+      domain = "pad.rcast.dev";
       host = "127.0.0.1";
       port = 9072;
       protocol = "https";
       protocolUseSSL = true;
       trustProxy = true;
       allowOrigin = [
-        "pad.rcastellotti.dev"
         "pad.rcast.dev"
       ];
       db = {

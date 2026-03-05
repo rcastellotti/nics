@@ -16,7 +16,7 @@
     ./services/hedgedoc.nix
   ];
 
-  networking.hostName = "rcastellotti-dev";
+  networking.hostName = "rcast-dev";
   networking.useDHCP = lib.mkDefault true;
   networking.firewall.enable = false;
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
@@ -43,7 +43,7 @@
     ];
   };
 
-  age.secrets.tailscale-authkey.file = "${self}/hosts/rcastellotti-dev/secrets/tailscale-authkey.age";
+  age.secrets.tailscale-authkey.file = "${self}/hosts/rcast-dev/secrets/tailscale-authkey.age";
 
   services.tailscale = {
     enable = true;

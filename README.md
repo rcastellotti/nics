@@ -6,7 +6,9 @@ Nix flake for two machines:
 - `bearbook`: macOS laptop via nix-darwin (`aarch64-darwin`)
   - `sudo darwin-rebuild switch --flake .#bearbook`   
 - `rcastelloti-dev`: hetzner main machine (`x86_64-linux`)
-  - `sudo nixos-rebuild switch --flake "github:rcastellotti/nics#rcastellotti-dev"`
+  - `sudo nixos-rebuild switch --flake "github:rcastellotti/nics#rcast-dev"`
+  - `nixos-rebuild switch --flake .#rcast-dev --target-host "rcast-dev" --build-host "rcast-dev"`
+
 
 ## `den`
 
@@ -26,7 +28,7 @@ Nix flake for two machines:
 - `sudo nix run nix-darwin/master#darwin-rebuild -- switch --flake .#bearbook`
   
 
-## rcastellotti.dev
+## rcast-dev
 
 1. `nix run nixpkgs#mkpasswd` and update `configuration.nix` (optional)
 2. `nix develop`

@@ -33,8 +33,8 @@ locals {
     secondary = "rcast.dev"
   }
 
-  server_ipv4 = hcloud_server.rcastellotti-dev.ipv4_address
-  server_ipv6 = hcloud_server.rcastellotti-dev.ipv6_address
+  server_ipv4 = hcloud_server.rcast-dev.ipv4_address
+  server_ipv6 = hcloud_server.rcast-dev.ipv6_address
 }
 
 data "cloudflare_zone" "zones" {
@@ -79,7 +79,7 @@ resource "hcloud_ssh_key" "rc-ssh-key" {
 }
 
 resource "hcloud_firewall" "web-firewall" {
-  name = "rcastellotti-dev-web-firewall"
+  name = "rcast-dev-web-firewall"
 
   dynamic "rule" {
     for_each = local.web_tcp_ports
@@ -93,8 +93,8 @@ resource "hcloud_firewall" "web-firewall" {
   }
 }
 
-resource "hcloud_server" "rcastellotti-dev" {
-  name        = "rcastellotti-dev"
+resource "hcloud_server" "rcast-dev" {
+  name        = "rcast-dev"
   server_type = "cx23"
   image       = "ubuntu-24.04"
   location    = "hel1"
@@ -107,20 +107,20 @@ resource "hcloud_server" "rcastellotti-dev" {
 
 resource "hcloud_firewall_attachment" "web_fw_attach" {
   firewall_id = hcloud_firewall.web-firewall.id
-  server_ids  = [hcloud_server.rcastellotti-dev.id]
+  server_ids  = [hcloud_server.rcast-dev.id]
 }
 
 output "hostname" {
   description = "Server hostname"
-  value       = hcloud_server.rcastellotti-dev.name
+  value       = hcloud_server.rcast-dev.name
 }
 
 output "server_ipv4" {
   description = "IPv4 address"
-  value       = hcloud_server.rcastellotti-dev.ipv4_address
+  value       = hcloud_server.rcast-dev.ipv4_address
 }
 
 output "server_ipv6" {
   description = "IPv6 address"
-  value       = hcloud_server.rcastellotti-dev.ipv6_address
+  value       = hcloud_server.rcast-dev.ipv6_address
 }

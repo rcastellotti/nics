@@ -34,11 +34,11 @@
 
       agenixShellScript = agenix-shell.lib.installationScript system {
         secrets = {
-          HCLOUD_TOKEN.file = ./hosts/rcastellotti-dev/secrets/HCLOUD_TOKEN.age;
-          CLOUDFLARE_API_TOKEN.file = ./hosts/rcastellotti-dev/secrets/CLOUDFLARE_API_TOKEN.age;
-          AWS_ACCESS_KEY_ID.file = ./hosts/rcastellotti-dev/secrets/AWS_ACCESS_KEY_ID.age;
-          AWS_SECRET_ACCESS_KEY.file = ./hosts/rcastellotti-dev/secrets/AWS_SECRET_ACCESS_KEY.age;
-          AWS_ENDPOINT_URL_S3.file = ./hosts/rcastellotti-dev/secrets/AWS_ENDPOINT_URL_S3.age;
+          HCLOUD_TOKEN.file = ./hosts/rcast-dev/secrets/HCLOUD_TOKEN.age;
+          CLOUDFLARE_API_TOKEN.file = ./hosts/rcast-dev/secrets/CLOUDFLARE_API_TOKEN.age;
+          AWS_ACCESS_KEY_ID.file = ./hosts/rcast-dev/secrets/AWS_ACCESS_KEY_ID.age;
+          AWS_SECRET_ACCESS_KEY.file = ./hosts/rcast-dev/secrets/AWS_SECRET_ACCESS_KEY.age;
+          AWS_ENDPOINT_URL_S3.file = ./hosts/rcast-dev/secrets/AWS_ENDPOINT_URL_S3.age;
         };
         identityPaths = [ "/tmp/rc-ssh-key" ];
       };
@@ -84,10 +84,10 @@
         };
       };
 
-      nixosConfigurations.rcastellotti-dev = nixpkgs.lib.nixosSystem {
+      nixosConfigurations.rcast-dev = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
-          ./hosts/rcastellotti-dev/configuration.nix
+          ./hosts/rcast-dev/configuration.nix
           inputs.disko.nixosModules.disko
           agenix.nixosModules.default
         ];
