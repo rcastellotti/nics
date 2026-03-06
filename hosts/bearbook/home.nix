@@ -114,7 +114,7 @@
   };
 
   programs.starship = {
-    enable = false;
+    enable = true;
     settings = {
       # "$schema" = "https://starship.rs/config-schema.json";
       # https://gist.githubusercontent.com/s-a-c/0e44dc7766922308924812d4c019b109/raw/ac779c68568d0b5f433ab843585eb47967caf509/starship.nix

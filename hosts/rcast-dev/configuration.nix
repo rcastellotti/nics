@@ -14,6 +14,7 @@
     ./disko-config.nix
     ./services/caddy.nix
     ./services/hedgedoc.nix
+    ./services/forgejo.nix
   ];
 
   networking.hostName = "rcast-dev";

@@ -84,7 +84,7 @@
         };
       };
 
-      nixosConfigurations.rcast-dev = nixpkgs.lib.nixosSystem {
+      nixosConfigurations."rcast-dev" = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
           ./hosts/rcast-dev/configuration.nix
