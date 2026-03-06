@@ -16,6 +16,12 @@ in
         root    * /var/www
         file_server
       }
+      git.${dnsName} {
+        reverse_proxy 127.0.0.1:9073 {
+          header_up X-Forwarded-Proto https
+          header_up X-Real-IP {remote_host}
+        }
+      }
     '';
   };
 }
