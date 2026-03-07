@@ -7,7 +7,7 @@ Nix flake for two machines:
   - `sudo darwin-rebuild switch --flake .#bearbook`   
 - `rcastelloti-dev`: hetzner main machine (`x86_64-linux`)
   - `sudo nixos-rebuild switch --flake "github:rcastellotti/nics#rcast-dev"`
-  - `nixos-rebuild switch --flake .#rcast-dev --target-host "rcast-dev" --build-host "rcast-dev"`
+  - `nixos-rebuild switch --flake .#rcast-dev --target-host "root@rcastellotti-dev" --build-host "root@rcastellotti-dev"`
 
 
 ## `den`
