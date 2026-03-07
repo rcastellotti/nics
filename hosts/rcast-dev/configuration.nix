@@ -29,10 +29,12 @@
   services.openssh.enable = true;
   age.identityPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
 
+  age.secrets.rcast-dev-password.file = "${self}/hosts/rcast-dev/secrets/rcast-dev-password.age";
+
   users.users.rc = {
     isNormalUser = true;
     description = "rc";
-    initialHashedPassword = "$y$j9T$17wh/3yJrjKDieCQllkEM0$tPKMhABvPxNGJkcvzMI26pqhxRVKs3TtTMD2pHBN0b3";
+    hashedPasswordFile = config.age.secrets.rcast-dev-password.path;
     extraGroups = [
       "wheel"
     ];

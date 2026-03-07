@@ -7,7 +7,7 @@ Nix flake for two machines:
   - `sudo darwin-rebuild switch --flake .#bearbook`   
 - `rcastelloti-dev`: hetzner main machine (`x86_64-linux`)
   - `sudo nixos-rebuild switch --flake "github:rcastellotti/nics#rcast-dev"`
-  - `nixos-rebuild switch --flake .#rcast-dev --target-host "root@rcastellotti-dev" --build-host "root@rcastellotti-dev"`
+  - `nixos-rebuild switch --flake .#rcast-dev --target-host "root@rcast-dev" --build-host "root@rcast-dev"`
 
 
 ## `den`
@@ -45,7 +45,7 @@ start by extracting the ssh-key from bitwarden:
 
 then proceed to set secret:
 
++ cd `hosts/rcast-dev/secrets`
 + add secret to `secrets.nix`
 + `nix develop --command agenix -e <SECRET_NAME>.age -i /tmp/rc-ssh-key`
-+ (optional) `mv <SECRET_NAME>.age secrets/`
 + register secret `installationScript` in `flake.nix` (if needed)
