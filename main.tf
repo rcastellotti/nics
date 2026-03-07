@@ -64,6 +64,27 @@ resource "cloudflare_record" "wildcard_ipv4" {
   ttl     = 1
   proxied = false
 }
+resource "cloudflare_record" "apex_ipv4" {
+  for_each = local.domains
+
+  zone_id = data.cloudflare_zone.zones[each.key].id
+  name    = "@"
+  type    = "A"
+  content = local.server_ipv4
+  ttl     = 1
+  proxied = false
+}
+
+resource "cloudflare_record" "apex_ipv6" {
+  for_each = local.domains
+
+  zone_id = data.cloudflare_zone.zones[each.key].id
+  name    = "@"
+  type    = "AAAA"
+  content = local.server_ipv6
+  ttl     = 1
+  proxied = false
+}
 
 locals {
   web_tcp_ports = {
