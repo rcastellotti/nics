@@ -15,6 +15,7 @@
     ./services/caddy.nix
     ./services/hedgedoc.nix
     ./services/forgejo.nix
+    ./services/cockpit.nix
   ];
 
   networking.hostName = "rcast-dev";
