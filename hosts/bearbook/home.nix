@@ -70,6 +70,9 @@
       "github.com" = {
         identityFile = "~/.ssh/id_ed25519_sk_rk";
       };
+      "git.rcast.dev" = {
+        identityFile = "~/.ssh/id_ed25519_sk_rk";
+      };
     };
   };
 

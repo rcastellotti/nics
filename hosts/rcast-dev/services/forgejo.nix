@@ -1,4 +1,9 @@
-{ config, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 {
   services.forgejo = {
     enable = true;
@@ -8,11 +13,11 @@
         DOMAIN = "git.rcast.dev";
         ROOT_URL = "https://git.rcast.dev/";
         HTTP_PORT = 9073;
-        SERVE_FROM_SUB_PATH = true;
         PROTOCOL = "http";
         HTTP_ADDR = "127.0.0.1";
+        SSH_PORT = lib.head config.services.openssh.ports;
       };
-      service.DISABLE_REGISTRATION = true;
+      service.DISABLE_REGISTRATION = false;
     };
   };
 }
