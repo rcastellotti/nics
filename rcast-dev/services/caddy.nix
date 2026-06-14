@@ -17,7 +17,7 @@
         root * /var/www/files
         file_server browse
       }
-      git.rcast.dev {
+      g.rcast.dev {
         reverse_proxy 127.0.0.1:9073 {
           header_up X-Forwarded-Proto https
           header_up X-Real-IP {remote_host}
