@@ -2,7 +2,7 @@
 
 let
   site = pkgs.stdenv.mkDerivation {
-    pname = "my-site";
+    pname = "rcast.dev";
     version = "1.0";
 
     src = ./website;
@@ -13,7 +13,7 @@ let
 
     installPhase = ''
       mkdir -p $out
-      cp -r dist/* $out/
+      cp -r public/* $out/
     '';
   };
 in
