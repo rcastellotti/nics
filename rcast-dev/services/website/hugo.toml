@@ -1,0 +1,7 @@
+baseURL = "http://localhost:1313/"
+title = "rcast.dev"
+disableKinds = ["taxonomy", "term"]
+
+[markup]
+  [markup.highlight]
+    style = 'modus-vivendi'

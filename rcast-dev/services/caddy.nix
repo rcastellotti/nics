@@ -7,12 +7,9 @@ let
 
     src = ./website;
 
-    nativeBuildInputs = [ pkgs.bun ];
+    nativeBuildInputs = [ pkgs.hugo ];
 
-    buildPhase = ''
-      bun install --frozen-lockfile
-      bun run main.ts
-    '';
+    buildPhase = "hugo build";
 
     installPhase = ''
       mkdir -p $out

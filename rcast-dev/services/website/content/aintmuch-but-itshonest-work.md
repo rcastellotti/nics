@@ -3,8 +3,6 @@ title: "it ain't much, but it's honest work"
 date: 2026-03-27
 ---
 
-# It ain't much, but it's honest work
-
 Recently I thought it was a good idea to purchase the `itshonest.work` domain to do the funniest thing ever (maybe), nothing too interesting, but I learned a couple of things I want to write down. I suggest you give the [repo](https://git.rcast.dev/rc/aintmuch.but.itshonest.work/) a check before moving on tho, if you are too lazy here is a TLDR for the "architecture":
 
 - `index.html` and `abiw.png` are uploaded to [Cloudflare R2](https://www.cloudflare.com/en-gb/developer-platform/products/r2/)
