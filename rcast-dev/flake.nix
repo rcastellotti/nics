@@ -48,6 +48,7 @@
           pkgs.wireguard-tools
           pkgs.terraform
           pkgs.terraform-ls
+          pkgs.hugo
         ];
         shellHook = ''
           source ${pkgs.lib.getExe agenixShellScript}

@@ -37,7 +37,7 @@ body {
 
 @media screen and (max-width: 769px) {
     body {
-        font-size: x-small;
+        font-size: smaller;
     }
 }
 
