@@ -51,6 +51,12 @@ a {
 
 nav {
     display: flex;
+    margin-left: auto;
+    gap: 0.5rem;
+}
+
+#links {
+    display: flex;
     gap: 0.5rem;
     margin: 1rem auto 0;
 }
