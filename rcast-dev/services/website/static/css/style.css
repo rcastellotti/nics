@@ -35,9 +35,9 @@ body {
     flex-direction: column;
 }
 
-@media screen and (max-width: 769px) {
+@media screen and (max-width: 640px) {
     body {
-        font-size: smaller;
+        font-size: small;
     }
 }
 
