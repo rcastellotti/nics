@@ -35,6 +35,12 @@ body {
     flex-direction: column;
 }
 
+@media screen and (max-width: 769px) {
+    body {
+        font-size: smaller;
+    }
+}
+
 p {
     text-align: justify;
 }
@@ -54,7 +60,4 @@ pre {
     padding: 0.5rem;
     overflow: auto;
     border-radius: 0.125rem;
-}
-code {
-    font-size: 1rem;
 }

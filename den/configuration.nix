@@ -19,6 +19,7 @@
   boot.kernelPackages = pkgs.linuxPackages_testing;
 
   networking.hostName = "den";
+  networking.firewall.enable = false;
   networking.wireguard.interfaces = {
     wg0 = {
       ips = [ "10.0.0.2/32" ];

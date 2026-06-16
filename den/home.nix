@@ -10,6 +10,9 @@
     fastfetch
     htop
     git
+    jq
+    curl
+    typst
   ];
   home.stateVersion = "26.05";
   programs.home-manager.enable = true;
@@ -39,6 +42,7 @@
       ui_font_size = 12;
       buffer_font_size = 12;
       disable_ai = true;
+      autosave = "on_focus_change";
     };
   };
 }

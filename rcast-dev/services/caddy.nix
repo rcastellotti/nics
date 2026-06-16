@@ -33,7 +33,7 @@ in
     '';
     extraConfig = ''
       f.rcast.dev {
-        root * /var/www/files
+        root * /var/www/f
         file_server browse
       }
       g.rcast.dev {

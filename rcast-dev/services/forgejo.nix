@@ -37,8 +37,8 @@
         PROTOCOL = "http";
         HTTP_ADDR = "127.0.0.1";
         SSH_PORT = lib.head config.services.openssh.ports;
-        ENABLE_PUSH_CREATE_USER =true;
       };
+      repository.ENABLE_PUSH_CREATE_USER = true;
       service.DISABLE_REGISTRATION = true;
     };
   };
