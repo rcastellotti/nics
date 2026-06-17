@@ -4,13 +4,9 @@ let
   site = pkgs.stdenv.mkDerivation {
     pname = "rcast.dev";
     version = "1.0";
-
     src = ./website;
-
     nativeBuildInputs = [ pkgs.hugo ];
-
     buildPhase = "hugo build";
-
     installPhase = ''
       mkdir -p $out
       cp -r public/* $out/
@@ -25,7 +21,9 @@ in
       root * ${site}
       file_server
     '';
-
+    virtualHosts."i.rcast.dev".extraConfig = ''
+      reverse_proxy 127.0.0.1:9072
+    '';
     globalConfig = ''
       metrics {
         per_host

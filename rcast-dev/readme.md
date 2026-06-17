@@ -7,7 +7,7 @@ terraform apply -var="allow_ssh=false"
 ```
 
 ```sh
-nixos-rebuild switch --flake .#rcast-dev --target-host "root@10.0.0.1"
+nixos-rebuild switch --flake .#rcast-dev --target-host "root@rcast-dev"
 ```
 
 ## generate WG server key

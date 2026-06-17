@@ -16,6 +16,9 @@ in
     ./services/forgejo.nix
   ];
 
+  services.ippy.enable = true;
+  services.ippy.port = 9072;
+
   networking.hostName = "rcast-dev";
   # update firewall rules in main.tf
   networking.firewall.enable = true;
@@ -45,8 +48,8 @@ in
     isNormalUser = true;
     description = "rc";
     hashedPasswordFile = config.age.secrets.rcast-dev-password.path;
-    openssh.authorizedKeys.keys = [rcKey];
-    extraGroups = ["wheel"];
+    openssh.authorizedKeys.keys = [ rcKey ];
+    extraGroups = [ "wheel" ];
     packages = with pkgs; [
       yazi
       git

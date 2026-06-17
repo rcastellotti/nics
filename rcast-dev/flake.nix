@@ -9,6 +9,7 @@
     agenix.inputs.nixpkgs.follows = "nixpkgs";
     agenix-shell.url = "github:aciceri/agenix-shell";
     agenix-shell.inputs.nixpkgs.follows = "nixpkgs";
+    ippy.url = "git+https://g.rcast.dev/rc/ippy";
   };
 
   outputs =
@@ -17,6 +18,7 @@
       nixpkgs,
       agenix,
       agenix-shell,
+      ippy,
       ...
     }:
     let
@@ -61,6 +63,7 @@
           ./configuration.nix
           inputs.disko.nixosModules.disko
           agenix.nixosModules.default
+          ippy.nixosModules.ippy
         ];
         specialArgs = {
           inherit self;
