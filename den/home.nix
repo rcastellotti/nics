@@ -13,6 +13,9 @@
     jq
     curl
     typst
+    yt-dlp
+    ffmpeg
+    yazi
   ];
   home.stateVersion = "26.05";
   programs.home-manager.enable = true;

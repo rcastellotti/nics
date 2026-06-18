@@ -21,7 +21,7 @@
   networking.hostName = "den";
   networking.firewall.enable = false;
   networking.hosts = {
-    "10.0.0.1" = [ "rcast.dev" ];
+    "10.0.0.1" = [ "rcast-dev" ];
   };
   networking.wireguard.interfaces = {
     wg0 = {
