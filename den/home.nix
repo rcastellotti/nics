@@ -16,6 +16,7 @@
     yt-dlp
     ffmpeg
     yazi
+    unzip
   ];
   home.stateVersion = "26.05";
   programs.home-manager.enable = true;
@@ -42,10 +43,16 @@
       };
       vim_mode = false;
       load_direnv = "shell_hook";
+      tab_size = 2;
       ui_font_size = 12;
       buffer_font_size = 12;
       disable_ai = true;
       autosave = "on_focus_change";
+      languages = {
+        "HTML" = {
+          preferred_line_length = 120;
+        };
+      };
     };
   };
 }

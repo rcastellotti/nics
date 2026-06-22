@@ -46,14 +46,14 @@ variable "allow_ssh" {
 }
 
 data "cloudflare_zone" "main" {
-  name = "rcast.dev"
+  name = "rcastellotti.dev"
 }
 
 resource "cloudflare_record" "wildcard_ipv4" {
   zone_id=data.cloudflare_zone.main.id
   name    = "*"
   type    = "A"
-  content = hcloud_server.rcast-dev.ipv4_address
+  content = hcloud_server.rcastellotti-dev.ipv4_address
   ttl     = 1
   proxied = false
 }
@@ -62,7 +62,7 @@ resource "cloudflare_record" "wildcard_ipv6" {
   zone_id=data.cloudflare_zone.main.id
   name    = "*"
   type    = "AAAA"
-  content = hcloud_server.rcast-dev.ipv6_address
+  content = hcloud_server.rcastellotti-dev.ipv6_address
   ttl     = 1
   proxied = false
 }
@@ -71,7 +71,7 @@ resource "cloudflare_record" "apex_ipv4" {
   zone_id=data.cloudflare_zone.main.id
   name    = "@"
   type    = "A"
-  content = hcloud_server.rcast-dev.ipv4_address
+  content = hcloud_server.rcastellotti-dev.ipv4_address
   ttl     = 1
   proxied = false
 }
@@ -80,7 +80,7 @@ resource "cloudflare_record" "apex_ipv6" {
   zone_id=data.cloudflare_zone.main.id
   name    = "@"
   type    = "AAAA"
-  content = hcloud_server.rcast-dev.ipv6_address
+  content = hcloud_server.rcastellotti-dev.ipv6_address
   ttl     = 1
   proxied = false
 }
@@ -91,7 +91,7 @@ resource "hcloud_ssh_key" "rc-ssh-key" {
 }
 
 resource "hcloud_firewall" "web-firewall" {
-  name = "rcast-dev-fw"
+  name = "rcastellotti-dev-fw"
 
   dynamic "rule" {
     for_each = local.web_ports
@@ -106,8 +106,8 @@ resource "hcloud_firewall" "web-firewall" {
   }
 }
 
-resource "hcloud_server" "rcast-dev" {
-  name        = "rcast-dev"
+resource "hcloud_server" "rcastellotti-dev" {
+  name        = "rcastellotti-dev"
   server_type = "cx23"
   image       = "ubuntu-24.04"
   location    = "hel1"
@@ -125,17 +125,17 @@ resource "hcloud_server" "rcast-dev" {
 
 output "hostname" {
   description = "Server hostname"
-  value       = hcloud_server.rcast-dev.name
+  value       = hcloud_server.rcastellotti-dev.name
 }
 
 output "server_ipv4" {
   description = "IPv4 address"
-  value       = hcloud_server.rcast-dev.ipv4_address
+  value       = hcloud_server.rcastellotti-dev.ipv4_address
 }
 
 output "server_ipv6" {
   description = "IPv6 address"
-  value       = hcloud_server.rcast-dev.ipv6_address
+  value       = hcloud_server.rcastellotti-dev.ipv6_address
 }
 
 # this is a semi-hacky fix, it should be possible to use
@@ -143,13 +143,13 @@ output "server_ipv6" {
 # unfortunately, this requires running on nixOS, and when god was distributing
 # nice operating systems i was queuing for liquid glass.
 resource "null_resource" "nixos" {
-  depends_on = [hcloud_server.rcast-dev]
+  depends_on = [hcloud_server.rcastellotti-dev]
 
   triggers = {
-    server_ip = hcloud_server.rcast-dev.ipv4_address
+    server_ip = hcloud_server.rcastellotti-dev.ipv4_address
   }
 
   provisioner "local-exec" {
-    command = "ROOT_HOST=${hcloud_server.rcast-dev.ipv4_address} bash ./bootstrap.sh"
+    command = "ROOT_HOST=${hcloud_server.rcastellotti-dev.ipv4_address} bash ./bootstrap.sh"
   }
 }

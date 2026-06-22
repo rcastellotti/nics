@@ -7,7 +7,7 @@ in
   "AWS_ACCESS_KEY_ID.age".publicKeys = [ key ];
   "AWS_SECRET_ACCESS_KEY.age".publicKeys = [ key ];
   "AWS_ENDPOINT_URL_S3.age".publicKeys = [ key ];
-  "rcast-dev-password.age".publicKeys = [ key ];
+  "rcastellotti-dev-password.age".publicKeys = [ key ];
   "wireguard-server.age".publicKeys = [ key ];
   "forgejo-password.age".publicKeys = [ key ];
 }

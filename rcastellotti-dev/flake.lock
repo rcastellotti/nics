@@ -229,11 +229,11 @@
         "nixpkgs": "nixpkgs"
       },
       "locked": {
-        "lastModified": 1781685207,
-        "narHash": "sha256-awOCvWwVwgLKAbbznM+Cx/zO1xCKXoZK8EAY2T8Pv7A=",
+        "lastModified": 1781776135,
+        "narHash": "sha256-wrRUHpSzWr2m93hfChFx8t8y70HgEr+JlrPCBPaTFvo=",
         "ref": "refs/heads/main",
-        "rev": "0d82c41d46fa2a9e827411d34e762724aa1b0dea",
-        "revCount": 14,
+        "rev": "abd4b10f494572c7862db713119122aabb940a8c",
+        "revCount": 15,
         "type": "git",
         "url": "https://g.rcast.dev/rc/ippy"
       },

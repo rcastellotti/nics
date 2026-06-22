@@ -57,7 +57,7 @@
         '';
       };
 
-      nixosConfigurations."rcast-dev" = nixpkgs.lib.nixosSystem {
+      nixosConfigurations."rcastellotti-dev" = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
           ./configuration.nix

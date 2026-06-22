@@ -19,9 +19,10 @@ in
   services.ippy.enable = true;
   services.ippy.port = 9072;
 
-  networking.hostName = "rcast-dev";
+  networking.hostName = "rcastellotti-dev";
   # update firewall rules in main.tf
   networking.firewall.enable = true;
+  networking.enableIPv6 = true;
   networking.firewall.allowedUDPPorts = [ 51820 ]; # wireguard
   networking.firewall.allowedTCPPorts = [
     80
@@ -42,12 +43,12 @@ in
   system.stateVersion = "26.05";
 
   age.identityPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
-  age.secrets.rcast-dev-password.file = "${self}/secrets/rcast-dev-password.age";
+  age.secrets.rcastellotti-dev-password.file = "${self}/secrets/rcastellotti-dev-password.age";
 
   users.users.rc = {
     isNormalUser = true;
     description = "rc";
-    hashedPasswordFile = config.age.secrets.rcast-dev-password.path;
+    hashedPasswordFile = config.age.secrets.rcastellotti-dev-password.path;
     openssh.authorizedKeys.keys = [ rcKey ];
     extraGroups = [ "wheel" ];
     packages = with pkgs; [
@@ -58,6 +59,7 @@ in
       vim
       fish
       ncdu
+      tmux
     ];
   };
 
