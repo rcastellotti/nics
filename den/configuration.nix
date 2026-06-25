@@ -32,7 +32,7 @@
         {
           publicKey = "gZeKUDU/F7xcX6X26AjKz3EJcHKa8wcqsrNOysULnzw=";
           allowedIPs = [ "10.0.0.1/32" ];
-          endpoint = "wg.rcast.dev:51820";
+          endpoint = "wg.rcastellotti.dev:51820";
           persistentKeepalive = 25;
         }
       ];

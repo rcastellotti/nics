@@ -235,11 +235,11 @@
         "rev": "abd4b10f494572c7862db713119122aabb940a8c",
         "revCount": 15,
         "type": "git",
-        "url": "https://g.rcast.dev/rc/ippy"
+        "url": "https://g.rcastellotti.dev/rc/ippy"
       },
       "original": {
         "type": "git",
-        "url": "https://g.rcast.dev/rc/ippy"
+        "url": "https://g.rcastellotti.dev/rc/ippy"
       }
     },
     "nix-github-actions": {
@@ -310,13 +310,30 @@
         "type": "github"
       }
     },
+    "nixpkgs_3": {
+      "locked": {
+        "lastModified": 1781577229,
+        "narHash": "sha256-lrp67w8AulE9Ks53n27I45ADSzbOCn4H+CNW1Ck8B+8=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "567a49d1913ce81ac6e9582e3553dd90a955875f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "agenix": "agenix",
         "agenix-shell": "agenix-shell",
         "disko": "disko",
         "ippy": "ippy",
-        "nixpkgs": "nixpkgs_2"
+        "nixpkgs": "nixpkgs_2",
+        "tma": "tma"
       }
     },
     "systems": {
@@ -347,6 +364,24 @@
         "owner": "nix-systems",
         "repo": "default",
         "type": "github"
+      }
+    },
+    "tma": {
+      "inputs": {
+        "nixpkgs": "nixpkgs_3"
+      },
+      "locked": {
+        "lastModified": 1782397026,
+        "narHash": "sha256-NKHvYQXP9dujPrfxxqvH1Jmv6FvflLx7eDnB36GYnDg=",
+        "ref": "refs/heads/main",
+        "rev": "6fb6064e5fb97fbbaf70461cc1fdc6455ea86d57",
+        "revCount": 19,
+        "type": "git",
+        "url": "https://g.rcastellotti.dev/rc/tma"
+      },
+      "original": {
+        "type": "git",
+        "url": "https://g.rcastellotti.dev/rc/tma"
       }
     },
     "treefmt-nix": {

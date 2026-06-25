@@ -29,7 +29,7 @@ nixos-rebuild switch --flake .#rcastellotti-dev --target-host "root@rcastellotti
   [Peer]
   PublicKey = CLIENT_PUBLIC_KEY
   AllowedIPs = 10.0.0.2/24
-  Endpoint = vpn.rcast.dev:51820
+  Endpoint = vpn.rcastellotti.dev:51820
   PersistentKeepalive = 25
   ```
 

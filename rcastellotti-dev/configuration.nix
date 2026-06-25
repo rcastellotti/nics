@@ -19,6 +19,9 @@ in
   services.ippy.enable = true;
   services.ippy.port = 9072;
 
+  services.tma.enable = true;
+  services.tma.port = 9075;
+
   networking.hostName = "rcastellotti-dev";
   # update firewall rules in main.tf
   networking.firewall.enable = true;

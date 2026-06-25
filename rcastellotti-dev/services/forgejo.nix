@@ -31,8 +31,8 @@
     database.type = "sqlite3";
     settings = {
       server = {
-        DOMAIN = "g.rcast.dev";
-        ROOT_URL = "https://g.rcast.dev/";
+        DOMAIN = "g.rcastellotti.dev";
+        ROOT_URL = "https://g.rcastellotti.dev/";
         HTTP_PORT = 9073;
         PROTOCOL = "http";
         HTTP_ADDR = "127.0.0.1";

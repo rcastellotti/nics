@@ -3,7 +3,7 @@ title: "it ain't much, but it's honest work"
 date: 2026-03-27
 ---
 
-Recently I thought it was a good idea to purchase the `itshonest.work` domain to do the funniest thing ever (maybe), nothing too interesting, but I learned a couple of things I want to write down. I suggest you give the [repo](https://git.rcast.dev/rc/aintmuch.but.itshonest.work/) a check before moving on tho, if you are too lazy here is a TLDR for the "architecture":
+Recently I thought it was a good idea to purchase the `itshonest.work` domain to do the funniest thing ever (maybe), nothing too interesting, but I learned a couple of things I want to write down. I suggest you give the [repo](https://git.rcastellotti.dev/rc/aintmuch.but.itshonest.work/) a check before moving on tho, if you are too lazy here is a TLDR for the "architecture":
 
 - `index.html` and `abiw.png` are uploaded to [Cloudflare R2](https://www.cloudflare.com/en-gb/developer-platform/products/r2/)
 - a transform rule is added to rewrite path from `/` to `/index.html`, as R2 doesn't serve a [default document](https://docs.aws.amazon.com/AmazonS3/latest/userguide/IndexDocumentSupport.html)
@@ -64,9 +64,9 @@ cf-cache-status: HIT
 
 ## you can just store secrets in the repo
 
-Apparently [I am doing nix now](https://git.rcast.dev/rc/nics), and with this comes a nice approach to secret management.
+Apparently [I am doing nix now](https://git.rcastellotti.dev/rc/nics), and with this comes a nice approach to secret management.
 
-The [flake](https://git.rcast.dev/rc/aintmuch.but.itshonest.work/src/branch/main/flake.nix) pins two inputs beyond nixpkgs:
+The [flake](https://git.rcastellotti.dev/rc/aintmuch.but.itshonest.work/src/branch/main/flake.nix) pins two inputs beyond nixpkgs:
 
 - [**agenix**](https://github.com/ryantm/agenix): a tool for encrypting secrets with [`filosottile/age`](https://github.com/filosottile/age)
 - [**agenix-shell**](https://github.com/aciceri/agenix-shell): a companion flake to decrypt secrets into environment variables in the devShell.
@@ -79,7 +79,7 @@ Decryption uses a private SSH key located at `/tmp/rc-ssh-key` I extract from my
 bw get item $(bw list items --search "rc-ssh-key" | jq -r '.[].id') | jq -r '.sshKey.privateKey' > /tmp/rc-ssh-key
 ```
 
-The matching public key is fetched at eval time from [https://git.rcast.dev/rc.keys](https://git.rcast.dev/rc.keys`) inside [`secrets.nix`](https://git.rcast.dev/rc/aintmuch.but.itshonest.work/src/branch/main/secrets.nix), which declares which public keys can decrypt each secret file.
+The matching public key is fetched at eval time from [https://git.rcastellotti.dev/rc.keys](https://git.rcastellotti.dev/rc.keys`) inside [`secrets.nix`](https://git.rcastellotti.dev/rc/aintmuch.but.itshonest.work/src/branch/main/secrets.nix), which declares which public keys can decrypt each secret file.
 
 Each `.age` file is the encrypted ciphertext of the corresponding secret, this is safe to commit, because they can only be decrypted by whoever holds the matching private key (aka me).
 
