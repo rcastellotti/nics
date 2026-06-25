@@ -5,7 +5,7 @@ date: 2026-06-25
 
 recently I have been playing with the android application for my city's public transportation system, the following is a recap:
 
-the `it.genova.amt.app` app fires 3 requests to populate `/data/data/it.genova.amt.app/databases/AMT.db`
+the `it.genova.amt.app` app fires 3 requests to populate `/data/data/it.genova.amt.app/databases/AMT.db`: 
 
 + [app_lines.php](https://www.amt.genova.it/amt/servizi/app/dati/app_lines.php)
 + [app_stops.php](https://www.amt.genova.it/amt/servizi/app/dati/app_stops.php)
@@ -23,3 +23,5 @@ this makes spinning up an alternative service quite trivial: you can use mine at
 + https://emanuele-f.github.io/PCAPdroid/quick_start
 + https://emanuele-f.github.io/PCAPdroid/tls_decryption
 + https://docs.mitmproxy.org/stable/concepts/certificates
++ https://play.google.com/store/apps/details?id=it.genova.amt.app
+s
