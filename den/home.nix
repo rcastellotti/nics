@@ -19,10 +19,14 @@
     unzip
     gimp
     dbeaver-bin
+    jetbrains-mono
+
   ];
   home.stateVersion = "26.05";
   programs.home-manager.enable = true;
   programs.direnv.enable = true;
+
+  fonts.fontconfig.enable = true;
 
   programs.git = {
     enable = true;
@@ -46,6 +50,8 @@
       vim_mode = false;
       load_direnv = "shell_hook";
       tab_size = 2;
+      ui_font_family = "JetBrains Mono";
+      buffer_font_family = "JetBrains Mono";
       ui_font_size = 12;
       buffer_font_size = 12;
       disable_ai = true;

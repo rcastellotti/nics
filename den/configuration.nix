@@ -9,6 +9,9 @@
   age.secrets.wireguard-client = {
     file = "${self}/secrets/wireguard-client.age";
   };
+  age.secrets.wireguard-client-lallo = {
+    file = "${self}/secrets/wireguard-client-lallo.age";
+  };
   age.identityPaths = [
     "/tmp/rc-ssh-key"
   ];
@@ -39,7 +42,6 @@
     };
   };
   networking.networkmanager.enable = true;
-
   nix.settings.experimental-features = "nix-command flakes";
 
   time.timeZone = "Europe/Rome";
@@ -88,7 +90,7 @@
   };
 
   programs.firefox.enable = true;
-
+  programs.nix-ld.enable = true;
   nixpkgs.config.allowUnfree = true;
 
   environment.systemPackages = with pkgs; [
