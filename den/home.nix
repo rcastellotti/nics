@@ -20,7 +20,10 @@
     gimp
     dbeaver-bin
     jetbrains-mono
-
+    discord
+    ghostty
+    vlc
+    obsidian
   ];
   home.stateVersion = "26.05";
   programs.home-manager.enable = true;
@@ -35,13 +38,30 @@
       user.email = "me@rcastellotti.dev";
     };
   };
-
+  programs.ghostty = {
+    enable = true;
+    enableFishIntegration = true;
+    settings = {
+      font-size = 10;
+      font-family = "JetBrains Mono";
+      theme = "light:GitHub Light Colorblind,dark:GitHub Dark Colorblind";
+      command = "${pkgs.fish}/bin/fish --login --interactive";
+    };
+  };
   programs.zed-editor = {
     enable = true;
-    extensions = [ "nix" ];
+    extensions = [
+      "nix"
+    ];
     userSettings = {
+      theme = {
+        mode = "system";
+        dark = "GitHub Dark Colorblind";
+        light = "GitHub Light Colorblind";
+      };
       auto_update = false;
       terminal = {
+        font_family = "JetBrains Mono";
         shell = {
           program = "fish";
         };
@@ -56,11 +76,6 @@
       buffer_font_size = 12;
       disable_ai = true;
       autosave = "on_focus_change";
-      languages = {
-        "HTML" = {
-          preferred_line_length = 120;
-        };
-      };
     };
   };
 }
