@@ -24,12 +24,17 @@
     ghostty
     vlc
     obsidian
+    vscodium
+    transmission_4-gtk
   ];
   home.stateVersion = "26.05";
   programs.home-manager.enable = true;
-  programs.direnv.enable = true;
-
   fonts.fontconfig.enable = true;
+
+  programs.direnv = {
+    enable = true;
+    enableFishIntegration = true;
+  };
 
   programs.git = {
     enable = true;
