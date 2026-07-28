@@ -99,8 +99,6 @@
   };
 
   users.users."rc" = {
-    programs.fish.enable = true;
-    shell = pkgs.fish;
     isNormalUser = true;
     description = "rc";
     extraGroups = [

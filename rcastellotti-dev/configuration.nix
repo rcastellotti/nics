@@ -46,7 +46,10 @@ in
   age.identityPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
   age.secrets.rcastellotti-dev-password.file = "${self}/secrets/rcastellotti-dev-password.age";
 
+  programs.fish.enable = true;
+
   users.users.rc = {
+    shell = pkgs.fish;
     isNormalUser = true;
     description = "rc";
     hashedPasswordFile = config.age.secrets.rcastellotti-dev-password.path;

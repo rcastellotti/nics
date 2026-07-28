@@ -10,7 +10,7 @@
     agenix-shell.url = "github:aciceri/agenix-shell";
     agenix-shell.inputs.nixpkgs.follows = "nixpkgs";
     ippy.url = "git+https://g.rcastellotti.dev/rc/ippy";
-    dela.url = "git+https://g.rcastellotti.dev/rc/dela";
+    dela.url = "git+https://g.rcastellotti.dev/rc/dela?ref=main";
   };
 
   outputs =

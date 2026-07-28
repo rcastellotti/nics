@@ -100,15 +100,16 @@
         "nixpkgs": "nixpkgs"
       },
       "locked": {
-        "lastModified": 1785263531,
-        "narHash": "sha256-ElW2aDGNuQDaJHhuOLq1eeKGTvTjrFu/OP5dzzy7MkE=",
-        "ref": "refs/heads/main",
-        "rev": "29fd58a08e95f34813f676e6c54c54c9a42ccdf0",
-        "revCount": 44,
+        "lastModified": 1785265887,
+        "narHash": "sha256-+Aez1kmuXKKZu7AGEyJoBALbqnE+VLPpyjTzwPtx0lE=",
+        "ref": "main",
+        "rev": "11913afd9a7dd70ad3abb055782f01ba2ef3adfe",
+        "revCount": 46,
         "type": "git",
         "url": "https://g.rcastellotti.dev/rc/dela"
       },
       "original": {
+        "ref": "main",
         "type": "git",
         "url": "https://g.rcastellotti.dev/rc/dela"
       }
