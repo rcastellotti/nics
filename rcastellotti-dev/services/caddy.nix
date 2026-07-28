@@ -30,7 +30,6 @@ in
     virtualHosts."f.rcastellotti.dev".extraConfig = ''
       root * /var/www/f
       file_server browse
-      }
     '';
     virtualHosts."i.rcastellotti.dev".extraConfig = ''
       reverse_proxy 127.0.0.1:9072
@@ -39,7 +38,7 @@ in
       reverse_proxy 127.0.0.1:9075
     '';
     virtualHosts."dela.rcastellotti.dev".extraConfig = ''
-      reverse_proxy 127.0.0.1:9074
+      reverse_proxy 127.0.0.1:9076
     '';
     globalConfig = ''
       metrics {
