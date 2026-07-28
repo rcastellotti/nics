@@ -99,6 +99,7 @@
   };
 
   users.users."rc" = {
+    programs.fish.enable = true;
     isNormalUser = true;
     description = "rc";
     extraGroups = [

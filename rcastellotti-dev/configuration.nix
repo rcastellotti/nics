@@ -14,6 +14,7 @@ in
     ./disko-config.nix
     ./services/caddy.nix
     ./services/forgejo.nix
+    ./services/dela.nix
   ];
 
   services.ippy.enable = true;
