@@ -2,15 +2,15 @@
   config,
   pkgs,
   self,
+  lib,
   ...
 }:
 
 {
+  nix.settings.experimental-features = "nix-command flakes";
+
   age.secrets.wireguard-client = {
     file = "${self}/secrets/wireguard-client.age";
-  };
-  age.secrets.wireguard-client-lallo = {
-    file = "${self}/secrets/wireguard-client-lallo.age";
   };
   age.identityPaths = [
     "/tmp/rc-ssh-key"
@@ -54,7 +54,6 @@
     "192.168.1.1"
     "1.1.1.1"
   ];
-  nix.settings.experimental-features = "nix-command flakes";
 
   time.timeZone = "Europe/Rome";
 
@@ -89,6 +88,14 @@
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
+  };
+
+  services.caddy = {
+    enable = true;
+    virtualHosts."http://:9179".extraConfig = ''
+      root * /srv
+      file_server browse
+    '';
   };
 
   users.users."rc" = {

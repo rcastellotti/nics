@@ -21,27 +21,29 @@ in
       root * ${site}
       file_server
     '';
+    virtualHosts."g.rcastellotti.dev".extraConfig = ''
+      reverse_proxy 127.0.0.1:9073 {
+        header_up X-Forwarded-Proto https
+        header_up X-Real-IP {remote_host}
+      }
+    '';
+    virtualHosts."f.rcastellotti.dev".extraConfig = ''
+      root * /var/www/f
+      file_server browse
+      }
+    '';
     virtualHosts."i.rcastellotti.dev".extraConfig = ''
       reverse_proxy 127.0.0.1:9072
     '';
     virtualHosts."tma.rcastellotti.dev".extraConfig = ''
       reverse_proxy 127.0.0.1:9075
     '';
+    virtualHosts."dela.rcastellotti.dev".extraConfig = ''
+      reverse_proxy 127.0.0.1:9074
+    '';
     globalConfig = ''
       metrics {
         per_host
-      }
-    '';
-    extraConfig = ''
-      f.rcastellotti.dev {
-        root * /var/www/f
-        file_server browse
-      }
-      g.rcastellotti.dev {
-        reverse_proxy 127.0.0.1:9073 {
-          header_up X-Forwarded-Proto https
-          header_up X-Real-IP {remote_host}
-        }
       }
     '';
   };

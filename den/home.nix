@@ -26,6 +26,9 @@
     obsidian
     vscodium
     transmission_4-gtk
+    lollypop
+    easytag
+    chromium
   ];
   home.stateVersion = "26.05";
   programs.home-manager.enable = true;
@@ -42,7 +45,11 @@
       user.name = "Roberto Castellotti";
       user.email = "me@rcastellotti.dev";
     };
+    settings = {
+      init.defaultBranch = "main";
+    };
   };
+
   programs.ghostty = {
     enable = true;
     enableFishIntegration = true;
@@ -53,12 +60,16 @@
       command = "${pkgs.fish}/bin/fish --login --interactive";
     };
   };
+
   programs.zed-editor = {
     enable = true;
     extensions = [
       "nix"
+      "biome"
+      "sql"
     ];
     userSettings = {
+      format_on_save = "on";
       theme = {
         mode = "system";
         dark = "GitHub Dark Colorblind";
