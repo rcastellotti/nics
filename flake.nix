@@ -48,7 +48,7 @@
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
-              home-manager.users.rc = import ./home/common.nix;
+              home-manager.users.rc = import ./hosts/den/home.nix;
             }
           ];
         };
@@ -81,6 +81,12 @@
             dela.nixosModules.default
             # ./modules/common.nix
             ./hosts/rcastellotti-dev/configuration.nix
+            home-manager.nixosModules.home-manager
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.users.rc = import ./home/common.nix;
+            }
           ];
         };
       };

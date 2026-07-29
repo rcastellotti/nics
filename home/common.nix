@@ -3,35 +3,27 @@
 {
   home.username = "rc";
   home.homeDirectory = "/home/rc";
+  home.stateVersion = "26.05";
+  programs.home-manager.enable = true;
+
   home.packages = with pkgs; [
-    nixd
-    nil
     eza
     fastfetch
     htop
     git
     jq
     curl
-    typst
-    yt-dlp
     ffmpeg
     yazi
     unzip
-    gimp
-    dbeaver-bin
-    jetbrains-mono
-    ghostty
-    vlc
-    obsidian
-    vscodium
-    transmission_4-gtk
-    lollypop
-    easytag
-    chromium
   ];
-  home.stateVersion = "26.05";
-  programs.home-manager.enable = true;
-  fonts.fontconfig.enable = true;
+
+  programs.fish = {
+    enable = true;
+    interactiveShellInit = ''
+      set -g fish_greeting
+    '';
+  };
 
   programs.direnv = {
     enable = true;
@@ -49,48 +41,33 @@
     };
   };
 
-  programs.ghostty = {
+  programs.tmux = {
     enable = true;
-    enableFishIntegration = true;
-    settings = {
-      font-size = 10;
-      font-family = "JetBrains Mono";
-      theme = "light:GitHub Light Colorblind,dark:GitHub Dark Colorblind";
-      command = "${pkgs.fish}/bin/fish --login --interactive";
-    };
-  };
+    mouse = true;
+    historyLimit = 10000;
+    baseIndex = 1;
+    shell = "${pkgs.fish}/bin/fish";
+    prefix = "C-a";
+    extraConfig = ''
+      # Enable true color
+      set -g default-terminal "tmux-256color"
 
-  programs.zed-editor = {
-    enable = true;
-    extensions = [
-      "nix"
-      "biome"
-      "sql"
-    ];
-    userSettings = {
-      format_on_save = "on";
-      theme = {
-        mode = "system";
-        dark = "GitHub Dark Colorblind";
-        light = "GitHub Light Colorblind";
-      };
-      auto_update = false;
-      terminal = {
-        font_family = "JetBrains Mono";
-        shell = {
-          program = "fish";
-        };
-        working_directory = "current_project_directory";
-      };
-      vim_mode = false;
-      load_direnv = "shell_hook";
-      tab_size = 2;
-      ui_font_family = "JetBrains Mono";
-      buffer_font_family = "JetBrains Mono";
-      ui_font_size = 12;
-      buffer_font_size = 12;
-      disable_ai = true;
-      autosave = "on_focus_change";
-    };
+      # Reload config
+      bind r source-file ~/.tmux.conf \; display-message "tmux config reloaded"
+
+      # Split panes using | and -
+      bind | split-window -h
+      bind - split-window -v
+      unbind '"'
+      unbind %
+
+      # switch panes using Alt-arrow without prefix
+      bind -n M-Left select-pane -L
+      bind -n M-Right select-pane -R
+      bind -n M-Up select-pane -U
+      bind -n M-Down select-pane -D
+
+      bind c new-window -c "#{pane_current_path}"
+    '';
   };
 }
