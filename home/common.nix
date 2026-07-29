@@ -9,14 +9,20 @@
   home.packages = with pkgs; [
     eza
     fastfetch
-    htop
+    btop
     git
     jq
     curl
     ffmpeg
     yazi
     unzip
+    ncdu
   ];
+
+  programs.neovim = {
+    enable = true;
+    defaultEditor = true;
+  };
 
   programs.fish = {
     enable = true;
