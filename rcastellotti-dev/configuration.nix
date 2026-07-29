@@ -47,7 +47,21 @@ in
   age.secrets.rcastellotti-dev-password.file = "${self}/secrets/rcastellotti-dev-password.age";
 
   programs.fish.enable = true;
-
+  programs.tmux = {
+    enable = true;
+    extraConfig = ''
+      unbind C-b
+      set-option -g prefix C-a
+      bind-key C-a send-prefix
+      set -g mouse on
+      bind | split-window -h
+      bind - split-window -v
+      bind -n M-Left select-pane -L
+      bind -n M-Right select-pane -R
+      bind -n M-Up select-pane -U
+      bind -n M-Down select-pane -D
+    '';
+  };
   users.users.rc = {
     shell = pkgs.fish;
     isNormalUser = true;
