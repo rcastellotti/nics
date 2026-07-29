@@ -48,9 +48,9 @@ in
 
   nix.settings.experimental-features = "nix-command flakes";
 
-  # environment.sessionVariables = {
-  #   TERM = "xterm-256color";
-  # };
+  environment.sessionVariables = {
+    TERM = "xterm-256color";
+  };
 
   services.openssh.enable = true;
   users.users.root.openssh.authorizedKeys.keys = [ rcKey ];
