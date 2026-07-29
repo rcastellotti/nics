@@ -1,3 +1,9 @@
+# den
+
+```sh
+sudo nixos-rebuild switch --flake .#den
+```
+
 # `rcastellotti-dev`
 
 ```sh
