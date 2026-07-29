@@ -20,7 +20,6 @@
     gimp
     dbeaver-bin
     jetbrains-mono
-    discord
     ghostty
     vlc
     obsidian

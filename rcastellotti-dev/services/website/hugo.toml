@@ -1,7 +1,0 @@
-baseURL = "http://localhost:1313/"
-title = "rcastellotti.dev"
-disableKinds = ["taxonomy", "term"]
-
-[markup]
-  [markup.highlight]
-    style = 'modus-vivendi'
