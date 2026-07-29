@@ -3,5 +3,4 @@ let
 in
 {
   "wireguard-client.age".publicKeys = [ key ];
-  "wireguard-client-lallo.age".publicKeys = [ key ];
 }
