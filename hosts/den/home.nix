@@ -26,8 +26,6 @@
 
   fonts.fontconfig.enable = true;
 
-  programs.nix-ld.enable = true;
-
   programs.ghostty = {
     enable = true;
     enableFishIntegration = true;
