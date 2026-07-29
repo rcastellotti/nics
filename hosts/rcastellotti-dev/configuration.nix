@@ -69,5 +69,9 @@ in
     openssh.authorizedKeys.keys = [ rcKey ];
     extraGroups = [ "wheel" ];
   };
-
+  system.activationScripts.fixWebDirPerms = ''
+    mkdir -p /var/www/f
+    chown -R rc:users /var/www/f
+    chmod -R 777 /var/www/f
+  '';
 }
