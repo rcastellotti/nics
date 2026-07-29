@@ -16,9 +16,10 @@ in
     ./services/forgejo.nix
     ./services/dela.nix
   ];
-
   services.ippy.enable = true;
   services.ippy.port = 9072;
+
+  age.secrets.wireguard-server.file = "${self}/secrets/wireguard-server.age";
 
   networking.hostName = "rcastellotti-dev";
   # update firewall rules in main.tf
@@ -29,43 +30,6 @@ in
     80
     443
   ];
-
-  nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
-
-  nix.settings.experimental-features = "nix-command flakes";
-
-  environment.sessionVariables = {
-    TERM = "xterm-256color";
-  };
-
-  services.openssh.enable = true;
-  users.users.root.openssh.authorizedKeys.keys = [ rcKey ];
-
-  system.stateVersion = "26.05";
-
-  age.identityPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
-  age.secrets.rcastellotti-dev-password.file = "${self}/secrets/rcastellotti-dev-password.age";
-
-  users.users.rc = {
-    shell = pkgs.fish;
-    isNormalUser = true;
-    description = "rc";
-    hashedPasswordFile = config.age.secrets.rcastellotti-dev-password.path;
-    openssh.authorizedKeys.keys = [ rcKey ];
-    extraGroups = [ "wheel" ];
-    packages = with pkgs; [
-      yazi
-      git
-      htop
-      fastfetch
-      vim
-      fish
-      ncdu
-      tmux
-    ];
-  };
-
-  age.secrets.wireguard-server.file = "${self}/secrets/wireguard-server.age";
   networking.wireguard.interfaces.wg0 = {
     ips = [ "10.0.0.1/24" ];
     listenPort = 51820;
@@ -78,6 +42,30 @@ in
         allowedIPs = [ "10.0.0.2/32" ];
       }
     ];
+  };
+
+  nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
+
+  nix.settings.experimental-features = "nix-command flakes";
+
+  # environment.sessionVariables = {
+  #   TERM = "xterm-256color";
+  # };
+
+  services.openssh.enable = true;
+  users.users.root.openssh.authorizedKeys.keys = [ rcKey ];
+
+  system.stateVersion = "26.05";
+
+  age.identityPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
+  age.secrets.rcastellotti-dev-password.file = "${self}/secrets/rcastellotti-dev-password.age";
+
+  users.users.rc = {
+    isNormalUser = true;
+    description = "rc";
+    hashedPasswordFile = config.age.secrets.rcastellotti-dev-password.path;
+    openssh.authorizedKeys.keys = [ rcKey ];
+    extraGroups = [ "wheel" ];
   };
 
 }
