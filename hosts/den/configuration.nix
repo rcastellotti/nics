@@ -105,13 +105,8 @@
       "networkmanager"
       "wheel"
     ];
-    packages = with pkgs; [
-      thunderbird
-    ];
   };
 
-  programs.firefox.enable = true;
-  programs.nix-ld.enable = true;
   nixpkgs.config.allowUnfree = true;
 
   hardware.bluetooth.enable = true;
