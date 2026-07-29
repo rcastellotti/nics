@@ -40,6 +40,9 @@ in
     virtualHosts."dela.rcastellotti.dev".extraConfig = ''
       reverse_proxy 127.0.0.1:9076
     '';
+    virtualHosts."dev.dela.rcastellotti.dev".extraConfig = ''
+      reverse_proxy 127.0.0.1:9077
+    '';
     globalConfig = ''
       metrics {
         per_host
