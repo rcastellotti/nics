@@ -54,7 +54,9 @@
             inherit self;
           };
           modules = [
-            # ./modules/common.nix
+            ({ ... }: {
+              nixpkgs.config.allowUnfree = true;
+            })
             ./hosts/den/configuration.nix
             agenix.nixosModules.default
             home-manager.nixosModules.home-manager
