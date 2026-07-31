@@ -19,7 +19,7 @@
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.kernelPackages = pkgs.linuxPackages_testing;
+  boot.kernelPackages = pkgs.linuxPackages_latest;
 
   networking.hostName = "den";
   networking.firewall.enable = false;
@@ -41,17 +41,17 @@
       ];
     };
   };
-  networking.interfaces.wlp2s0.ipv4.addresses = [
-    {
-      address = "192.168.1.201";
-      prefixLength = 24;
-    }
-  ];
-  networking.defaultGateway = "192.168.1.1";
-  networking.nameservers = [
-    "192.168.1.1"
-    "1.1.1.1"
-  ];
+  # networking.interfaces.wlp2s0.ipv4.addresses = [
+  #   {
+  #     address = "192.168.1.201";
+  #     prefixLength = 24;
+  #   }
+  # ];
+  # networking.defaultGateway = "192.168.1.1";
+  # networking.nameservers = [
+  #   "192.168.1.1"
+  #   "1.1.1.1"
+  # ];
   networking.networkmanager.wifi.powersave = false;
   time.timeZone = "Europe/Rome";
 
