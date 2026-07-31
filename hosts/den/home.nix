@@ -22,6 +22,7 @@
     easytag
     chromium
     thunderbird
+    firefox-devedition
   ];
 
   fonts.fontconfig.enable = true;
