@@ -52,7 +52,7 @@
     "192.168.1.1"
     "1.1.1.1"
   ];
-
+  networking.networkmanager.wifi.powersave = false;
   time.timeZone = "Europe/Rome";
 
   i18n.defaultLocale = "en_US.UTF-8";
