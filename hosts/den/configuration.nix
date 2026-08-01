@@ -9,8 +9,17 @@
 {
   nix.settings.experimental-features = "nix-command flakes";
 
-  age.secrets.wireguard-client = {
-    file = "${self}/secrets/wireguard-client.age";
+  age.secrets = {
+    wireguard-client = {
+      file = "${self}/secrets/wireguard-client.age";
+    };
+
+    cloudflare-api-token = {
+      file = "${self}/secrets/CLOUDFLARE_API_TOKEN.age";
+      owner = "caddy";
+      group = "caddy";
+      mode = "0400";
+    };
   };
   age.identityPaths = [
     "/tmp/rc-ssh-key"
@@ -41,17 +50,6 @@
       ];
     };
   };
-  # networking.interfaces.wlp2s0.ipv4.addresses = [
-  #   {
-  #     address = "192.168.1.201";
-  #     prefixLength = 24;
-  #   }
-  # ];
-  # networking.defaultGateway = "192.168.1.1";
-  # networking.nameservers = [
-  #   "192.168.1.1"
-  #   "1.1.1.1"
-  # ];
   networking.networkmanager.wifi.powersave = false;
   time.timeZone = "Europe/Rome";
 
@@ -90,9 +88,21 @@
 
   services.caddy = {
     enable = true;
+    package = pkgs.caddy.withPlugins {
+      plugins = [
+        "github.com/caddy-dns/cloudflare@v0.2.4"
+      ];
+      hash = "sha256-7GoH8YLCoPmPExQxoga2FHB58zQDoZVf1BBwkVi0SsQ=";
+    };
     virtualHosts."http://:9179".extraConfig = ''
       root * /srv
       file_server browse
+    '';
+    virtualHosts."https://local.rcastellotti.dev".extraConfig = ''
+      reverse_proxy localhost:5173
+      tls {
+        dns cloudflare {file.${config.age.secrets.cloudflare-api-token.path}}
+        }
     '';
   };
 
