@@ -49,6 +49,15 @@ data "cloudflare_zone" "main" {
   name = "rcastellotti.dev"
 }
 
+resource "cloudflare_record" "local" {
+  zone_id=data.cloudflare_zone.main.id
+  name    = "local"
+  type    = "A"
+  content = "192.168.1.201"
+  ttl     = 1
+  proxied = false
+}
+
 resource "cloudflare_record" "wildcard_ipv4" {
   zone_id=data.cloudflare_zone.main.id
   name    = "*"

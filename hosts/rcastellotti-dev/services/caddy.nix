@@ -41,7 +41,17 @@ in
       reverse_proxy 127.0.0.1:9076
     '';
     virtualHosts."dev.dela.rcastellotti.dev".extraConfig = ''
-      reverse_proxy 127.0.0.1:9077
+      @api path /api/*
+
+      handle @api {
+        reverse_proxy localhost:9077
+      }
+
+      handle {
+        root * /var/www/dela/dist/www
+        try_files {path} /index.html
+        file_server
+      }
     '';
     globalConfig = ''
       metrics {

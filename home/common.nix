@@ -17,6 +17,7 @@
     yazi
     unzip
     ncdu
+    sqlite
   ];
 
   programs.neovim = {
@@ -73,7 +74,6 @@
       bind -n M-Up select-pane -U
       bind -n M-Down select-pane -D
 
-      bind c new-window -c "#{pane_current_path}"
     '';
   };
 }

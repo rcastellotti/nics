@@ -45,8 +45,27 @@
         };
         identityPaths = [ "/tmp/rc-ssh-key" ];
       };
+      pkgs = import nixpkgs {
+        inherit system;
+        config.allowUnfree = true;
+      };
     in
     {
+      devShells.${system}.default = pkgs.mkShell {
+        buildInputs = [ agenix.packages.${system}.default ];
+        packages = [
+          pkgs.age
+          pkgs.nixos-anywhere
+          pkgs.nixos-rebuild
+          pkgs.wireguard-tools
+          pkgs.terraform
+          pkgs.terraform-ls
+          pkgs.hugo
+        ];
+        shellHook = ''
+          source ${nixpkgs.lib.getExe agenixShellScript}
+        '';
+      };
       nixosConfigurations = {
         den = nixpkgs.lib.nixosSystem {
           system = system;
@@ -66,21 +85,6 @@
               home-manager.users.rc = import ./hosts/den/home.nix;
             }
           ];
-        };
-        devShells.${system}.default = nixpkgs.mkShell {
-          buildInputs = [ agenix.packages.${system}.default ];
-          packages = [
-            nixpkgs.age
-            nixpkgs.nixos-anywhere
-            nixpkgs.nixos-rebuild
-            nixpkgs.wireguard-tools
-            nixpkgs.terraform
-            nixpkgs.terraform-ls
-            nixpkgs.hugo
-          ];
-          shellHook = ''
-            source ${nixpkgs.lib.getExe agenixShellScript}
-          '';
         };
         rcastellotti-dev = nixpkgs.lib.nixosSystem {
           system = system;
