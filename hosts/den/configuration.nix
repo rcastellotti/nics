@@ -123,7 +123,7 @@
     fish
     gnome-tweaks
     vim
+    pkgs.gnomeExtensions.tiling-shell
   ];
-
   system.stateVersion = "26.05";
 }

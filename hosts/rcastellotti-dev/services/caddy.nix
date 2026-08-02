@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, dela, ... }:
 
 let
   site = pkgs.stdenv.mkDerivation {
@@ -12,6 +12,7 @@ let
       cp -r public/* $out/
     '';
   };
+  delaPackage = dela.packages.${pkgs.stdenv.hostPlatform.system}.default;
 in
 {
   services.caddy = {
@@ -38,10 +39,20 @@ in
       reverse_proxy 127.0.0.1:9075
     '';
     virtualHosts."dela.rcastellotti.dev".extraConfig = ''
-      reverse_proxy 127.0.0.1:9076
+      @api path /api/* /openapi*
+
+      handle @api {
+        reverse_proxy localhost:9076
+      }
+
+      handle {
+        root * ${delaPackage}/www
+        try_files {path} /index.html
+        file_server
+      }
     '';
     virtualHosts."dev.dela.rcastellotti.dev".extraConfig = ''
-      @api path /api/*
+      @api path /api/* /openapi*
 
       handle @api {
         reverse_proxy localhost:9077

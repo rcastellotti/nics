@@ -26,7 +26,7 @@
   ];
 
   fonts.fontconfig.enable = true;
-  programs.keepassxc.enable = true;
+
   programs.ghostty = {
     enable = true;
     enableFishIntegration = true;

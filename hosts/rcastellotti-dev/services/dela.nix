@@ -4,8 +4,12 @@
   services.dela = {
     enable = true;
     port = 9076;
-    environment = {
-      NODE_ENV = "production";
+    logLevel = "trace";
+    env = "PRD";
+    webauthn = {
+      rpID = "rcastellotti.dev";
+      rpName = "rcastellotti.dev";
+      expectedOrigins = "dela.rcastellotti.dev";
     };
   };
 }

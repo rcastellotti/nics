@@ -89,7 +89,7 @@
         rcastellotti-dev = nixpkgs.lib.nixosSystem {
           system = system;
           specialArgs = {
-            inherit self;
+            inherit self dela;
           };
           modules = [
             agenix.nixosModules.default

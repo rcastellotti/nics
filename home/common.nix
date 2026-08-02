@@ -48,32 +48,7 @@
     };
   };
 
-  programs.tmux = {
+  programs.zellij = {
     enable = true;
-    mouse = true;
-    historyLimit = 10000;
-    baseIndex = 1;
-    shell = "${pkgs.fish}/bin/fish";
-    prefix = "C-a";
-    extraConfig = ''
-      # Enable true color
-      set -g default-terminal "tmux-256color"
-
-      # Reload config
-      bind r source-file ~/.tmux.conf \; display-message "tmux config reloaded"
-
-      # Split panes using | and -
-      bind | split-window -h
-      bind - split-window -v
-      unbind '"'
-      unbind %
-
-      # switch panes using Alt-arrow without prefix
-      bind -n M-Left select-pane -L
-      bind -n M-Right select-pane -R
-      bind -n M-Up select-pane -U
-      bind -n M-Down select-pane -D
-
-    '';
   };
 }
