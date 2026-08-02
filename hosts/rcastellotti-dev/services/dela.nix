@@ -9,7 +9,7 @@
     webauthn = {
       rpID = "rcastellotti.dev";
       rpName = "rcastellotti.dev";
-      expectedOrigins = "dela.rcastellotti.dev";
+      expectedOrigins = "https://dela.rcastellotti.dev";
     };
   };
 }
