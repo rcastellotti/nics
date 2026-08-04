@@ -16,7 +16,6 @@
     ghostty
     vlc
     obsidian
-    vscodium
     transmission_4-gtk
     lollypop
     easytag
@@ -35,6 +34,23 @@
       font-family = "JetBrains Mono";
       theme = "light:GitHub Light Colorblind,dark:GitHub Dark Colorblind";
       command = "${pkgs.fish}/bin/fish --login --interactive";
+    };
+  };
+
+  programs.vscodium = {
+    enable = true;
+    profiles.default.extensions = with pkgs.vscode-extensions; [
+      biomejs.biome
+      jnoortheen.nix-ide
+    ];
+    profiles.default.userSettings = {
+      "window.autoDetectColorScheme" = true;
+      "terminal.integrated.defaultProfile.linux" = "fish";
+      "terminal.integrated.profiles.linux" = {
+        fish = {
+          path = "${pkgs.fish}/bin/fish";
+        };
+      };
     };
   };
 
