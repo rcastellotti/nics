@@ -20,6 +20,7 @@
     ippy.url = "git+https://g.rcastellotti.dev/rc/ippy";
     dela.url = "git+https://g.rcastellotti.dev/rc/dela?ref=main";
   };
+
   outputs =
     {
       self,
@@ -30,7 +31,6 @@
       agenix-shell,
       ippy,
       dela,
-
       ...
     }:
     let

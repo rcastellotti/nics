@@ -22,10 +22,13 @@
     chromium
     thunderbird
     firefox-devedition
+    caddy
   ];
 
   fonts.fontconfig.enable = true;
 
+  programs.zoxide.enable=true;
+  
   programs.ghostty = {
     enable = true;
     enableFishIntegration = true;
@@ -37,29 +40,14 @@
     };
   };
 
-  programs.vscodium = {
-    enable = true;
-    profiles.default.extensions = with pkgs.vscode-extensions; [
-      biomejs.biome
-      jnoortheen.nix-ide
-    ];
-    profiles.default.userSettings = {
-      "window.autoDetectColorScheme" = true;
-      "terminal.integrated.defaultProfile.linux" = "fish";
-      "terminal.integrated.profiles.linux" = {
-        fish = {
-          path = "${pkgs.fish}/bin/fish";
-        };
-      };
-    };
-  };
-
+  programs.vscodium.enable=true;
+  
   programs.zed-editor = {
     enable = true;
     extensions = [
       "nix"
-      "biome"
-      "sql"
+      "oxc"
+      "sql" 
     ];
     userSettings = {
       format_on_save = "on";

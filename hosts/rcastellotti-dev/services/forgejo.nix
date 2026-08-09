@@ -25,21 +25,4 @@
         --username "rc" \
         --password "${passwd}"
     '';
-  services.forgejo = {
-    enable = true;
-    package = pkgs.forgejo;
-    database.type = "sqlite3";
-    settings = {
-      server = {
-        DOMAIN = "g.rcastellotti.dev";
-        ROOT_URL = "https://g.rcastellotti.dev/";
-        HTTP_PORT = 9073;
-        PROTOCOL = "http";
-        HTTP_ADDR = "127.0.0.1";
-        SSH_PORT = lib.head config.services.openssh.ports;
-      };
-      repository.ENABLE_PUSH_CREATE_USER = true;
-      service.DISABLE_REGISTRATION = true;
-    };
-  };
 }

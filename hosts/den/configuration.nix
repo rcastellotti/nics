@@ -25,7 +25,6 @@
     "/tmp/rc-ssh-key"
   ];
   imports = [ ./hardware-configuration.nix ];
-
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.kernelPackages = pkgs.linuxPackages_latest;
@@ -51,8 +50,8 @@
     };
   };
   networking.networkmanager.wifi.powersave = false;
-  time.timeZone = "Europe/Rome";
 
+  time.timeZone = "Europe/Rome";
   i18n.defaultLocale = "en_US.UTF-8";
   i18n.extraLocaleSettings = {
     LC_ADDRESS = "en_US.UTF-8";
@@ -69,6 +68,7 @@
   services.xserver.enable = true;
   services.displayManager.gdm.enable = true;
   services.desktopManager.gnome.enable = true;
+
   services.openssh = {
     enable = true;
   };
@@ -94,12 +94,8 @@
       ];
       hash = "sha256-7GoH8YLCoPmPExQxoga2FHB58zQDoZVf1BBwkVi0SsQ=";
     };
-    virtualHosts."http://:9179".extraConfig = ''
-      root * /srv
-      file_server browse
-    '';
     virtualHosts."https://local.rcastellotti.dev".extraConfig = ''
-      reverse_proxy localhost:5173
+      reverse_proxy localhost:9172
       tls {
         dns cloudflare {file.${config.age.secrets.cloudflare-api-token.path}}
         }
@@ -123,7 +119,6 @@
     fish
     gnome-tweaks
     vim
-    pkgs.gnomeExtensions.tiling-shell
   ];
   system.stateVersion = "26.05";
 }
