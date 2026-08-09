@@ -26,7 +26,14 @@ in
     ./hardware-configuration.nix
     ./disko-config.nix
   ];
-  age.secrets.wireguard-server.file = "${self}/secrets/wireguard-server.age";
+  nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
+  nix.settings.experimental-features = "nix-command flakes";
+  environment.sessionVariables = {
+    TERM = "xterm-256color";
+  };
+
+  age.identityPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
+
   networking.hostName = "rcastellotti-dev";
   # update firewall rules in main.tf
   networking.firewall.enable = true;
@@ -36,6 +43,8 @@ in
     80
     443
   ];
+  age.secrets.wireguard-server.file = "${self}/secrets/wireguard-server.age";
+
   networking.wireguard.interfaces.wg0 = {
     ips = [ "10.0.0.1/24" ];
     listenPort = 51820;
@@ -47,16 +56,11 @@ in
       }
     ];
   };
-  nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
-  nix.settings.experimental-features = "nix-command flakes";
-  environment.sessionVariables = {
-    TERM = "xterm-256color";
-  };
-  services.openssh.enable = true;
+
   users.users.root.openssh.authorizedKeys.keys = [ rcKey ];
   system.stateVersion = "26.05";
-  age.identityPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
   programs.fish.enable = true;
+
   age.secrets.rcastellotti-dev-password.file = "${self}/secrets/rcastellotti-dev-password.age";
   users.users.rc = {
     shell = pkgs.fish;
@@ -66,11 +70,13 @@ in
     openssh.authorizedKeys.keys = [ rcKey ];
     extraGroups = [ "wheel" ];
   };
+
   system.activationScripts.fixWebDirPerms = ''
     mkdir -p /var/www/f
     chown -R rc:users /var/www/f
     chmod -R 777 /var/www/f
   '';
+
   age.secrets.forgejo-password = {
     file = "${self}/secrets/forgejo-password.age";
     owner = config.services.forgejo.user;
@@ -85,6 +91,7 @@ in
       ${adminCmd} change-password --username "rc" --password "${passwd}"
     '';
   services = {
+    openssh.enable = true;
     dela = {
       package = dela.packages.${pkgs.system}.default;
       enable = true;
@@ -143,11 +150,6 @@ in
           root * ${delaPackage}/www
           try_files {path} /index.html
           file_server
-        }
-      '';
-      globalConfig = ''
-        metrics {
-          per_host
         }
       '';
     };
