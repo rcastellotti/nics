@@ -32,7 +32,8 @@ in
     TERM = "xterm-256color";
   };
 
-  age.identityPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
+  sops.age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
+  sops.defaultSopsFile = "${self}/secrets/secrets.yaml";
 
   networking.hostName = "rcastellotti-dev";
   # update firewall rules in main.tf
@@ -43,12 +44,12 @@ in
     80
     443
   ];
-  age.secrets.wireguard-server.file = "${self}/secrets/wireguard-server.age";
+  sops.secrets.wireguard-server = { };
 
   networking.wireguard.interfaces.wg0 = {
     ips = [ "10.0.0.1/24" ];
     listenPort = 51820;
-    privateKeyFile = config.age.secrets.wireguard-server.path;
+    privateKeyFile = config.sops.secrets.wireguard-server.path;
     peers = [
       {
         publicKey = "R2b+T+B+AfNkN42QTUMuuWa7fHzbTDBucSG7wBKa8VE=";
@@ -61,12 +62,12 @@ in
   system.stateVersion = "26.05";
   programs.fish.enable = true;
 
-  age.secrets.rcastellotti-dev-password.file = "${self}/secrets/rcastellotti-dev-password.age";
+  sops.secrets.rcastellotti-dev-password = { };
   users.users.rc = {
     shell = pkgs.fish;
     isNormalUser = true;
     description = "rc";
-    hashedPasswordFile = config.age.secrets.rcastellotti-dev-password.path;
+    hashedPasswordFile = config.sops.secrets.rcastellotti-dev-password.path;
     openssh.authorizedKeys.keys = [ rcKey ];
     extraGroups = [ "wheel" ];
   };
@@ -77,13 +78,12 @@ in
     chmod -R 777 /var/www/f
   '';
 
-  age.secrets.forgejo-password = {
-    file = "${self}/secrets/forgejo-password.age";
+  sops.secrets.forgejo-password = {
     owner = config.services.forgejo.user;
   };
   systemd.services.forgejo.preStart = lib.mkAfter ''
     adminCmd="${lib.getExe config.services.forgejo.package} admin user"
-    password="$(cat ${config.age.secrets.forgejo-password.path})"
+    password="$(cat ${config.sops.secrets.forgejo-password.path})"
 
     $adminCmd create \
       --admin \

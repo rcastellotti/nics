@@ -19,7 +19,7 @@ nixos-rebuild switch --flake .#rcastellotti-dev --target-host "root@rcastellotti
 ## generate WG server key
 
 1. `wg genkey | tee server.priv | wg pubkey > server.pub`
-2. `agenix -e wireguard-server.age -i /tmp/rc-ssh-key` (in secrets/)
+2. Edit the SOPS file with `sops secrets/secrets.yaml` (using `/tmp/rc-ssh-key` as the age identity).
 3. create a client config to connect(see below)
 
 ## add a WG client:

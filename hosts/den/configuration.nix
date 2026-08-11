@@ -9,21 +9,17 @@
 {
   nix.settings.experimental-features = "nix-command flakes";
 
-  age.secrets = {
-    wireguard-client = {
-      file = "${self}/secrets/wireguard-client.age";
-    };
-
+  sops.defaultSopsFile = "${self}/secrets/secrets.yaml";
+  sops.age.sshKeyPaths = [ "/tmp/rc-ssh-key" ];
+  sops.secrets = {
+    wireguard-client = { };
     cloudflare-api-token = {
-      file = "${self}/secrets/CLOUDFLARE_API_TOKEN.age";
+      key = "CLOUDFLARE_API_TOKEN";
       owner = "caddy";
       group = "caddy";
       mode = "0400";
     };
   };
-  age.identityPaths = [
-    "/tmp/rc-ssh-key"
-  ];
   imports = [ ./hardware-configuration.nix ];
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -38,7 +34,7 @@
     wg0 = {
       ips = [ "10.0.0.2/32" ];
       listenPort = 51820;
-      privateKeyFile = config.age.secrets.wireguard-client.path;
+      privateKeyFile = config.sops.secrets.wireguard-client.path;
       peers = [
         {
           publicKey = "gZeKUDU/F7xcX6X26AjKz3EJcHKa8wcqsrNOysULnzw=";
@@ -97,7 +93,7 @@
     virtualHosts."https://local.rcastellotti.dev".extraConfig = ''
       reverse_proxy localhost:9172
       tls {
-        dns cloudflare {file.${config.age.secrets.cloudflare-api-token.path}}
+        dns cloudflare {file.${config.sops.secrets.cloudflare-api-token.path}}
         }
     '';
   };
