@@ -101,11 +101,11 @@
         "nixpkgs": "nixpkgs"
       },
       "locked": {
-        "lastModified": 1786284299,
-        "narHash": "sha256-lMja9SUXFAFmxYFDqbwrVjWsBJYqhOWsNTrzVMraU6A=",
+        "lastModified": 1786303451,
+        "narHash": "sha256-8oBrcLJr93ZjhufveQ2SoKGTzZ/iZEsks4+QgVTxMiQ=",
         "ref": "main",
-        "rev": "d86bae015970ba9094fe3098b1253afd0aa2e99f",
-        "revCount": 12,
+        "rev": "17ef9f9fb6d71aa9a818b6e3c81ea95cb6d6a29b",
+        "revCount": 16,
         "type": "git",
         "url": "https://g.rcastellotti.dev/rc/dela"
       },

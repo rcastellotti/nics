@@ -11,7 +11,7 @@
     typst
     yt-dlp
     gimp
-    dbeaver-bin
+    sqlitestudio
     jetbrains-mono
     ghostty
     vlc
@@ -24,6 +24,10 @@
     firefox-devedition
     caddy
   ];
+
+  home.sessionVariables = {
+    QT_WPA_PLATFORM="wayland";
+  };
 
   fonts.fontconfig.enable = true;
 
@@ -48,6 +52,7 @@
       "nix"
       "oxc"
       "sql" 
+      "github-theme"
     ];
     userSettings = {
       format_on_save = "on";
