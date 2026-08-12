@@ -25,14 +25,10 @@
     caddy
   ];
 
-  home.sessionVariables = {
-    QT_WPA_PLATFORM="wayland";
-  };
-
   fonts.fontconfig.enable = true;
 
-  programs.zoxide.enable=true;
-  
+  programs.zoxide.enable = true;
+
   programs.ghostty = {
     enable = true;
     enableFishIntegration = true;
@@ -44,14 +40,16 @@
     };
   };
 
-  programs.vscodium.enable=true;
-  
+  programs.helium.enable = true;
+
+  programs.vscodium.enable = true;
+
   programs.zed-editor = {
     enable = true;
     extensions = [
       "nix"
       "oxc"
-      "sql" 
+      "sql"
       "github-theme"
     ];
     userSettings = {

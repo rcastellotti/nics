@@ -15,6 +15,10 @@
     };
     ippy.url = "git+https://g.rcastellotti.dev/rc/ippy";
     dela.url = "git+https://g.rcastellotti.dev/rc/dela?ref=main";
+    helium-flake = {
+      url = "github:oxcl/nix-flake-helium-browser";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -26,6 +30,7 @@
       disko,
       ippy,
       dela,
+      helium-flake,
       ...
     }:
     let
@@ -68,7 +73,12 @@
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
-              home-manager.users.rc = import ./hosts/den/home.nix;
+              home-manager.users.rc = {
+                imports = [
+                  helium-flake.homeModules.default
+                  ./hosts/den/home.nix
+                ];
+              };
             }
           ];
         };

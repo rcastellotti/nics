@@ -62,6 +62,7 @@ in
   system.stateVersion = "26.05";
   programs.fish.enable = true;
 
+  sops.secrets.rcastellotti-dev-password.neededForUsers = true;
   sops.secrets.rcastellotti-dev-password = { };
   users.users.rc = {
     shell = pkgs.fish;
