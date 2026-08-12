@@ -79,18 +79,13 @@ in
     chmod -R 777 /var/www/f
   '';
 
-  sops.secrets.forgejo-password = {
-    owner = config.services.forgejo.user;
-  };
+  sops.secrets.forgejo-password.owner = config.services.forgejo.user;
   systemd.services.forgejo.preStart = lib.mkAfter ''
     adminCmd="${lib.getExe config.services.forgejo.package} admin user"
     password="$(cat ${config.sops.secrets.forgejo-password.path})"
-
     $adminCmd create \
-      --admin \
-      --email 'me@rcastellotti.dev' \
-      --username 'rc' \
-      --password "$password" \
+      --admin --email 'me@rcastellotti.dev' \
+      --username 'rc' --password "$password" \
       --must-change-password=false || true
   '';
   services = {
@@ -143,6 +138,9 @@ in
       '';
       virtualHosts."tma.rcastellotti.dev".extraConfig = ''
         reverse_proxy 127.0.0.1:9075
+      '';
+      virtualHosts."donts.rcastellotti.dev".extraConfig = ''
+        reverse_proxy 127.0.0.1:9077
       '';
       virtualHosts."dela.rcastellotti.dev".extraConfig = ''
         @api path /api/* /openapi*
