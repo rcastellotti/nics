@@ -21,7 +21,7 @@
   networking.hostName = "grizzly";
   networking.firewall.enable = false;
   sops.secrets.home-wifi-password = { };
- systemd.services."wifi-profile" = {
+  systemd.services."wifi-profile" = {
     description = "Install WiFi NetworkManager profile";
     wantedBy = [ "multi-user.target" ];
     after = [ "NetworkManager.service" ];
@@ -98,12 +98,12 @@
     alsa.support32Bit = true;
     pulse.enable = true;
   };
- sops.secrets.cloudflare-api-token = {
-      key = "CLOUDFLARE_API_TOKEN";
-      owner = "caddy";
-      group = "caddy";
-      mode = "0400";
-    };
+  sops.secrets.cloudflare-api-token = {
+    key = "CLOUDFLARE_API_TOKEN";
+    owner = "caddy";
+    group = "caddy";
+    mode = "0400";
+  };
   services.caddy = {
     enable = true;
     package = pkgs.caddy.withPlugins {
@@ -138,5 +138,19 @@
     gnome-tweaks
     vim
   ];
+
+  programs.helium = {
+    enable = true;
+    policies = {
+      "BrowserSignin" = 0;
+      "PasswordManagerEnabled" = false;
+      "SyncDisabled" = true;
+      "DefaultSearchProviderEnabled" = true;
+      "ExtensionInstallForcelist" = [
+        "nngceckbapebfimnlniiiahkandclblb"
+      ];
+    };
+  };
+
   system.stateVersion = "26.05";
 }

@@ -70,12 +70,12 @@
             ./hosts/grizzly/configuration.nix
             sops-nix.nixosModules.sops
             home-manager.nixosModules.home-manager
+            helium-flake.nixosModules.default
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
               home-manager.users.rc = {
                 imports = [
-                  helium-flake.homeModules.default
                   ./hosts/grizzly/home.nix
                 ];
               };

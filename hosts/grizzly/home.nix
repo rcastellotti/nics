@@ -24,15 +24,16 @@
     firefox-devedition
     caddy
   ];
-  dconf.settings= {
+  dconf.settings = {
     "org/gnome/desktop/background" = {
-    picture-uri = "none";
-    picture-uri-dark = "none";
-    primary-color = "#000000";
-    secondary-color = "#000000";
-    color-shading-type = "solid";
-  };
-"org/gnome/desktop/peripherals/mouse".natural-scroll = true;
+      picture-uri = "none";
+      picture-uri-dark = "none";
+      primary-color = "#000000";
+      secondary-color = "#000000";
+      color-shading-type = "solid";
+    };
+    "org/gnome/desktop/peripherals/mouse".natural-scroll = true;
+    "org/gnome/desktop/interface".enable-animations = false;
   };
   fonts.fontconfig.enable = true;
 
@@ -49,20 +50,6 @@
     };
   };
 
-  programs.helium = {
-    enable= true;
-    policies = {
-
-  "BrowserSignin" = 0;
-  "PasswordManagerEnabled" = false;
-  "SyncDisabled" = true;
-  "DefaultSearchProviderEnabled" = true;
-  "ExtensionInstallForcelist" = [
-    "cjpalhdlnbpafiamejdnhcphjbkeiagm"
-    "nngceckbapebfimnlniiiahkandclblb"
-  ];
-}
-}
   programs.vscodium.enable = true;
 
   programs.zed-editor = {
