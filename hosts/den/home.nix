@@ -24,7 +24,16 @@
     firefox-devedition
     caddy
   ];
-
+  dconf.settings= {
+    "org/gnome/desktop/background" = {
+    picture-uri = "none";
+    picture-uri-dark = "none";
+    primary-color = "#000000";
+    secondary-color = "#000000";
+    color-shading-type = "solid";
+  };
+"org/gnome/desktop/peripherals/mouse".natural-scroll = true;
+  };
   fonts.fontconfig.enable = true;
 
   programs.zoxide.enable = true;

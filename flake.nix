@@ -58,7 +58,7 @@
         '';
       };
       nixosConfigurations = {
-        den = nixpkgs.lib.nixosSystem {
+        grizzly = nixpkgs.lib.nixosSystem {
           system = system;
           specialArgs = {
             inherit self;
@@ -67,7 +67,7 @@
             ({ ... }: {
               nixpkgs.config.allowUnfree = true;
             })
-            ./hosts/den/configuration.nix
+            ./hosts/grizzly/configuration.nix
             sops-nix.nixosModules.sops
             home-manager.nixosModules.home-manager
             {
@@ -76,7 +76,7 @@
               home-manager.users.rc = {
                 imports = [
                   helium-flake.homeModules.default
-                  ./hosts/den/home.nix
+                  ./hosts/grizzly/home.nix
                 ];
               };
             }

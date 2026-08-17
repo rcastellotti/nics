@@ -11,22 +11,39 @@
 
   sops.defaultSopsFile = "${self}/secrets/secrets.yaml";
   sops.age.sshKeyPaths = [ "/tmp/rc-ssh-key" ];
-  sops.secrets = {
-    wireguard-client = { };
-    cloudflare-api-token = {
-      key = "CLOUDFLARE_API_TOKEN";
-      owner = "caddy";
-      group = "caddy";
-      mode = "0400";
-    };
-  };
+  sops.secrets.wireguard-client = { };
+
   imports = [ ./hardware-configuration.nix ];
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
-  networking.hostName = "den";
+  networking.hostName = "grizzly";
   networking.firewall.enable = false;
+  sops.secrets.home-wifi-password = { };
+ systemd.services."wifi-profile" = {
+    description = "Install WiFi NetworkManager profile";
+    wantedBy = [ "multi-user.target" ];
+    after = [ "NetworkManager.service" ];
+    wants = [ "NetworkManager.service" ];
+
+    serviceConfig = {
+      Type = "oneshot";
+      RemainAfterExit = true;
+    };
+
+    script = ''
+      PSK="$(cat ${config.sops.secrets.home-wifi-password.path})"
+
+      ${pkgs.networkmanager}/bin/nmcli connection add \
+        type wifi \
+        ifname wlan0 \
+        con-name home \
+        ssid "enel-WiFi_A2DC8B91" \
+        wifi-sec.key-mgmt wpa-psk \
+        wifi-sec.psk "$PSK"
+    '';
+  };
   networking.hosts = {
     "10.0.0.1" = [ "rcastellotti-dev" ];
   };
@@ -81,7 +98,12 @@
     alsa.support32Bit = true;
     pulse.enable = true;
   };
-
+ sops.secrets.cloudflare-api-token = {
+      key = "CLOUDFLARE_API_TOKEN";
+      owner = "caddy";
+      group = "caddy";
+      mode = "0400";
+    };
   services.caddy = {
     enable = true;
     package = pkgs.caddy.withPlugins {
