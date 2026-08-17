@@ -49,8 +49,20 @@
     };
   };
 
-  programs.helium.enable = true;
+  programs.helium = {
+    enable= true;
+    policies = {
 
+  "BrowserSignin" = 0;
+  "PasswordManagerEnabled" = false;
+  "SyncDisabled" = true;
+  "DefaultSearchProviderEnabled" = true;
+  "ExtensionInstallForcelist" = [
+    "cjpalhdlnbpafiamejdnhcphjbkeiagm"
+    "nngceckbapebfimnlniiiahkandclblb"
+  ];
+}
+}
   programs.vscodium.enable = true;
 
   programs.zed-editor = {
