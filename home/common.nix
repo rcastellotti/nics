@@ -18,6 +18,7 @@
     unzip
     ncdu
     sqlite
+    rlwrap
   ];
 
   programs.neovim = {
