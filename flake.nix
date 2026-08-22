@@ -13,8 +13,14 @@
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    ippy.url = "git+https://g.rcastellotti.dev/rc/ippy";
-    dela.url = "git+https://g.rcastellotti.dev/rc/dela?ref=main";
+    ippy = {
+      url = "git+https://g.rcastellotti.dev/rc/ippy";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    dela = {
+      url = "git+https://g.rcastellotti.dev/rc/dela?ref=main";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     helium-flake = {
       url = "github:oxcl/nix-flake-helium-browser";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -55,48 +61,27 @@
         ];
       };
       nixosConfigurations = {
-        grizzly = nixpkgs.lib.nixosSystem {
-          system = system;
-          specialArgs = {
-            inherit self;
-          };
-          modules = [
-            ({ ... }: {
-              nixpkgs.config.allowUnfree = true;
-            })
-            ./hosts/grizzly/configuration.nix
-            sops-nix.nixosModules.sops
-            home-manager.nixosModules.home-manager
-            helium-flake.nixosModules.default
-            {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.users.rc = {
-                imports = [
-                  ./hosts/grizzly/home.nix
-                ];
-              };
-            }
-          ];
+        grizzly = import ./hosts/grizzly {
+          inherit
+            system
+            self
+            nixpkgs
+            sops-nix
+            home-manager
+            helium-flake
+            ;
         };
-        rcastellotti-dev = nixpkgs.lib.nixosSystem {
-          system = system;
-          specialArgs = {
-            inherit self dela;
-          };
-          modules = [
-            sops-nix.nixosModules.sops
-            disko.nixosModules.disko
-            ippy.nixosModules.ippy
-            dela.nixosModules.default
-            ./hosts/rcastellotti-dev/configuration.nix
-            home-manager.nixosModules.home-manager
-            {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.users.rc = import ./home/common.nix;
-            }
-          ];
+        rcastellotti-dev = import ./hosts/rcastellotti-dev {
+          inherit
+            system
+            self
+            nixpkgs
+            sops-nix
+            disko
+            ippy
+            dela
+            home-manager
+            ;
         };
       };
     };
