@@ -4,6 +4,7 @@
   pkgs,
   self,
   dela,
+  tma,
   ...
 }:
 let
@@ -92,10 +93,11 @@ in
     openssh.enable = true;
     tma = {
       enable = true;
+      package = tma.packages.${pkgs.stdenv.hostPlatform.system}.default;
       port = 9075;
     };
     dela = {
-      package = dela.packages.${pkgs.system}.default;
+      package = delaPackage;
       enable = true;
       port = 9076;
     };

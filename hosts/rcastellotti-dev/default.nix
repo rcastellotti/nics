@@ -12,7 +12,7 @@
 nixpkgs.lib.nixosSystem {
   inherit system;
   specialArgs = {
-    inherit self dela;
+    inherit self dela tma;
   };
   modules = [
     ./configuration.nix
