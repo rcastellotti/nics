@@ -23,7 +23,6 @@
     thunderbird
     firefox-devedition
     caddy
-    sublime4
   ];
   dconf.settings = {
     "org/gnome/desktop/background" = {
@@ -61,6 +60,7 @@
       "sql"
       "github-theme"
       "templ"
+      "terraform"
     ];
     userSettings = {
       format_on_save = "on";

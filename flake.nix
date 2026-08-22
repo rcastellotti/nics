@@ -53,10 +53,6 @@
           pkgs.terraform-ls
           pkgs.hugo
         ];
-        shellHook = ''
-          eval "$(${pkgs.sops}/bin/sops decrypt --output-type dotenv ./secrets/secrets.yaml \
-            | sed -E '/^[A-Z][A-Z0-9_]*=/!d; s/^/export /')"
-        '';
       };
       nixosConfigurations = {
         grizzly = nixpkgs.lib.nixosSystem {
