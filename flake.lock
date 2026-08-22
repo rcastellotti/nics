@@ -286,11 +286,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1787412811,
-        "narHash": "sha256-+jzuejoU8q87dpFi9ozhhnBliktV5U0ql9F/AY51vlk=",
+        "lastModified": 1787415267,
+        "narHash": "sha256-0cwSkUZpjtELeMQkrRz6rTubxFioIodU27GV2AZ53Ds=",
         "ref": "main",
-        "rev": "83101c5a10acc3432ef56e463a8d68e17116707b",
-        "revCount": 55,
+        "rev": "e67bb765393c3ab6e22a1fd9e9ec2d7dc9fc9af9",
+        "revCount": 58,
         "type": "git",
         "url": "https://g.rcastellotti.dev/rc/tma"
       },
