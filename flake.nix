@@ -59,6 +59,34 @@
           pkgs.terraform-ls
           pkgs.hugo
         ];
+        shellHook = ''
+          secret_exports="$(
+            set -o pipefail
+
+            ${pkgs.sops}/bin/sops \
+              --decrypt \
+              --output-type json \
+              "$PWD/secrets/secrets.yaml" |
+              ${pkgs.jq}/bin/jq -r '
+                . as $secrets
+                | [
+                    "AWS_ACCESS_KEY_ID",
+                    "AWS_ENDPOINT_URL_S3",
+                    "AWS_SECRET_ACCESS_KEY",
+                    "CLOUDFLARE_API_TOKEN",
+                    "HCLOUD_TOKEN"
+                  ][]
+                | select($secrets[.] != null)
+                | "export \(.)=\($secrets[.] | @sh)"
+              '
+          )" || {
+            echo "Failed to decrypt development secrets" >&2
+            return 1
+          }
+
+          eval "$secret_exports"
+          unset secret_exports
+        '';
       };
       nixosConfigurations = {
         grizzly = import ./hosts/grizzly {

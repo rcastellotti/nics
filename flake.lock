@@ -33,11 +33,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1786476742,
-        "narHash": "sha256-BYaa4loGP0BCBFH/GsVa2W7VpwxzYS1/kDJRn/jVax0=",
+        "lastModified": 1787408983,
+        "narHash": "sha256-jkWMZvszU52RdtGe33F/jizaKr1ilRciKmRYeKKZETA=",
         "ref": "main",
-        "rev": "525ab5a7457d9b97d1ee4b5618061be4941f2a97",
-        "revCount": 29,
+        "rev": "87bd6a2a545787fc13b9c4181153499d745f43e4",
+        "revCount": 33,
         "type": "git",
         "url": "https://g.rcastellotti.dev/rc/dela"
       },

@@ -12,19 +12,19 @@ terraform {
     }
   }
   backend "s3" {
-     bucket                      = "terraform"
-     key                         = "terraform.tfstate"
-     workspace_key_prefix        = ""
-     region                      = "auto"
-     skip_credentials_validation = true
-     skip_requesting_account_id  = true
-     skip_metadata_api_check     = true
-     skip_region_validation      = true
-     use_path_style              = true
-     endpoints = {
-       s3 = "https://63540284f50c1886beda4daca5793813.r2.cloudflarestorage.com"
-     }
-   }
+    bucket                      = "terraform"
+    key                         = "terraform.tfstate"
+    workspace_key_prefix        = ""
+    region                      = "auto"
+    skip_credentials_validation = true
+    skip_requesting_account_id  = true
+    skip_metadata_api_check     = true
+    skip_region_validation      = true
+    use_path_style              = true
+    endpoints = {
+      s3 = "https://63540284f50c1886beda4daca5793813.r2.cloudflarestorage.com"
+    }
+  }
 }
 
 locals {
@@ -42,7 +42,7 @@ locals {
 }
 
 variable "allow_ssh" {
-  type    = bool
+  type = bool
 }
 
 data "cloudflare_zone" "main" {
@@ -50,7 +50,7 @@ data "cloudflare_zone" "main" {
 }
 
 resource "cloudflare_record" "local" {
-  zone_id=data.cloudflare_zone.main.id
+  zone_id = data.cloudflare_zone.main.id
   name    = "local"
   type    = "A"
   content = "192.168.1.201"
@@ -59,7 +59,7 @@ resource "cloudflare_record" "local" {
 }
 
 resource "cloudflare_record" "wildcard_ipv4" {
-  zone_id=data.cloudflare_zone.main.id
+  zone_id = data.cloudflare_zone.main.id
   name    = "*"
   type    = "A"
   content = hcloud_server.rcastellotti-dev.ipv4_address
@@ -68,7 +68,7 @@ resource "cloudflare_record" "wildcard_ipv4" {
 }
 
 resource "cloudflare_record" "wildcard_ipv6" {
-  zone_id=data.cloudflare_zone.main.id
+  zone_id = data.cloudflare_zone.main.id
   name    = "*"
   type    = "AAAA"
   content = hcloud_server.rcastellotti-dev.ipv6_address
@@ -77,7 +77,7 @@ resource "cloudflare_record" "wildcard_ipv6" {
 }
 
 resource "cloudflare_record" "apex_ipv4" {
-  zone_id=data.cloudflare_zone.main.id
+  zone_id = data.cloudflare_zone.main.id
   name    = "@"
   type    = "A"
   content = hcloud_server.rcastellotti-dev.ipv4_address
@@ -86,7 +86,7 @@ resource "cloudflare_record" "apex_ipv4" {
 }
 
 resource "cloudflare_record" "apex_ipv6" {
-  zone_id=data.cloudflare_zone.main.id
+  zone_id = data.cloudflare_zone.main.id
   name    = "@"
   type    = "AAAA"
   content = hcloud_server.rcastellotti-dev.ipv6_address
@@ -116,19 +116,19 @@ resource "hcloud_firewall" "web-firewall" {
 }
 
 resource "hcloud_server" "rcastellotti-dev" {
-  name        = "rcastellotti-dev"
-  server_type = "cx23"
-  image       = "ubuntu-24.04"
-  location    = "hel1"
-  ssh_keys    = [hcloud_ssh_key.rc-ssh-key.name]
-  backups = true
+  name         = "rcastellotti-dev"
+  server_type  = "cx23"
+  image        = "ubuntu-24.04"
+  location     = "hel1"
+  ssh_keys     = [hcloud_ssh_key.rc-ssh-key.name]
+  backups      = true
   firewall_ids = [hcloud_firewall.web-firewall.id]
   public_net {
     ipv4_enabled = true
     ipv6_enabled = true
   }
   lifecycle {
-    ignore_changes  = [ssh_keys]
+    ignore_changes = [ssh_keys]
   }
 }
 
@@ -147,18 +147,16 @@ output "server_ipv6" {
   value       = hcloud_server.rcastellotti-dev.ipv6_address
 }
 
-# this is a semi-hacky fix, it should be possible to use
-# https://github.com/nix-community/nixos-anywhere/tree/main/terraform
-# unfortunately, this requires running on nixOS, and when god was distributing
-# nice operating systems i was queuing for liquid glass.
-resource "null_resource" "nixos" {
-  depends_on = [hcloud_server.rcastellotti-dev]
+module "deploy" {
+  source = "github.com/nix-community/nixos-anywhere//terraform/all-in-one"
 
-  triggers = {
-    server_ip = hcloud_server.rcastellotti-dev.ipv4_address
-  }
+  nixos_system_attr      = ".#nixosConfigurations.rcastellotti-dev.config.system.build.toplevel"
+  nixos_partitioner_attr = ".#nixosConfigurations.rcastellotti-dev.config.system.build.diskoScript"
 
-  provisioner "local-exec" {
-    command = "ROOT_HOST=${hcloud_server.rcastellotti-dev.ipv4_address} bash ./bootstrap.sh"
-  }
+  target_host = hcloud_server.rcastellotti-dev.ipv4_address
+  instance_id = hcloud_server.rcastellotti-dev.id
+
+  install_ssh_key    = file("/tmp/rc-ssh-key")
+  deployment_ssh_key = file("/tmp/rc-ssh-key")
+  extra_files_script = "${path.module}/bootstrap.sh"
 }
