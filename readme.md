@@ -9,8 +9,8 @@ sudo nixos-rebuild switch --flake .#grizzly
 
 # `rcastellotti-dev`
 
-```sh
-terraform apply
+````sh
+sops exec-env secrets/secrets.yaml 'terraform plan'
 ```
 
 ## generate WG server key
@@ -36,4 +36,4 @@ PublicKey = CLIENT_PUBLIC_KEY
 AllowedIPs = 10.0.0.2/24
 Endpoint = vpn.rcastellotti.dev:51820
 PersistentKeepalive = 25
-```
+````
