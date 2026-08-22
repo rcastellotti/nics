@@ -148,15 +148,12 @@ output "server_ipv6" {
 }
 
 module "deploy" {
-  source = "github.com/nix-community/nixos-anywhere//terraform/all-in-one"
-
+  source                 = "github.com/nix-community/nixos-anywhere//terraform/all-in-one"
   nixos_system_attr      = ".#nixosConfigurations.rcastellotti-dev.config.system.build.toplevel"
   nixos_partitioner_attr = ".#nixosConfigurations.rcastellotti-dev.config.system.build.diskoScript"
-
-  target_host = hcloud_server.rcastellotti-dev.ipv4_address
-  instance_id = hcloud_server.rcastellotti-dev.id
-
-  install_ssh_key    = file("/tmp/rc-ssh-key")
-  deployment_ssh_key = file("/tmp/rc-ssh-key")
-  extra_files_script = "${path.module}/bootstrap.sh"
+  target_host            = hcloud_server.rcastellotti-dev.ipv4_address
+  instance_id            = hcloud_server.rcastellotti-dev.id
+  install_ssh_key        = file("/tmp/rc-ssh-key")
+  deployment_ssh_key     = file("/tmp/rc-ssh-key")
+  extra_files_script     = "${path.module}/bootstrap.sh"
 }

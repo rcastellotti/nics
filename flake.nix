@@ -21,6 +21,10 @@
       url = "git+https://g.rcastellotti.dev/rc/dela?ref=main";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    tma = {
+      url = "git+https://g.rcastellotti.dev/rc/tma?ref=main";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     helium-flake = {
       url = "github:oxcl/nix-flake-helium-browser";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -37,6 +41,7 @@
       ippy,
       dela,
       helium-flake,
+      tma,
       ...
     }:
     let
@@ -62,7 +67,6 @@
         shellHook = ''
           secret_exports="$(
             set -o pipefail
-
             ${pkgs.sops}/bin/sops \
               --decrypt \
               --output-type json \
@@ -109,6 +113,7 @@
             ippy
             dela
             home-manager
+            tma
             ;
         };
       };

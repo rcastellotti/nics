@@ -10,13 +10,7 @@ sudo nixos-rebuild switch --flake .#grizzly
 # `rcastellotti-dev`
 
 ```sh
-terraform plan
-terraform apply -var="allow_ssh=true"
-terraform apply -var="allow_ssh=false"
-```
-
-```sh
-nixos-rebuild switch --flake .#rcastellotti-dev --target-host "root@rcastellotti-dev"
+terraform apply
 ```
 
 ## generate WG server key

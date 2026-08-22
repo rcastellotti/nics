@@ -7,6 +7,7 @@
   ippy,
   dela,
   home-manager,
+  tma,
 }:
 nixpkgs.lib.nixosSystem {
   inherit system;
@@ -19,6 +20,7 @@ nixpkgs.lib.nixosSystem {
     disko.nixosModules.disko
     ippy.nixosModules.ippy
     dela.nixosModules.default
+    tma.nixosModules.default
     home-manager.nixosModules.home-manager
     {
       home-manager.useGlobalPkgs = true;

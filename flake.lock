@@ -210,7 +210,8 @@
         "home-manager": "home-manager",
         "ippy": "ippy",
         "nixpkgs": "nixpkgs",
-        "sops-nix": "sops-nix"
+        "sops-nix": "sops-nix",
+        "tma": "tma"
       }
     },
     "sops-nix": {
@@ -276,6 +277,27 @@
         "owner": "nix-systems",
         "repo": "default",
         "type": "github"
+      }
+    },
+    "tma": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1787412811,
+        "narHash": "sha256-+jzuejoU8q87dpFi9ozhhnBliktV5U0ql9F/AY51vlk=",
+        "ref": "main",
+        "rev": "83101c5a10acc3432ef56e463a8d68e17116707b",
+        "revCount": 55,
+        "type": "git",
+        "url": "https://g.rcastellotti.dev/rc/tma"
+      },
+      "original": {
+        "ref": "main",
+        "type": "git",
+        "url": "https://g.rcastellotti.dev/rc/tma"
       }
     },
     "treefmt-nix": {

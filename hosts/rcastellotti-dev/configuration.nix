@@ -90,6 +90,10 @@ in
   '';
   services = {
     openssh.enable = true;
+    tma = {
+      enable = true;
+      port = 9075;
+    };
     dela = {
       package = dela.packages.${pkgs.system}.default;
       enable = true;
