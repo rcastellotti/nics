@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ osConfig, pkgs, ... }:
 
 {
   imports = [
@@ -37,6 +37,40 @@
   };
   fonts.fontconfig.enable = true;
 
+  programs.thunderbird = {
+    enable = true;
+    profiles."Default" = {
+      isDefault = true;
+    };
+  };
+
+  accounts.email.accounts = {
+    "me@rcastellotti.dev" = {
+      thunderbird = {
+        enable = true;
+      };
+      primary = true;
+      realName = "Roberto Castellotti";
+      address = "me@rcastellotti.dev";
+      userName = "r.castellotti@icloud.com";
+      passwordCommand = "${pkgs.coreutils}/bin/cat ${osConfig.sops.secrets.icloud-password.path}";
+      imap = {
+        host = "imap.mail.me.com";
+        port = 993;
+        tls = {
+          enable = true;
+          useStartTls = false;
+        };
+      };
+      smtp = {
+        host = "smtp.mail.me.com";
+        port = 587;
+        tls = {
+          useStartTls = true;
+        };
+      };
+    };
+  };
   programs.zoxide.enable = true;
 
   programs.ghostty = {
@@ -61,6 +95,7 @@
       "github-theme"
       "templ"
       "terraform"
+      "svelte"
     ];
     userSettings = {
       format_on_save = "on";

@@ -12,6 +12,7 @@
   sops.defaultSopsFile = "${self}/secrets/secrets.yaml";
   sops.age.sshKeyPaths = [ "/tmp/rc-ssh-key" ];
   sops.secrets.wireguard-client = { };
+  sops.secrets.icloud-password.owner = "rc";
 
   imports = [ ./hardware-configuration.nix ];
   boot.loader.systemd-boot.enable = true;
