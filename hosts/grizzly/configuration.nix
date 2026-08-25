@@ -22,9 +22,6 @@
   networking.hostName = "grizzly";
   networking.firewall.enable = false;
 
-  networking.hosts = {
-    "10.0.0.1" = [ "rcastellotti-dev" ];
-  };
   networking.wireguard.interfaces = {
     wg0 = {
       ips = [ "10.0.0.2/32" ];

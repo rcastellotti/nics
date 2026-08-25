@@ -17,6 +17,16 @@
     firefox-devedition
     caddy
   ];
+
+  programs.ssh = {
+    enable = true;
+    enableDefaultConfig = false;
+    settings.rcastellotti-dev = {
+      HostName = "10.0.0.1";
+      User = "rc";
+    };
+  };
+
   dconf.settings = {
     "org/gnome/desktop/background" = {
       picture-uri = "none";

@@ -36,28 +36,28 @@ sops exec-env secrets/secrets.yaml 'terraform apply'
 
 ## add a WireGuard client
 
-+ choose an unused address from the `10.0.0.0/24` VPN subnet. The example below uses `10.0.0.3`;
-+ `wg genkey | tee wireguard-client.key | wg pubkey > wireguard-client.pub`
-+ add `wireguard-client.pub` to in `hosts/rcastellotti-dev/configuration.nix`:
+- choose an unused address from the `10.0.0.0/24` VPN subnet. The example below uses `10.0.0.3`;
+- `wg genkey | tee wireguard-client.key | wg pubkey > wireguard-client.pub`
+- add `wireguard-client.pub` to in `hosts/rcastellotti-dev/configuration.nix`:
 
-   ```nix
-   {
-     publicKey = "CLIENT_PUBLIC_KEY";
-     allowedIPs = [ "10.0.0.3/32" ];
-   }
-   ```
-+ create the client configuration. for nix, copy from polar/grizzly, otherwise use:
-   ```ini
-   [Interface]
-   PrivateKey = CLIENT_PRIVATE_KEY
-   Address = 10.0.0.3/32
+  ```nix
+  {
+    publicKey = "CLIENT_PUBLIC_KEY";
+    allowedIPs = [ "10.0.0.3/32" ];
+  }
+  ```
 
-   [Peer]
-   PublicKey = SERVER_PUBLIC_KEY
-   AllowedIPs = 10.0.0.0/24
-   Endpoint = vpn.rcastellotti.dev:51820
-   PersistentKeepalive = 25
-   ```
+- create the client configuration. for nix, copy from polar/grizzly, otherwise use:
+  ```ini
+  [Interface]
+  PrivateKey = CLIENT_PRIVATE_KEY
+  Address = 10.0.0.3/32
 
-+ deploy: `sops exec-env secrets/secrets.yaml 'terraform apply'`
-+ verify: `sudo wg show`
+  [Peer]
+  PublicKey = SERVER_PUBLIC_KEY
+  AllowedIPs = 10.0.0.0/24
+  Endpoint = vpn.rcastellotti.dev:51820
+  PersistentKeepalive = 25
+  ```
+- deploy: `sops exec-env secrets/secrets.yaml 'terraform apply'`
+- verify: `sudo wg show`
