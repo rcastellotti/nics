@@ -2,7 +2,7 @@
 
 {
   home.username = "rc";
-  home.homeDirectory = if pkgs.stdenv.isDarwin then "/Users/rc" else "/home/rc";
+  home.homeDirectory = if pkgs.stdenv.hostPlatform.isDarwin then "/Users/rc" else "/home/rc";
   home.stateVersion = "26.05";
   programs.home-manager.enable = true;
 

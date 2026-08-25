@@ -80,7 +80,8 @@
               devPkgs.terraform
               devPkgs.terraform-ls
               devPkgs.hugo
-            ] ++ nixpkgs.lib.optionals devPkgs.stdenv.isLinux [
+            ]
+            ++ nixpkgs.lib.optionals devPkgs.stdenv.hostPlatform.isLinux [
               devPkgs.nixos-anywhere
               devPkgs.nixos-rebuild
             ];
