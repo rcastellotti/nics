@@ -112,16 +112,8 @@
             ;
         };
       };
-      darwinConfigurations.polar = nix-darwin.lib.darwinSystem {
-        modules = [
-          ./hosts/polar/configuration.nix
-          home-manager.darwinModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.users.rc = import ./hosts/polar/home.nix;
-          }
-        ];
+      darwinConfigurations.polar = import ./hosts/polar {
+        inherit nix-darwin home-manager;
       };
     };
 }
