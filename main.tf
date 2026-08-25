@@ -155,5 +155,4 @@ module "deploy" {
   instance_id            = hcloud_server.rcastellotti-dev.id
   install_ssh_key        = file("/tmp/rc-ssh-key")
   deployment_ssh_key     = file("/tmp/rc-ssh-key")
-  extra_files_script     = "${path.module}/bootstrap.sh"
 }

@@ -19,8 +19,10 @@ sudo darwin-rebuild switch --flake .#polar
 
 # `rcastellotti-dev`
 
+import private ssh key in `/tmp/rcastellotti-dev-ssh-key`
+
 ```sh
-sops exec-env secrets/secrets.yaml 'terraform plan'
+sops exec-env secrets/secrets.yaml 'terraform apply'
 ```
 
 ### add ssh-key (run on machine with key in secrets/secrets.yaml)
@@ -56,10 +58,3 @@ AllowedIPs = 10.0.0.2/24
 Endpoint = vpn.rcastellotti.dev:51820
 PersistentKeepalive = 25
 ```
-
-
-
-  nix shell nixpkgs#ssh-to-age -c sh -c '
-    ssh-to-age -private-key -i ~/polar-ssh-key
-    ssh-to-age -private-key -i ~/rc-ssh-key
-  ' > ~/.config/sops/age/keys.txt
