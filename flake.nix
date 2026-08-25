@@ -5,6 +5,10 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nix-darwin = {
+      url = "github:nix-darwin/nix-darwin/master";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     disko = {
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -36,6 +40,7 @@
       self,
       nixpkgs,
       home-manager,
+      nix-darwin,
       sops-nix,
       disko,
       ippy,
@@ -116,6 +121,17 @@
             tma
             ;
         };
+      };
+      darwinConfigurations.polar = nix-darwin.lib.darwinSystem {
+        modules = [
+          ./hosts/polar/configuration.nix
+          home-manager.darwinModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.users.rc = import ./hosts/polar/home.nix;
+          }
+        ];
       };
     };
 }

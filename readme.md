@@ -7,6 +7,14 @@ nix-shell -p ssh-to-age --run "ssh-to-age -private-key -i /tmp/rc-ssh-key > ~/.c
 sudo nixos-rebuild switch --flake .#grizzly
 ```
 
+# polar
+
+```sh
+curl -fsSL https://install.determinate.systems/nix | sh -s -- install
+sudo nix run nix-darwin/master#darwin-rebuild -- switch --flake .#polar
+sudo darwin-rebuild switch --flake .#polar
+```
+
 # `rcastellotti-dev`
 
 ```sh
