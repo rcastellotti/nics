@@ -39,7 +39,6 @@
     realName = "Roberto Castellotti";
     address = "me@rcastellotti.dev";
     userName = "r.castellotti@icloud.com";
-    passwordCommand = "${pkgs.coreutils}/bin/cat ${osConfig.sops.secrets.icloud-password.path}";
     imap = {
       host = "imap.mail.me.com";
       port = 993;

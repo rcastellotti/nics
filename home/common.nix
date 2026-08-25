@@ -15,7 +15,7 @@
 
   programs.ghostty = {
     enable = true;
-    package = if pkgs.stdenv.isDarwin then null else pkgs.ghostty;
+    package = if pkgs.stdenv.isDarwin then pkgs.ghostty-bin else pkgs.ghostty;
     enableFishIntegration = true;
     settings = {
       font-size = 10;
