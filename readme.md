@@ -34,27 +34,30 @@ sops exec-env secrets/secrets.yaml 'terraform apply'
 5. `nix shell nixpkgs#ssh-to-age -c ssh-to-age < ~/temp-new-key.pub` (outputs pub age key)
 6. `sops --add-age "$POLAR_AGE_RECIPIENT" --rotate --in-place secrets/secrets.yaml` (use key from above)
 
-## generate WG server key
+## add a WireGuard client
 
-1. `wg genkey | tee server.priv | wg pubkey > server.pub`
-2. Edit the SOPS file with `sops secrets/secrets.yaml` (using `/tmp/rc-ssh-key` as the age identity).
-3. create a client config to connect(see below)
++ choose an unused address from the `10.0.0.0/24` VPN subnet. The example below uses `10.0.0.3`;
++ `wg genkey | tee wireguard-client.key | wg pubkey > wireguard-client.pub`
++ add `wireguard-client.pub` to in `hosts/rcastellotti-dev/configuration.nix`:
 
-## add a WG client:
+   ```nix
+   {
+     publicKey = "CLIENT_PUBLIC_KEY";
+     allowedIPs = [ "10.0.0.3/32" ];
+   }
+   ```
++ create the client configuration. for nix, copy from polar/grizzly, otherwise use:
+   ```ini
+   [Interface]
+   PrivateKey = CLIENT_PRIVATE_KEY
+   Address = 10.0.0.3/32
 
-1. generate key: `wg genkey | tee private.key | wg pubkey > public.key`
-2. add it to the configuration block in `configuration.nix`
-3. use the following config skeleton
+   [Peer]
+   PublicKey = SERVER_PUBLIC_KEY
+   AllowedIPs = 10.0.0.0/24
+   Endpoint = vpn.rcastellotti.dev:51820
+   PersistentKeepalive = 25
+   ```
 
-```ini
-[Interface]
-PrivateKey = SERVER_PRIVATE_KEY
-Address = 10.0.0.2/32
-DNS = 1.1.1.1
-
-[Peer]
-PublicKey = CLIENT_PUBLIC_KEY
-AllowedIPs = 10.0.0.2/24
-Endpoint = vpn.rcastellotti.dev:51820
-PersistentKeepalive = 25
-```
++ deploy: `sops exec-env secrets/secrets.yaml 'terraform apply'`
++ verify: `sudo wg show`

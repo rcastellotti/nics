@@ -114,7 +114,12 @@
         };
       };
       darwinConfigurations.polar = import ./hosts/polar {
-        inherit nix-darwin home-manager;
+        inherit
+          self
+          nix-darwin
+          home-manager
+          sops-nix
+          ;
       };
     };
 }

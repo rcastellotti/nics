@@ -11,7 +11,7 @@
 
   sops.defaultSopsFile = "${self}/secrets/secrets.yaml";
   sops.age.sshKeyPaths = [ "/tmp/rc-ssh-key" ];
-  sops.secrets.wireguard-client = { };
+  sops.secrets.wg-grizzly = { };
   sops.secrets.icloud-password.owner = "rc";
 
   imports = [ ./hardware-configuration.nix ];
@@ -21,30 +21,7 @@
 
   networking.hostName = "grizzly";
   networking.firewall.enable = false;
-  sops.secrets.home-wifi-password = { };
-  systemd.services."wifi-profile" = {
-    description = "Install WiFi NetworkManager profile";
-    wantedBy = [ "multi-user.target" ];
-    after = [ "NetworkManager.service" ];
-    wants = [ "NetworkManager.service" ];
 
-    serviceConfig = {
-      Type = "oneshot";
-      RemainAfterExit = true;
-    };
-
-    script = ''
-      PSK="$(cat ${config.sops.secrets.home-wifi-password.path})"
-
-      ${pkgs.networkmanager}/bin/nmcli connection add \
-        type wifi \
-        ifname wlan0 \
-        con-name home \
-        ssid "enel-WiFi_A2DC8B91" \
-        wifi-sec.key-mgmt wpa-psk \
-        wifi-sec.psk "$PSK"
-    '';
-  };
   networking.hosts = {
     "10.0.0.1" = [ "rcastellotti-dev" ];
   };
@@ -52,7 +29,7 @@
     wg0 = {
       ips = [ "10.0.0.2/32" ];
       listenPort = 51820;
-      privateKeyFile = config.sops.secrets.wireguard-client.path;
+      privateKeyFile = config.sops.secrets.wg-grizzly.path;
       peers = [
         {
           publicKey = "gZeKUDU/F7xcX6X26AjKz3EJcHKa8wcqsrNOysULnzw=";

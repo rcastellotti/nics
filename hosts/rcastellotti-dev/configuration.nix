@@ -8,7 +8,8 @@
   ...
 }:
 let
-  rcKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILqVLRRlGF1nezM9nM87dUBkp3hKkDB+yqJyqPVwt2Wg";
+  grizzlySSHKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILqVLRRlGF1nezM9nM87dUBkp3hKkDB+yqJyqPVwt2Wg";
+  polarSSHKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGawr5pI2c6Mbk6c1d9slxH69i7UnoLYIQTAN5KwJ0zx";
   site = pkgs.stdenv.mkDerivation {
     pname = "rcastellotti.dev";
     version = "1.0";
@@ -56,10 +57,17 @@ in
         publicKey = "R2b+T+B+AfNkN42QTUMuuWa7fHzbTDBucSG7wBKa8VE=";
         allowedIPs = [ "10.0.0.2/32" ];
       }
+      {
+        publicKey = "tZtYxX29GYLLKfkB+ChJGYmCu51a0bQOpTfRoql0xGE=";
+        allowedIPs = [ "10.0.0.3/32" ];
+      }
     ];
   };
 
-  users.users.root.openssh.authorizedKeys.keys = [ rcKey ];
+  users.users.root.openssh.authorizedKeys.keys = [
+    grizzlySSHKey
+    polarSSHKey
+  ];
   system.stateVersion = "26.05";
   programs.fish.enable = true;
 
@@ -70,7 +78,10 @@ in
     isNormalUser = true;
     description = "rc";
     hashedPasswordFile = config.sops.secrets.rcastellotti-dev-password.path;
-    openssh.authorizedKeys.keys = [ rcKey ];
+    openssh.authorizedKeys.keys = [
+      grizzlySSHKey
+      polarSSHKey
+    ];
     extraGroups = [ "wheel" ];
   };
 
