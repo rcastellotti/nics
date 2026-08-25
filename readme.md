@@ -12,6 +12,8 @@ sudo nixos-rebuild switch --flake .#grizzly
 ```sh
 curl -fsSL https://install.determinate.systems/nix | sh -s -- install
 sudo nix run nix-darwin/master#darwin-rebuild -- switch --flake .#polar
+mkdir -p ~/Library/Application Support/sops/age
+nix-shell -p ssh-to-age --run "ssh-to-age -private-key -i /tmp/polar-ssh-key > ~/Library/Application Support/sops/age/keys.txt"
 sudo darwin-rebuild switch --flake .#polar
 ```
 
@@ -20,6 +22,15 @@ sudo darwin-rebuild switch --flake .#polar
 ```sh
 sops exec-env secrets/secrets.yaml 'terraform plan'
 ```
+
+### add ssh-key (run on machine with key in secrets/secrets.yaml)
+
+1. generate an ssh key with bitwarden
+2. temp copy the private key to ~/temp-new-key
+3. `nix-shell -p ssh-to-age --run 'ssh-to-age -private-key -i ~/temp-new-key > ~/.config/sops/age/keys.txt'`
+4. temp copy the public key to ~/temp-new-key.pub
+5. `nix shell nixpkgs#ssh-to-age -c ssh-to-age < ~/temp-new-key.pub` (outputs pub age key)
+6. `sops --add-age "$POLAR_AGE_RECIPIENT" --rotate --in-place secrets/secrets.yaml` (use key from above)
 
 ## generate WG server key
 
@@ -45,3 +56,10 @@ AllowedIPs = 10.0.0.2/24
 Endpoint = vpn.rcastellotti.dev:51820
 PersistentKeepalive = 25
 ```
+
+
+
+  nix shell nixpkgs#ssh-to-age -c sh -c '
+    ssh-to-age -private-key -i ~/polar-ssh-key
+    ssh-to-age -private-key -i ~/rc-ssh-key
+  ' > ~/.config/sops/age/keys.txt
