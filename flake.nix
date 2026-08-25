@@ -51,6 +51,11 @@
     }:
     let
       system = "x86_64-linux";
+      devSystems = [
+        "x86_64-linux"
+        "aarch64-darwin"
+      ];
+      forAllDevSystems = nixpkgs.lib.genAttrs devSystems;
       pkgs = import nixpkgs {
         inherit system;
         config.allowUnfree = true;
@@ -58,45 +63,30 @@
       };
     in
     {
-      devShells.${system}.default = pkgs.mkShell {
-        packages = [
-          pkgs.age
-          pkgs.sops
-          pkgs.nixos-anywhere
-          pkgs.nixos-rebuild
-          pkgs.wireguard-tools
-          pkgs.terraform
-          pkgs.terraform-ls
-          pkgs.hugo
-        ];
-        shellHook = ''
-          secret_exports="$(
-            set -o pipefail
-            ${pkgs.sops}/bin/sops \
-              --decrypt \
-              --output-type json \
-              "$PWD/secrets/secrets.yaml" |
-              ${pkgs.jq}/bin/jq -r '
-                . as $secrets
-                | [
-                    "AWS_ACCESS_KEY_ID",
-                    "AWS_ENDPOINT_URL_S3",
-                    "AWS_SECRET_ACCESS_KEY",
-                    "CLOUDFLARE_API_TOKEN",
-                    "HCLOUD_TOKEN"
-                  ][]
-                | select($secrets[.] != null)
-                | "export \(.)=\($secrets[.] | @sh)"
-              '
-          )" || {
-            echo "Failed to decrypt development secrets" >&2
-            return 1
-          }
-
-          eval "$secret_exports"
-          unset secret_exports
-        '';
-      };
+      devShells = forAllDevSystems (
+        devSystem:
+        let
+          devPkgs = import nixpkgs {
+            system = devSystem;
+            config.allowUnfree = true;
+          };
+        in
+        {
+          default = devPkgs.mkShell {
+            packages = [
+              devPkgs.age
+              devPkgs.sops
+              devPkgs.wireguard-tools
+              devPkgs.terraform
+              devPkgs.terraform-ls
+              devPkgs.hugo
+            ] ++ nixpkgs.lib.optionals devPkgs.stdenv.isLinux [
+              devPkgs.nixos-anywhere
+              devPkgs.nixos-rebuild
+            ];
+          };
+        }
+      );
       nixosConfigurations = {
         grizzly = import ./hosts/grizzly {
           inherit
