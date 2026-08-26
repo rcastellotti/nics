@@ -11,7 +11,7 @@ sudo nixos-rebuild switch --flake .#grizzly
 
 ```sh
 curl --proto '=https' --tlsv1.2 -L https://nixos.org/nix/install | sh
-sudo nix run nix-darwin/master#darwin-rebuild -- switch --flake .#polar
+sudo nix run --extra-experimental-features 'nix-command flakes' nix-darwin/master#darwin-rebuild -- switch --flake .#polar
 mkdir -p ~/Library/Application Support/sops/age
 nix-shell -p ssh-to-age --run "ssh-to-age -private-key -i /tmp/polar-ssh-key > ~/Library/Application Support/sops/age/keys.txt"
 sudo darwin-rebuild switch --flake .#polar
