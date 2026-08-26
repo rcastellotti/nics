@@ -10,7 +10,7 @@ sudo nixos-rebuild switch --flake .#grizzly
 # polar
 
 ```sh
-curl -fsSL https://install.determinate.systems/nix | sh -s -- install
+curl --proto '=https' --tlsv1.2 -L https://nixos.org/nix/install | sh
 sudo nix run nix-darwin/master#darwin-rebuild -- switch --flake .#polar
 mkdir -p ~/Library/Application Support/sops/age
 nix-shell -p ssh-to-age --run "ssh-to-age -private-key -i /tmp/polar-ssh-key > ~/Library/Application Support/sops/age/keys.txt"
