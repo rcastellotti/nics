@@ -42,7 +42,4 @@
       }
     ];
   };
-
-  # Determinate manages the Nix daemon and build users.
-  nix.enable = false;
 }
