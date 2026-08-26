@@ -39,6 +39,7 @@ in
     secrets.wg-polar = { };
   };
 
+  launchd.daemons.wg-quick-wg0.serviceConfig.AbandonProcessGroup = true;
   networking.wg-quick.interfaces.wg0 = {
     address = [ "10.0.0.3/32" ];
     privateKeyFile = config.sops.secrets.wg-polar.path;
