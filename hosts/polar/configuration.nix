@@ -10,6 +10,7 @@
     allowBroken = true;
     allowUnfree = true;
   };
+  nix.settings.experimental-features = "nix-command flakes";
 
   networking = {
     computerName = "polar";
