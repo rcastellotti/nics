@@ -10,5 +10,9 @@
       HostName = "10.0.0.1";
       User = "rc";
     };
+    settings.grizzly = {
+      HostName = "10.0.0.2";
+      User = "rc";
+    };
   };
 }

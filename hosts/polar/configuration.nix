@@ -4,6 +4,9 @@
   ...
 }:
 
+let
+  grizzlySSHKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILqVLRRlGF1nezM9nM87dUBkp3hKkDB+yqJyqPVwt2Wg";
+in
 {
   nixpkgs.hostPlatform = "aarch64-darwin";
   nixpkgs.config = {
@@ -23,7 +26,12 @@
     stateVersion = 6;
   };
 
-  users.users.rc.home = "/Users/rc";
+  users.users.rc = {
+    home = "/Users/rc";
+    openssh.authorizedKeys.keys = [ grizzlySSHKey ];
+  };
+
+  services.openssh.enable = true;
 
   sops = {
     defaultSopsFile = "${self}/secrets/secrets.yaml";
@@ -37,7 +45,7 @@
     peers = [
       {
         publicKey = "gZeKUDU/F7xcX6X26AjKz3EJcHKa8wcqsrNOysULnzw=";
-        allowedIPs = [ "10.0.0.1/32" ];
+        allowedIPs = [ "10.0.0.0/24" ];
         endpoint = "wg.rcastellotti.dev:51820";
         persistentKeepalive = 25;
       }

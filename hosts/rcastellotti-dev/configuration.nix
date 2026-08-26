@@ -42,6 +42,8 @@ in
   networking.firewall.enable = true;
   networking.enableIPv6 = true;
   networking.firewall.allowedUDPPorts = [ 51820 ]; # wireguard
+  networking.firewall.trustedInterfaces = [ "wg0" ];
+  boot.kernel.sysctl."net.ipv4.ip_forward" = 1;
   networking.firewall.allowedTCPPorts = [
     80
     443

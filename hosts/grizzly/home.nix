@@ -25,6 +25,10 @@
       HostName = "10.0.0.1";
       User = "rc";
     };
+    settings.polar = {
+      HostName = "10.0.0.3";
+      User = "rc";
+    };
   };
 
   dconf.settings = {

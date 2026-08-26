@@ -6,6 +6,9 @@
   ...
 }:
 
+let
+  polarSSHKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGawr5pI2c6Mbk6c1d9slxH69i7UnoLYIQTAN5KwJ0zx";
+in
 {
   nix.settings.experimental-features = "nix-command flakes";
 
@@ -30,7 +33,7 @@
       peers = [
         {
           publicKey = "gZeKUDU/F7xcX6X26AjKz3EJcHKa8wcqsrNOysULnzw=";
-          allowedIPs = [ "10.0.0.1/32" ];
+          allowedIPs = [ "10.0.0.0/24" ];
           endpoint = "wg.rcastellotti.dev:51820";
           persistentKeepalive = 25;
         }
@@ -98,6 +101,7 @@
   users.users."rc" = {
     isNormalUser = true;
     description = "rc";
+    openssh.authorizedKeys.keys = [ polarSSHKey ];
     extraGroups = [
       "networkmanager"
       "wheel"
