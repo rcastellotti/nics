@@ -5,10 +5,7 @@ import "strings"
 templ TILPage(entry TIL, latest bool) {
 	@TILBase("TIL — Roberto Castellotti", TILCrumbs(entry.Date, 3)) {
 		<div class="til-heading">
-			<span>TIL · { entry.Date.Format("Monday, 2 January 2006") }</span>
-			if latest {
-				<a href={ templ.SafeURL(entry.Path()) }>permalink</a>
-			}
+			<a href={ templ.SafeURL(entry.Path()) }>TIL · { entry.Date.Format("Monday, 2 January 2006") }</a>
 		</div>
 		<article class="til-entry">@templ.Raw(entry.HTML)</article>
 	}

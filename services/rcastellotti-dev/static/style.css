@@ -47,6 +47,9 @@ nav {
     font-weight: 600;
   }
 }
+.til-crumbs {
+  display: flex;
+}
 #theme-toggle {
   margin-left: auto;
   padding: 0;

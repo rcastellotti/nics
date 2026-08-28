@@ -34,10 +34,12 @@ templ base(title string, tilCrumbs []TILCrumb) {
 			<nav>
 				<a href="/">~/</a>
 				<a href="/posts">/posts/</a>
-				<a href="/til/">/TIL</a>
-				for _, crumb := range tilCrumbs {
-					<a href={ templ.SafeURL(crumb.Path) }>/{ crumb.Label }</a>
-				}
+				<span class="til-crumbs">
+					<a href="/til/">/TIL</a>
+					for _, crumb := range tilCrumbs {
+						<a href={ templ.SafeURL(crumb.Path) }>/{ crumb.Label }</a>
+					}
+				</span>
 				<button id="theme-toggle" type="button">dark</button>
 			</nav>
 			{ children... }

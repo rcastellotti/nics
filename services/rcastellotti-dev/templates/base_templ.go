@@ -136,7 +136,7 @@ func base(title string, tilCrumbs []TILCrumb) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 2, "</title><meta name=\"title\" content=\"Roberto Castellotti's website\"><meta name=\"theme-color\" content=\"#ffffff\"><meta name=\"description\" content=\"Roberto Castellotti — Software Engineer at Guardsquare in Leuven, BE. CS grad from UniGE & TUM dropout. Hacker mindset, NixOS enthusiast, and professional disassembler of things.\"><link rel=\"apple-touch-icon\" sizes=\"180x180\" href=\"/static/apple-touch-icon.png\"><link rel=\"icon\" type=\"image/x-icon\" href=\"/static/favicon.ico\"><link rel=\"icon\" href=\"https://f.rcastellotti.dev/propic.jpeg\" type=\"image/jpg\"><link rel=\"canonical\" href=\"https://rcastellotti.dev/\"><script src=\"/static/theme.js\"></script><link rel=\"stylesheet\" href=\"/static/syntax.css\"><link rel=\"stylesheet\" href=\"/static/style.css\"></head><body><nav><a href=\"/\">~/</a> <a href=\"/posts\">/posts/</a> <a href=\"/til/\">/TIL</a> ")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 2, "</title><meta name=\"title\" content=\"Roberto Castellotti's website\"><meta name=\"theme-color\" content=\"#ffffff\"><meta name=\"description\" content=\"Roberto Castellotti — Software Engineer at Guardsquare in Leuven, BE. CS grad from UniGE & TUM dropout. Hacker mindset, NixOS enthusiast, and professional disassembler of things.\"><link rel=\"apple-touch-icon\" sizes=\"180x180\" href=\"/static/apple-touch-icon.png\"><link rel=\"icon\" type=\"image/x-icon\" href=\"/static/favicon.ico\"><link rel=\"icon\" href=\"https://f.rcastellotti.dev/propic.jpeg\" type=\"image/jpg\"><link rel=\"canonical\" href=\"https://rcastellotti.dev/\"><script src=\"/static/theme.js\"></script><link rel=\"stylesheet\" href=\"/static/syntax.css\"><link rel=\"stylesheet\" href=\"/static/style.css\"></head><body><nav><a href=\"/\">~/</a> <a href=\"/posts\">/posts/</a> <span class=\"til-crumbs\"><a href=\"/til/\">/TIL</a> ")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -148,7 +148,7 @@ func base(title string, tilCrumbs []TILCrumb) templ.Component {
 			var templ_7745c5c3_Var7 templ.SafeURL
 			templ_7745c5c3_Var7, templ_7745c5c3_Err = templ.JoinURLErrs(templ.SafeURL(crumb.Path))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `templates/base.templ`, Line: 39, Col: 40}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `templates/base.templ`, Line: 40, Col: 41}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var7))
 			if templ_7745c5c3_Err != nil {
@@ -161,18 +161,18 @@ func base(title string, tilCrumbs []TILCrumb) templ.Component {
 			var templ_7745c5c3_Var8 string
 			templ_7745c5c3_Var8, templ_7745c5c3_Err = templ.JoinStringErrs(crumb.Label)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `templates/base.templ`, Line: 39, Col: 57}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `templates/base.templ`, Line: 40, Col: 58}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var8))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 5, "</a> ")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 5, "</a>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 6, "<button id=\"theme-toggle\" type=\"button\">dark</button></nav>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 6, "</span> <button id=\"theme-toggle\" type=\"button\">dark</button></nav>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
