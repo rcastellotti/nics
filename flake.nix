@@ -79,7 +79,10 @@
               devPkgs.wireguard-tools
               devPkgs.terraform
               devPkgs.terraform-ls
-              devPkgs.hugo
+              devPkgs.air
+              devPkgs.templ
+              devPkgs.go
+              devPkgs.gopls
             ]
             ++ nixpkgs.lib.optionals devPkgs.stdenv.hostPlatform.isLinux [
               devPkgs.nixos-anywhere
