@@ -61,3 +61,9 @@ sops exec-env secrets/secrets.yaml 'terraform apply'
   ```
 - deploy: `sops exec-env secrets/secrets.yaml 'terraform apply'`
 - verify: `sudo wg show`
+
+```sh
+hugo new content 2026/08/27.md
+```
+
+preview with `hugo server -D --port 9172`.

@@ -1,0 +1,13 @@
+<h1>
+  <a class="home-link" href="{{ "/til/" | relURL }}">~/til</a>
+  {{ $relativePath := strings.TrimPrefix "/til" .RelPermalink }}
+  {{ $parts := split (strings.Trim $relativePath "/") "/" }}
+  {{ $path := "/til" }}
+  {{ range $parts }}
+    {{ if . }}
+      {{ $path = printf "%s/%s" $path . }}
+      <span>/</span><a href="{{ printf "%s/" $path }}">{{ . }}</a>
+    {{ end }}
+  {{ end }}
+  {{ if eq (len (strings.Trim $relativePath "/")) 0 }}<span>/</span>{{ end }}
+</h1>

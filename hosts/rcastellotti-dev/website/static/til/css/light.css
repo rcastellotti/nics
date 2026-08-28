@@ -1,0 +1,9 @@
+.bg, .chroma { color: #000; background-color: #fff; }
+.chroma .k, .chroma .kd, .chroma .kn, .chroma .kp, .chroma .kr { color: #5317ac; }
+.chroma .kt { color: #005a5f; }
+.chroma .nb, .chroma .bp { color: #8f0075; }
+.chroma .nv, .chroma .vc, .chroma .vg, .chroma .vi, .chroma .vm, .chroma .o, .chroma .ow { color: #00538b; }
+.chroma .nf, .chroma .fm { color: #721045; }
+.chroma .s, .chroma .sa, .chroma .sb, .chroma .sc, .chroma .s2, .chroma .se, .chroma .si { color: #2544bb; }
+.chroma .m, .chroma .mb, .chroma .mf, .chroma .mh, .chroma .mi, .chroma .mo { color: #0000c0; }
+.chroma .c, .chroma .ch, .chroma .cm, .chroma .c1, .chroma .cp { color: #505050; }

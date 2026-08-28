@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="{{ site.Language.Locale }}">
+  <head>
+    <meta charset="utf-8" />
+    <title>{{ if .IsHome }}{{ site.Title }}{{ else }}{{ .Title }} · {{ site.Title }}{{ end }}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta name="description" content="{{ site.Params.description }}" />
+    <meta name="theme-color" content="#ffffff" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <script>
+      const systemTheme = window.matchMedia("(prefers-color-scheme: dark)");
+      const themeColors = { light: "#ffffff", dark: "#000000" };
+      function getStoredTheme() {
+        try {
+          const theme = localStorage.getItem("theme");
+          if (themeColors[theme]) return theme;
+          localStorage.removeItem("theme");
+          return null;
+        } catch {
+          return null;
+        }
+      }
+      function setTheme(theme, persist = false) {
+        document.documentElement.dataset.theme = theme;
+        document.querySelector('meta[name="theme-color"]').setAttribute("content", themeColors[theme]);
+        const lightHighlight = document.querySelector("#highlight-light");
+        const darkHighlight = document.querySelector("#highlight-dark");
+        if (lightHighlight) lightHighlight.disabled = theme !== "light";
+        if (darkHighlight) darkHighlight.disabled = theme !== "dark";
+        if (persist) {
+          try {
+            localStorage.setItem("theme", theme);
+          } catch {}
+        }
+      }
+      const storedTheme = getStoredTheme();
+      setTheme(storedTheme ?? (systemTheme.matches ? "dark" : "light"));
+    </script>
+    <link rel="stylesheet" href="{{ "til/css/main.css" | relURL }}" />
+    <link id="highlight-light" rel="stylesheet" href="{{ "til/css/light.css" | relURL }}" />
+    <link id="highlight-dark" rel="stylesheet" href="{{ "til/css/dark.css" | relURL }}" disabled />
+    <script>setTheme(document.documentElement.dataset.theme);</script>
+  </head>
+  <body>
+    <header>
+      {{ partial "til/heading.html" . }}
+      <button id="theme-toggle" type="button">light</button>
+    </header>
+    <main>{{ block "main" . }}{{ end }}</main>
+    <script src="{{ "til/js/theme.js" | relURL }}"></script>
+  </body>
+</html>

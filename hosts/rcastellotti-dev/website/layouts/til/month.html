@@ -1,0 +1,6 @@
+{{ define "main" }}
+<p class="label">TMIL · {{ .Title }}</p>
+{{ range .RegularPages.ByDate.Reverse }}
+  {{ partial "til/archive-entry.html" . }}
+{{ end }}
+{{ end }}
