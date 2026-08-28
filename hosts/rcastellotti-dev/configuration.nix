@@ -25,13 +25,13 @@ in
   sops.defaultSopsFile = "${self}/secrets/secrets.yaml";
 
   networking.hostName = "rcastellotti-dev";
-  # update firewall rules in main.tf
   networking.firewall.enable = true;
   networking.enableIPv6 = true;
-  networking.firewall.allowedUDPPorts = [ 51820 ]; # wireguard
+  networking.firewall.allowedUDPPorts = [ 51820 ];
   networking.firewall.trustedInterfaces = [ "wg0" ];
   boot.kernel.sysctl."net.ipv4.ip_forward" = 1;
   networking.firewall.allowedTCPPorts = [
+    22
     80
     443
   ];

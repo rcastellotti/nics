@@ -62,6 +62,10 @@ in
 
   services.openssh = {
     enable = true;
+    settings = {
+      PasswordAuthentication = false;
+      KbdInteractiveAuthentication = false;
+    };
   };
   services.xserver.xkb = {
     layout = "us";

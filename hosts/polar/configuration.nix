@@ -31,7 +31,13 @@ in
     openssh.authorizedKeys.keys = [ grizzlySSHKey ];
   };
 
-  services.openssh.enable = true;
+  services.openssh = {
+    enable = true;
+    extraConfig = ''
+      PasswordAuthentication no
+      KbdInteractiveAuthentication no
+    '';
+  };
 
   sops = {
     defaultSopsFile = "${self}/secrets/secrets.yaml";

@@ -28,21 +28,12 @@ terraform {
 }
 
 locals {
-  ports_base = {
+  ports = {
+    "22"    = { proto = "tcp", desc = "SSH" }
     "80"    = { proto = "tcp", desc = "HTTP (caddy)" }
     "443"   = { proto = "tcp", desc = "HTTPS (caddy)" }
     "51820" = { proto = "udp", desc = "WireGuard" }
   }
-
-  ssh_port = var.allow_ssh ? {
-    "22" = { proto = "tcp", desc = "SSH (bootstrap only)" }
-  } : {}
-
-  web_ports = merge(local.ports_base, local.ssh_port)
-}
-
-variable "allow_ssh" {
-  type = bool
 }
 
 data "cloudflare_zone" "main" {
@@ -103,7 +94,7 @@ resource "hcloud_firewall" "web-firewall" {
   name = "rcastellotti-dev-fw"
 
   dynamic "rule" {
-    for_each = local.web_ports
+    for_each = local.ports
 
     content {
       direction   = "in"

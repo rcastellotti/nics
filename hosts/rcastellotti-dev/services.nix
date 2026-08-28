@@ -33,7 +33,13 @@ in
       enable = true;
       port = 9074;
     };
-    openssh.enable = true;
+    openssh = {
+      enable = true;
+      settings = {
+        PasswordAuthentication = false;
+        KbdInteractiveAuthentication = false;
+      };
+    };
     tma = {
       enable = true;
       package = tma.packages.${pkgs.stdenv.hostPlatform.system}.default;
