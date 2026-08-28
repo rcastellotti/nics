@@ -17,10 +17,6 @@
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    ippy = {
-      url = "git+https://g.rcastellotti.dev/rc/ippy";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     dela = {
       url = "git+https://g.rcastellotti.dev/rc/dela?ref=main";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -43,7 +39,6 @@
       nix-darwin,
       sops-nix,
       disko,
-      ippy,
       dela,
       helium-flake,
       tma,
@@ -109,7 +104,6 @@
             nixpkgs
             sops-nix
             disko
-            ippy
             dela
             home-manager
             tma

@@ -44,10 +44,6 @@ in
       enable = true;
       port = 9076;
     };
-    ippy = {
-      enable = true;
-      port = 9072;
-    };
     forgejo = {
       enable = true;
       package = pkgs.forgejo;
