@@ -3,30 +3,17 @@
   lib,
   pkgs,
   self,
-  dela,
-  tma,
   ...
 }:
 let
   grizzlySSHKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILqVLRRlGF1nezM9nM87dUBkp3hKkDB+yqJyqPVwt2Wg";
   polarSSHKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGawr5pI2c6Mbk6c1d9slxH69i7UnoLYIQTAN5KwJ0zx";
-  site = pkgs.stdenv.mkDerivation {
-    pname = "rcastellotti.dev";
-    version = "1.0";
-    src = ./website;
-    nativeBuildInputs = [ pkgs.hugo ];
-    buildPhase = "hugo build";
-    installPhase = ''
-      mkdir -p $out
-      cp -r public/* $out/
-    '';
-  };
-  delaPackage = dela.packages.${pkgs.stdenv.hostPlatform.system}.default;
 in
 {
   imports = [
     ./hardware-configuration.nix
     ./disko-config.nix
+    ./services.nix
   ];
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   nix.settings.experimental-features = "nix-command flakes";
@@ -87,91 +74,4 @@ in
     extraGroups = [ "wheel" ];
   };
 
-  system.activationScripts.fixWebDirPerms = ''
-    mkdir -p /var/www/f
-    chown -R rc:users /var/www/f
-    chmod -R 777 /var/www/f
-  '';
-
-  sops.secrets.forgejo-password.owner = config.services.forgejo.user;
-  systemd.services.forgejo.preStart = lib.mkAfter ''
-    adminCmd="${lib.getExe config.services.forgejo.package} admin user"
-    password="$(cat ${config.sops.secrets.forgejo-password.path})"
-    $adminCmd create \
-      --admin --email 'me@rcastellotti.dev' \
-      --username 'rc' --password "$password" \
-      --must-change-password=false || true
-  '';
-  services = {
-    openssh.enable = true;
-    tma = {
-      enable = true;
-      package = tma.packages.${pkgs.stdenv.hostPlatform.system}.default;
-      port = 9075;
-    };
-    dela = {
-      package = delaPackage;
-      enable = true;
-      port = 9076;
-    };
-    ippy = {
-      enable = true;
-      port = 9072;
-    };
-    forgejo = {
-      enable = true;
-      package = pkgs.forgejo;
-      database.type = "sqlite3";
-      settings = {
-        server = {
-          DOMAIN = "g.rcastellotti.dev";
-          ROOT_URL = "https://g.rcastellotti.dev/";
-          HTTP_PORT = 9073;
-          PROTOCOL = "http";
-          HTTP_ADDR = "127.0.0.1";
-          SSH_PORT = lib.head config.services.openssh.ports;
-        };
-        repository.ENABLE_PUSH_CREATE_USER = true;
-        service.DISABLE_REGISTRATION = true;
-      };
-    };
-    caddy = {
-      # acmeCA="https://acme-staging-v02.api.letsencrypt.org/directory";
-      enable = true;
-      virtualHosts."rcastellotti.dev".extraConfig = ''
-        root * ${site}
-        file_server
-      '';
-      virtualHosts."g.rcastellotti.dev".extraConfig = ''
-        reverse_proxy 127.0.0.1:9073 {
-          header_up X-Forwarded-Proto https
-          header_up X-Real-IP {remote_host}
-        }
-      '';
-      virtualHosts."f.rcastellotti.dev".extraConfig = ''
-        root * /var/www/f
-        file_server browse
-      '';
-      virtualHosts."i.rcastellotti.dev".extraConfig = ''
-        reverse_proxy 127.0.0.1:9072
-      '';
-      virtualHosts."tma.rcastellotti.dev".extraConfig = ''
-        reverse_proxy 127.0.0.1:9075
-      '';
-      virtualHosts."donts.rcastellotti.dev".extraConfig = ''
-        reverse_proxy 127.0.0.1:9077
-      '';
-      virtualHosts."dela.rcastellotti.dev".extraConfig = ''
-        @api path /api/* /openapi*
-        handle @api {
-          reverse_proxy localhost:9076
-        }
-        handle {
-          root * ${delaPackage}/www
-          try_files {path} /index.html
-          file_server
-        }
-      '';
-    };
-  };
 }

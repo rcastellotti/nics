@@ -19,7 +19,6 @@
     ncdu
     sqlite
     rlwrap
-    ssh-to-age
   ];
 
   programs.neovim = {

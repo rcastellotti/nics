@@ -9,6 +9,7 @@
     nixd
     typst
     yt-dlp
+    telegram-desktop
   ];
 
   fonts.fontconfig.enable = true;

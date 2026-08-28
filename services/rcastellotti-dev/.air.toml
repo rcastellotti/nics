@@ -1,0 +1,23 @@
+root = "."
+tmp_dir = "tmp"
+
+[build]
+  entrypoint = ["./tmp/rcastellotti-dev"]
+  args_bin = ["-port", "9172"]
+  cmd = "templ generate && go build -o ./tmp/rcastellotti-dev ."
+  delay = 200
+  exclude_dir = ["tmp"]
+  exclude_regex = ["_templ\\.go$"]
+  include_ext = ["go", "templ", "md", "css", "js"]
+  kill_delay = "500ms"
+  log = "build-errors.log"
+  send_interrupt = true
+
+[proxy]
+  enabled = true
+  app_port = 9172
+  app_start_timeout = 5000
+  proxy_port = 9173
+
+[misc]
+  clean_on_exit = true

@@ -1,9 +1,0 @@
-{{ define "main" }}
-{{ with index ((where .RegularPagesRecursive "Date" "le" now).ByDate.Reverse) 0 }}
-<section class="intro">
-  <p>TIL</p>
-  <a href="{{ .RelPermalink }}">latest: {{ .Date.Format "2006/01/02" }}</a>
-</section>
-<article>{{ .Content }}</article>
-{{ end }}
-{{ end }}

@@ -1,6 +1,0 @@
-{{ $marker := printf `<a class="marker" href="%s">%s</a>` .RelPermalink (.Date.Format "02") }}
-{{ .Content
-  | replaceRE `<ul>` `<ul class="archive">`
-  | replaceRE `<li>` (printf `<li>%s` $marker)
-  | safeHTML
-}}

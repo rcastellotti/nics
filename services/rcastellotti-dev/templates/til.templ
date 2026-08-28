@@ -1,0 +1,34 @@
+package templates
+
+import "strings"
+
+templ TILPage(entry TIL, latest bool) {
+	@TILBase("TIL — Roberto Castellotti", TILCrumbs(entry.Date, 3)) {
+		<div class="til-heading">
+			<span>TIL · { entry.Date.Format("Monday, 2 January 2006") }</span>
+			if latest {
+				<a href={ templ.SafeURL(entry.Path()) }>permalink</a>
+			}
+		</div>
+		<article class="til-entry">@templ.Raw(entry.HTML)</article>
+	}
+}
+
+templ TILArchive(label string, entries []TIL) {
+	@TILBase("TIL archive — Roberto Castellotti", TILCrumbs(entries[0].Date, 1 + strings.Count(label, "/"))) {
+		<ul class="til-archive">
+			for _, entry := range entries {
+				<li>
+					<a class="til-marker" href={ templ.SafeURL(entry.Path()) }>
+						if strings.Count(label, "/") == 0 {
+							{ entry.Date.Format("01/02") }
+						} else {
+							{ entry.Date.Format("02") }
+						}
+					</a>
+					<div>@templ.Raw(entry.HTML)</div>
+				</li>
+			}
+		</ul>
+	}
+}
