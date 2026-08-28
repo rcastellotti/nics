@@ -4,7 +4,6 @@
   nixpkgs,
   sops-nix,
   disko,
-  ippy,
   dela,
   home-manager,
   tma,
@@ -18,7 +17,6 @@ nixpkgs.lib.nixosSystem {
     ./configuration.nix
     sops-nix.nixosModules.sops
     disko.nixosModules.disko
-    ippy.nixosModules.ippy
     dela.nixosModules.default
     tma.nixosModules.default
     home-manager.nixosModules.home-manager
