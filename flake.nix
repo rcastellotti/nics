@@ -78,6 +78,7 @@
               devPkgs.templ
               devPkgs.go
               devPkgs.gopls
+              devPkgs.hugo
             ]
             ++ nixpkgs.lib.optionals devPkgs.stdenv.hostPlatform.isLinux [
               devPkgs.nixos-anywhere

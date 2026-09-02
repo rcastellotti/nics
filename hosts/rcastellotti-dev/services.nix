@@ -8,10 +8,9 @@
 }:
 let
   delaPackage = dela.packages.${pkgs.stdenv.hostPlatform.system}.default;
+  website = pkgs.callPackage ../../services/rcastellotti-dev/package.nix { };
 in
 {
-  imports = [ ../../services/rcastellotti-dev/module.nix ];
-
   system.activationScripts.fixWebDirPerms = ''
     mkdir -p /var/www/f
     chown -R rc:users /var/www/f
@@ -29,10 +28,6 @@ in
   '';
 
   services = {
-    rcastellotti-dev = {
-      enable = true;
-      port = 9074;
-    };
     openssh = {
       enable = true;
       settings = {
@@ -71,7 +66,8 @@ in
       # acmeCA="https://acme-staging-v02.api.letsencrypt.org/directory";
       enable = true;
       virtualHosts."rcastellotti.dev".extraConfig = ''
-        reverse_proxy 127.0.0.1:${toString config.services.rcastellotti-dev.port}
+        root * ${website}
+        file_server
       '';
       virtualHosts."g.rcastellotti.dev".extraConfig = ''
         reverse_proxy 127.0.0.1:${toString config.services.forgejo.settings.server.HTTP_PORT} {

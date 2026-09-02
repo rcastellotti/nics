@@ -47,9 +47,6 @@ nav {
     font-weight: 600;
   }
 }
-.til-crumbs {
-  display: flex;
-}
 #theme-toggle {
   margin-left: auto;
   padding: 0;
@@ -149,25 +146,5 @@ article blockquote {
   margin-left: 0;
   padding-left: 1rem;
   border-left: 2px solid var(--border);
-  color: var(--muted);
-}
-
-.til-archive {
-  margin: 0.75rem 0 0;
-  padding-left: 0;
-  list-style: none;
-}
-.til-archive > li {
-  padding: 0.25rem 0;
-}
-.til-marker {
-  display: block;
-  margin-bottom: 0.15rem;
-  color: var(--muted);
-}
-.til-archive > li p:first-child {
-  margin-top: 0;
-}
-.til-heading {
   color: var(--muted);
 }

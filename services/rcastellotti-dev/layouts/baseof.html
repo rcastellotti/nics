@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="{{ site.Language.Locale }}">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{ if .IsHome }}{{ site.Title }}{{ else }}{{ .Title }} — {{ site.Title }}{{ end }}</title>
+    <meta name="title" content="Roberto Castellotti's website" />
+    <meta name="theme-color" content="#ffffff" />
+    <meta name="description" content="{{ with .Description }}{{ . }}{{ else }}Roberto Castellotti — Software Engineer at Guardsquare in Leuven, BE. CS grad from UniGE &amp; TUM dropout. Hacker mindset, NixOS enthusiast, and professional disassembler of things.{{ end }}" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" href="https://f.rcastellotti.dev/propic.jpeg" type="image/jpeg" />
+    <link rel="canonical" href="{{ .Permalink }}" />
+    <script src="/theme.js"></script>
+    <link rel="stylesheet" href="/syntax.css" />
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body>
+    <nav>
+      <a href="/">~/</a>
+      <a href="/posts/">/posts/</a>
+      <button id="theme-toggle" type="button">dark</button>
+    </nav>
+    {{ block "main" . }}{{ end }}
+  </body>
+</html>
