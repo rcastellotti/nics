@@ -49,6 +49,37 @@ resource "cloudflare_record" "local" {
   proxied = false
 }
 
+resource "cloudflare_record" "discord" {
+  zone_id = data.cloudflare_zone.main.id
+  name    = "d"
+  type    = "A"
+  content = "192.0.2.1"
+  ttl     = 1
+  proxied = true
+}
+
+resource "cloudflare_ruleset" "discord_redirect" {
+  zone_id = data.cloudflare_zone.main.id
+  name    = "Discord redirect"
+  kind    = "zone"
+  phase   = "http_request_dynamic_redirect"
+  rules {
+    ref         = "discord_redirect"
+    description = "Redirect Discord subdomain to Discord invite"
+    expression  = "(http.host eq \"d.rcastellotti.dev\")"
+    action      = "redirect"
+    action_parameters {
+      from_value {
+        status_code = 301
+        target_url {
+          value = "https://discord.gg/vnUQQwyVE5"
+        }
+        preserve_query_string = false
+      }
+    }
+  }
+}
+
 resource "cloudflare_record" "wildcard_ipv4" {
   zone_id = data.cloudflare_zone.main.id
   name    = "*"
