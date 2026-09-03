@@ -16,6 +16,7 @@
     chromium
     firefox-devedition
     caddy
+    discord
   ];
 
   programs.ssh = {

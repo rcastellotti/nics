@@ -23,7 +23,7 @@ html {
 }
 body {
   min-height: 100vh;
-  max-width: 42rem;
+  max-width: 56rem;
   margin: 0 auto;
   padding-inline: 0.5rem;
   color: var(--foreground);
@@ -141,6 +141,14 @@ pre {
 }
 code {
   font-family: ui-monospace, monospace;
+  padding: 0.1rem 0.25rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+}
+pre code {
+  padding: 0;
+  background: none;
+  border: 0;
 }
 article blockquote {
   margin-left: 0;
