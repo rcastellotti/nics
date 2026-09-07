@@ -11,10 +11,8 @@ sudo nixos-rebuild switch --flake .#grizzly
 
 ```sh
 curl --proto '=https' --tlsv1.2 -L https://nixos.org/nix/install | sh
-sudo nix run --extra-experimental-features 'nix-command flakes' nix-darwin/master#darwin-rebuild -- switch --flake .#polar
-mkdir -p ~/Library/Application Support/sops/age
-nix-shell -p ssh-to-age --run "ssh-to-age -private-key -i /tmp/polar-ssh-key > ~/Library/Application Support/sops/age/keys.txt"
-sudo darwin-rebuild switch --flake .#polar
+nix run --extra-experimental-features 'nix-command flakes' home-manager/master -- switch --flake .#polar
+home-manager switch --flake .#polar
 ```
 
 # `kodiak`
@@ -46,7 +44,7 @@ sudo headscale users list
 sudo headscale preauthkeys create --user USER_ID --expiration 1h
 ```
 
-Tailscale is installed declaratively on `kodiak` and `grizzly`.
+Tailscale is installed declaratively on `kodiak`, `grizzly`, and `polar`.
 Deploy the relevant configuration (or install Tailscale on another client),
 then join using the generated key:
 
@@ -56,8 +54,7 @@ sudo tailscale up \
   --auth-key HEADSCALE_PREAUTH_KEY
 ```
 
-Do not save or commit the pre-authentication key. Confirm the node from the
-server and test MagicDNS from any joined client:
+Confirm the node from the server and test MagicDNS from any joined client:
 
 ```sh
 sudo headscale nodes list
@@ -72,9 +69,3 @@ tailscale ping CLIENT_HOSTNAME
 4. temp copy the public key to ~/temp-new-key.pub
 5. `nix shell nixpkgs#ssh-to-age -c ssh-to-age < ~/temp-new-key.pub` (outputs pub age key)
 6. `sops --add-age "$POLAR_AGE_RECIPIENT" --rotate --in-place secrets/secrets.yaml` (use key from above)
-
-```sh
-hugo new content 2026/08/27.md
-```
-
-preview with `hugo server -D --port 9172`.

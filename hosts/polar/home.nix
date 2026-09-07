@@ -1,7 +1,9 @@
-{ ... }:
+{ pkgs, ... }:
 
 {
   imports = [ ../../home/common.nix ];
+
+  home.packages = [ pkgs.tailscale ];
 
   programs.ssh = {
     enable = true;

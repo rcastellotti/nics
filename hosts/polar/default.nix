@@ -1,19 +1,14 @@
 {
-  self,
-  nix-darwin,
+  nixpkgs,
   home-manager,
-  sops-nix,
 }:
-nix-darwin.lib.darwinSystem {
-  specialArgs = { inherit self; };
-  modules = [
-    ./configuration.nix
-    home-manager.darwinModules.home-manager
-    sops-nix.darwinModules.sops
-    {
-      home-manager.useGlobalPkgs = true;
-      home-manager.useUserPackages = true;
-      home-manager.users.rc = import ./home.nix;
-    }
-  ];
+home-manager.lib.homeManagerConfiguration {
+  pkgs = import nixpkgs {
+    system = "aarch64-darwin";
+    config = {
+      allowBroken = true;
+      allowUnfree = true;
+    };
+  };
+  modules = [ ./home.nix ];
 }

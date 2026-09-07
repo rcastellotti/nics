@@ -5,10 +5,6 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nix-darwin = {
-      url = "github:nix-darwin/nix-darwin/master";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     disko = {
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -36,7 +32,6 @@
       self,
       nixpkgs,
       home-manager,
-      nix-darwin,
       sops-nix,
       disko,
       dela,
@@ -110,12 +105,10 @@
             ;
         };
       };
-      darwinConfigurations.polar = import ./hosts/polar {
+      homeConfigurations.polar = import ./hosts/polar {
         inherit
-          self
-          nix-darwin
+          nixpkgs
           home-manager
-          sops-nix
           ;
       };
     };
