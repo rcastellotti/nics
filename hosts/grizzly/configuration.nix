@@ -14,7 +14,6 @@ in
 
   sops.defaultSopsFile = "${self}/secrets/secrets.yaml";
   sops.age.sshKeyPaths = [ "/tmp/rc-ssh-key" ];
-  sops.secrets.wg-grizzly = { };
   sops.secrets.icloud-password.owner = "rc";
 
   imports = [ ./hardware-configuration.nix ];
@@ -25,21 +24,6 @@ in
   networking.hostName = "grizzly";
   networking.firewall.enable = false;
 
-  networking.wireguard.interfaces = {
-    wg0 = {
-      ips = [ "10.0.0.2/32" ];
-      listenPort = 51820;
-      privateKeyFile = config.sops.secrets.wg-grizzly.path;
-      peers = [
-        {
-          publicKey = "gZeKUDU/F7xcX6X26AjKz3EJcHKa8wcqsrNOysULnzw=";
-          allowedIPs = [ "10.0.0.0/24" ];
-          endpoint = "wg.rcastellotti.dev:51820";
-          persistentKeepalive = 25;
-        }
-      ];
-    };
-  };
   networking.networkmanager.wifi.powersave = false;
 
   time.timeZone = "Europe/Rome";

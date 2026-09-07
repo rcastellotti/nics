@@ -32,7 +32,6 @@ locals {
     "22"    = { proto = "tcp", desc = "SSH" }
     "80"    = { proto = "tcp", desc = "HTTP (caddy)" }
     "443"   = { proto = "tcp", desc = "HTTPS (caddy)" }
-    "51820" = { proto = "udp", desc = "WireGuard" }
   }
 }
 

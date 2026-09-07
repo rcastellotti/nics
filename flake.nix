@@ -71,7 +71,6 @@
             packages = [
               devPkgs.age
               devPkgs.sops
-              devPkgs.wireguard-tools
               devPkgs.terraform
               devPkgs.terraform-ls
               devPkgs.air

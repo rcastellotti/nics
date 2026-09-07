@@ -27,32 +27,11 @@ in
   networking.hostName = "rcastellotti-dev";
   networking.firewall.enable = true;
   networking.enableIPv6 = true;
-  networking.firewall.allowedUDPPorts = [ 51820 ];
-  networking.firewall.trustedInterfaces = [ "wg0" ];
-  boot.kernel.sysctl."net.ipv4.ip_forward" = 1;
   networking.firewall.allowedTCPPorts = [
     22
     80
     443
   ];
-  sops.secrets.wireguard-server = { };
-
-  networking.wireguard.interfaces.wg0 = {
-    ips = [ "10.0.0.1/24" ];
-    listenPort = 51820;
-    privateKeyFile = config.sops.secrets.wireguard-server.path;
-    peers = [
-      {
-        publicKey = "R2b+T+B+AfNkN42QTUMuuWa7fHzbTDBucSG7wBKa8VE=";
-        allowedIPs = [ "10.0.0.2/32" ];
-      }
-      {
-        publicKey = "tZtYxX29GYLLKfkB+ChJGYmCu51a0bQOpTfRoql0xGE=";
-        allowedIPs = [ "10.0.0.3/32" ];
-      }
-    ];
-  };
-
   users.users.root.openssh.authorizedKeys.keys = [
     grizzlySSHKey
     polarSSHKey

@@ -42,20 +42,5 @@ in
   sops = {
     defaultSopsFile = "${self}/secrets/secrets.yaml";
     age.keyFile = "/Users/rc/Library/Application Support/sops/age/keys.txt";
-    secrets.wg-polar = { };
-  };
-
-  launchd.daemons.wg-quick-wg0.serviceConfig.AbandonProcessGroup = true;
-  networking.wg-quick.interfaces.wg0 = {
-    address = [ "10.0.0.3/32" ];
-    privateKeyFile = config.sops.secrets.wg-polar.path;
-    peers = [
-      {
-        publicKey = "gZeKUDU/F7xcX6X26AjKz3EJcHKa8wcqsrNOysULnzw=";
-        allowedIPs = [ "10.0.0.0/24" ];
-        endpoint = "wg.rcastellotti.dev:51820";
-        persistentKeepalive = 25;
-      }
-    ];
   };
 }
