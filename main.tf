@@ -29,9 +29,9 @@ terraform {
 
 locals {
   ports = {
-    "22"    = { proto = "tcp", desc = "SSH" }
-    "80"    = { proto = "tcp", desc = "HTTP (caddy)" }
-    "443"   = { proto = "tcp", desc = "HTTPS (caddy)" }
+    "22"  = { proto = "tcp", desc = "SSH" }
+    "80"  = { proto = "tcp", desc = "HTTP (caddy)" }
+    "443" = { proto = "tcp", desc = "HTTPS (caddy)" }
   }
 }
 
@@ -83,7 +83,7 @@ resource "cloudflare_record" "wildcard_ipv4" {
   zone_id = data.cloudflare_zone.main.id
   name    = "*"
   type    = "A"
-  content = hcloud_server.rcastellotti-dev.ipv4_address
+  content = hcloud_server.kodiak.ipv4_address
   ttl     = 1
   proxied = false
 }
@@ -92,7 +92,7 @@ resource "cloudflare_record" "wildcard_ipv6" {
   zone_id = data.cloudflare_zone.main.id
   name    = "*"
   type    = "AAAA"
-  content = hcloud_server.rcastellotti-dev.ipv6_address
+  content = hcloud_server.kodiak.ipv6_address
   ttl     = 1
   proxied = false
 }
@@ -101,7 +101,7 @@ resource "cloudflare_record" "apex_ipv4" {
   zone_id = data.cloudflare_zone.main.id
   name    = "@"
   type    = "A"
-  content = hcloud_server.rcastellotti-dev.ipv4_address
+  content = hcloud_server.kodiak.ipv4_address
   ttl     = 1
   proxied = false
 }
@@ -110,7 +110,7 @@ resource "cloudflare_record" "apex_ipv6" {
   zone_id = data.cloudflare_zone.main.id
   name    = "@"
   type    = "AAAA"
-  content = hcloud_server.rcastellotti-dev.ipv6_address
+  content = hcloud_server.kodiak.ipv6_address
   ttl     = 1
   proxied = false
 }
@@ -121,7 +121,7 @@ resource "hcloud_ssh_key" "rc-ssh-key" {
 }
 
 resource "hcloud_firewall" "web-firewall" {
-  name = "rcastellotti-dev-fw"
+  name = "kodiak-fw"
 
   dynamic "rule" {
     for_each = local.ports
@@ -136,8 +136,8 @@ resource "hcloud_firewall" "web-firewall" {
   }
 }
 
-resource "hcloud_server" "rcastellotti-dev" {
-  name         = "rcastellotti-dev"
+resource "hcloud_server" "kodiak" {
+  name         = "kodiak"
   server_type  = "cx23"
   image        = "ubuntu-24.04"
   location     = "hel1"
@@ -153,27 +153,32 @@ resource "hcloud_server" "rcastellotti-dev" {
   }
 }
 
+moved {
+  from = hcloud_server.rcastellotti-dev
+  to   = hcloud_server.kodiak
+}
+
 output "hostname" {
   description = "Server hostname"
-  value       = hcloud_server.rcastellotti-dev.name
+  value       = hcloud_server.kodiak.name
 }
 
 output "server_ipv4" {
   description = "IPv4 address"
-  value       = hcloud_server.rcastellotti-dev.ipv4_address
+  value       = hcloud_server.kodiak.ipv4_address
 }
 
 output "server_ipv6" {
   description = "IPv6 address"
-  value       = hcloud_server.rcastellotti-dev.ipv6_address
+  value       = hcloud_server.kodiak.ipv6_address
 }
 
 module "deploy" {
   source                 = "github.com/nix-community/nixos-anywhere//terraform/all-in-one"
-  nixos_system_attr      = ".#nixosConfigurations.rcastellotti-dev.config.system.build.toplevel"
-  nixos_partitioner_attr = ".#nixosConfigurations.rcastellotti-dev.config.system.build.diskoScript"
-  target_host            = hcloud_server.rcastellotti-dev.ipv4_address
-  instance_id            = hcloud_server.rcastellotti-dev.id
+  nixos_system_attr      = ".#nixosConfigurations.kodiak.config.system.build.toplevel"
+  nixos_partitioner_attr = ".#nixosConfigurations.kodiak.config.system.build.diskoScript"
+  target_host            = hcloud_server.kodiak.ipv4_address
+  instance_id            = hcloud_server.kodiak.id
   install_ssh_key        = file("/tmp/rc-ssh-key")
   deployment_ssh_key     = file("/tmp/rc-ssh-key")
 }

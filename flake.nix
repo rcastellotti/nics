@@ -97,7 +97,7 @@
             helium-flake
             ;
         };
-        rcastellotti-dev = import ./hosts/rcastellotti-dev {
+        kodiak = import ./hosts/kodiak {
           inherit
             system
             self

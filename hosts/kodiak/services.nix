@@ -35,6 +35,10 @@ in
         KbdInteractiveAuthentication = false;
       };
     };
+    tailscale = {
+      enable = true;
+      openFirewall = true;
+    };
     tma = {
       enable = true;
       package = tma.packages.${pkgs.stdenv.hostPlatform.system}.default;
@@ -44,6 +48,22 @@ in
       package = delaPackage;
       enable = true;
       port = 9076;
+    };
+    headscale = {
+      enable = true;
+      address = "127.0.0.1";
+      port = 9077;
+      settings = {
+        server_url = "https://vpn.rcastellotti.dev";
+        dns = {
+          magic_dns = true;
+          base_domain = "t.rcastellotti.dev";
+          nameservers.global = [
+            "1.1.1.1"
+            "1.0.0.1"
+          ];
+        };
+      };
     };
     forgejo = {
       enable = true;
@@ -81,6 +101,9 @@ in
       '';
       virtualHosts."tma.rcastellotti.dev".extraConfig = ''
         reverse_proxy 127.0.0.1:${toString config.services.tma.port}
+      '';
+      virtualHosts."vpn.rcastellotti.dev".extraConfig = ''
+        reverse_proxy 127.0.0.1:${toString config.services.headscale.port}
       '';
       virtualHosts."dela.rcastellotti.dev".extraConfig = ''
         @api path /api/* /openapi*

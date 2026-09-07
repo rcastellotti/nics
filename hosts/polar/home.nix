@@ -6,8 +6,8 @@
   programs.ssh = {
     enable = true;
     enableDefaultConfig = false;
-    settings.rcastellotti-dev = {
-      HostName = "10.0.0.1";
+    settings.kodiak = {
+      HostName = "kodiak.t.rcastellotti.dev";
       User = "rc";
     };
     settings.grizzly = {

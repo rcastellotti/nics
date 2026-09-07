@@ -23,6 +23,7 @@ in
 
   networking.hostName = "grizzly";
   networking.firewall.enable = false;
+  services.tailscale.enable = true;
 
   networking.networkmanager.wifi.powersave = false;
 

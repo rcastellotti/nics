@@ -24,7 +24,7 @@ in
   sops.age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
   sops.defaultSopsFile = "${self}/secrets/secrets.yaml";
 
-  networking.hostName = "rcastellotti-dev";
+  networking.hostName = "kodiak";
   networking.firewall.enable = true;
   networking.enableIPv6 = true;
   networking.firewall.allowedTCPPorts = [
@@ -39,13 +39,13 @@ in
   system.stateVersion = "26.05";
   programs.fish.enable = true;
 
-  sops.secrets.rcastellotti-dev-password.neededForUsers = true;
-  sops.secrets.rcastellotti-dev-password = { };
+  sops.secrets.kodiak-password.neededForUsers = true;
+  sops.secrets.kodiak-password = { };
   users.users.rc = {
     shell = pkgs.fish;
     isNormalUser = true;
     description = "rc";
-    hashedPasswordFile = config.sops.secrets.rcastellotti-dev-password.path;
+    hashedPasswordFile = config.sops.secrets.kodiak-password.path;
     openssh.authorizedKeys.keys = [
       grizzlySSHKey
       polarSSHKey

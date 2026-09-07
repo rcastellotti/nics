@@ -17,12 +17,51 @@ nix-shell -p ssh-to-age --run "ssh-to-age -private-key -i /tmp/polar-ssh-key > ~
 sudo darwin-rebuild switch --flake .#polar
 ```
 
-# `rcastellotti-dev`
+# `kodiak`
 
-import private ssh key in `/tmp/rcastellotti-dev-ssh-key`
+import private ssh key in `/tmp/kodiak-ssh-key`
 
 ```sh
 sops exec-env secrets/secrets.yaml 'terraform apply'
+```
+
+## join the tailnet
+
+Headscale is available at `https://vpn.rcastellotti.dev`. MagicDNS is enabled
+with the `t.rcastellotti.dev` base domain, so a machine named `grizzly` is
+reachable inside the tailnet as `grizzly.t.rcastellotti.dev` and, through the
+injected search domain, as `grizzly`.
+
+Create a Headscale user once on `kodiak`:
+
+```sh
+sudo headscale users create rc
+```
+
+List users to find the numeric ID assigned to `rc`, then create a short-lived,
+single-use pre-authentication key using that ID:
+
+```sh
+sudo headscale users list
+sudo headscale preauthkeys create --user USER_ID --expiration 1h
+```
+
+Tailscale is installed declaratively on `kodiak` and `grizzly`.
+Deploy the relevant configuration (or install Tailscale on another client),
+then join using the generated key:
+
+```sh
+sudo tailscale up \
+  --login-server https://vpn.rcastellotti.dev \
+  --auth-key HEADSCALE_PREAUTH_KEY
+```
+
+Do not save or commit the pre-authentication key. Confirm the node from the
+server and test MagicDNS from any joined client:
+
+```sh
+sudo headscale nodes list
+tailscale ping CLIENT_HOSTNAME
 ```
 
 ### add ssh-key (run on machine with key in secrets/secrets.yaml)
