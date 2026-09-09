@@ -11,7 +11,7 @@
     vlc
     obsidian
     transmission_4-gtk
-    lollypop
+    gnome-music
     easytag
     chromium
     firefox-devedition

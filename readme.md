@@ -1,4 +1,4 @@
-# grizzly
+# `grizzly`
 
 ```sh
 sudo nixos-generate-config --show-hardware-config > hosts/grizzly/hardware-configuration.nix
@@ -7,7 +7,7 @@ nix-shell -p ssh-to-age --run "ssh-to-age -private-key -i /tmp/rc-ssh-key > ~/.c
 sudo nixos-rebuild switch --flake .#grizzly
 ```
 
-# polar
+# `polar`
 
 ```sh
 curl --proto '=https' --tlsv1.2 -L https://nixos.org/nix/install | sh

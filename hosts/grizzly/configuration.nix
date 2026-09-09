@@ -23,7 +23,10 @@ in
 
   networking.hostName = "grizzly";
   networking.firewall.enable = false;
-  services.tailscale.enable = true;
+  services.tailscale = {
+    enable = true;
+    extraSetFlags = [ "--ssh" ];
+  };
 
   networking.networkmanager.wifi.powersave = false;
 
