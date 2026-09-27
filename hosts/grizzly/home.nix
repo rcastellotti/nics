@@ -71,4 +71,37 @@
   };
 
   programs.vscodium.enable = true;
+
+  wayland.windowManager.sway = {
+    enable = true;
+    wrapperFeatures.gtk = true;
+    config = {
+      input = {
+        "type:pointer" = {
+          natural_scroll = "enabled";
+        };
+      };
+      modifier = "Mod4";
+      terminal = "ghostty";
+      keybindings =
+        let
+          mod = "Mod4";
+        in
+        pkgs.lib.mkOptionDefault {
+          "${mod}+space" = "exec ${pkgs.rofi}/bin/rofi -show drun -show-icons";
+          "${mod}+Return" = "exec ghostty";
+          "${mod}+q" = "kill";
+          "${mod}+Shift+Return" = "exec ghostty --class=scratch-terminal --gtk-single-instance=false";
+          "${mod}+minus" = "scratchpad show";
+        };
+      window.commands = [
+        {
+          criteria = {
+            app_id = "scratch-terminal";
+          };
+          command = "floating enable, resize set 60 ppt 60 ppt, move position center, move scratchpad";
+        }
+      ];
+    };
+  };
 }

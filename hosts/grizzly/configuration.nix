@@ -108,6 +108,9 @@ in
     fish
     gnome-tweaks
     vim
+    wl-clipboard
+    mako
+    rofi
   ];
 
   programs.helium = {
@@ -122,7 +125,13 @@ in
       ];
     };
   };
+  services.gnome.gnome-keyring.enable = true;
 
+  programs.sway = {
+    enable = true;
+    wrapperFeatures.gtk = true;
+  };
+  security.polkit.enable = true;
   programs.steam.enable = true;
   system.stateVersion = "26.05";
 }
