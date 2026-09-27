@@ -75,33 +75,43 @@
   wayland.windowManager.sway = {
     enable = true;
     wrapperFeatures.gtk = true;
+
     config = {
       input = {
         "type:pointer" = {
           natural_scroll = "enabled";
         };
       };
+
       modifier = "Mod4";
       terminal = "ghostty";
+
+      window = {
+        commands = [
+          {
+            command = "floating enable, move position center, move scratchpad";
+            criteria = {
+              app_id = "com.example.scratch-terminal";
+            };
+          }
+        ];
+      };
+
       keybindings =
         let
           mod = "Mod4";
         in
         pkgs.lib.mkOptionDefault {
           "${mod}+space" = "exec ${pkgs.rofi}/bin/rofi -show drun -show-icons";
+          "${mod}+b" = "exec helium";
+          "${mod}+z" = "exec zeditor";
           "${mod}+Return" = "exec ghostty";
           "${mod}+q" = "kill";
-          "${mod}+Shift+Return" = "exec ghostty --class=scratch-terminal --gtk-single-instance=false";
-          "${mod}+minus" = "scratchpad show";
+          "${mod}+Shift+Return" =
+            "exec ghostty --class=com.example.scratch-terminal --gtk-single-instance=false";
+
         };
-      window.commands = [
-        {
-          criteria = {
-            app_id = "scratch-terminal";
-          };
-          command = "floating enable, resize set 60 ppt 60 ppt, move position center, move scratchpad";
-        }
-      ];
     };
   };
+
 }
