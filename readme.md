@@ -3,7 +3,7 @@
 ```sh
 sudo nixos-generate-config --show-hardware-config > hosts/grizzly/hardware-configuration.nix
 mkdir -p ~/.config/sops/age
-nix-shell -p ssh-to-age --run "ssh-to-age -private-key -i /tmp/rc-ssh-key > ~/.config/sops/age/keys.txt"
+nix-shell -p ssh-to-age --run "ssh-to-age -private-key -i /tmp/grizzly-ssh-key > ~/.config/sops/age/keys.txt"
 sudo nixos-rebuild switch --flake .#grizzly
 ```
 

@@ -13,7 +13,7 @@ in
   nix.settings.experimental-features = "nix-command flakes";
 
   sops.defaultSopsFile = "${self}/secrets/secrets.yaml";
-  sops.age.sshKeyPaths = [ "/tmp/rc-ssh-key" ];
+  sops.age.sshKeyPaths = [ "/tmp/grizzly-ssh-key" ];
   sops.secrets.icloud-password.owner = "rc";
 
   imports = [ ./hardware-configuration.nix ];
@@ -123,5 +123,6 @@ in
     };
   };
 
+  programs.steam.enable = true;
   system.stateVersion = "26.05";
 }
