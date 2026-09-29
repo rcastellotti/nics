@@ -1,26 +1,32 @@
 {
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
     disko = {
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
     sops-nix = {
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
     dela = {
       url = "git+https://g.rcastellotti.dev/rc/dela?ref=main";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
     tma = {
       url = "git+https://g.rcastellotti.dev/rc/tma?ref=main";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
     helium-flake = {
       url = "github:oxcl/nix-flake-helium-browser";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -35,52 +41,29 @@
       sops-nix,
       disko,
       dela,
-      helium-flake,
       tma,
+      helium-flake,
       ...
     }:
     let
       system = "x86_64-linux";
-      devSystems = [
-        "x86_64-linux"
-        "aarch64-darwin"
-      ];
-      forAllDevSystems = nixpkgs.lib.genAttrs devSystems;
       pkgs = import nixpkgs {
         inherit system;
         config.allowUnfree = true;
-        config.allowBroken = true;
       };
     in
     {
-      devShells = forAllDevSystems (
-        devSystem:
-        let
-          devPkgs = import nixpkgs {
-            system = devSystem;
-            config.allowUnfree = true;
-          };
-        in
-        {
-          default = devPkgs.mkShell {
-            packages = [
-              devPkgs.age
-              devPkgs.sops
-              devPkgs.terraform
-              devPkgs.terraform-ls
-              devPkgs.air
-              devPkgs.templ
-              devPkgs.go
-              devPkgs.gopls
-              devPkgs.hugo
-            ]
-            ++ nixpkgs.lib.optionals devPkgs.stdenv.hostPlatform.isLinux [
-              devPkgs.nixos-anywhere
-              devPkgs.nixos-rebuild
-            ];
-          };
-        }
-      );
+      devShells.${system}.default = pkgs.mkShell {
+        packages = with pkgs; [
+          sops
+          terraform
+          terraform-ls
+          hugo
+          nixos-anywhere
+          nixos-rebuild
+        ];
+      };
+
       nixosConfigurations = {
         grizzly = import ./hosts/grizzly {
           inherit
@@ -92,6 +75,7 @@
             helium-flake
             ;
         };
+
         kodiak = import ./hosts/kodiak {
           inherit
             system

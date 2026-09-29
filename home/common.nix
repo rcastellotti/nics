@@ -61,6 +61,4 @@
       autosave = "on_focus_change";
     };
   };
-
-  programs.zoxide.enable = true;
 }

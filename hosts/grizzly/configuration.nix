@@ -2,7 +2,6 @@
   config,
   pkgs,
   self,
-  lib,
   ...
 }:
 
@@ -22,7 +21,6 @@
   networking.firewall.enable = false;
   services.tailscale = {
     enable = true;
-    extraSetFlags = [ "--ssh" ];
   };
 
   time.timeZone = "Europe/Rome";
@@ -42,18 +40,6 @@
   services.xserver.enable = true;
   services.displayManager.gdm.enable = true;
   services.desktopManager.gnome.enable = true;
-
-  services.openssh = {
-    enable = true;
-    settings = {
-      PasswordAuthentication = false;
-      KbdInteractiveAuthentication = false;
-    };
-  };
-  services.xserver.xkb = {
-    layout = "us";
-    variant = "";
-  };
 
   services.pulseaudio.enable = false;
   security.rtkit.enable = true;
@@ -98,14 +84,21 @@
 
   hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = true;
+
   environment.systemPackages = with pkgs; [
     fish
-    gnome-tweaks
     vim
     wl-clipboard
     mako
     rofi
   ];
+
+  programs.steam.enable = true;
+
+  programs.sway = {
+    enable = true;
+    wrapperFeatures.gtk = true;
+  };
 
   programs.helium = {
     enable = true;
@@ -120,13 +113,7 @@
     };
   };
 
-  services.gnome.gnome-keyring.enable = true;
-
-  programs.sway = {
-    enable = true;
-    wrapperFeatures.gtk = true;
-  };
   security.polkit.enable = true;
-  programs.steam.enable = true;
   system.stateVersion = "26.05";
+
 }

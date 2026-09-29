@@ -28,23 +28,6 @@ in
     toggle-theme
   ];
 
-  programs.ssh = {
-    enable = true;
-    enableDefaultConfig = false;
-    settings.kodiak = {
-      HostName = "kodiak.t.rcastellotti.dev";
-      User = "rc";
-    };
-    settings.polar = {
-      HostName = "10.0.0.3";
-      User = "rc";
-    };
-
-    matchBlocks."*" = {
-      identityFile = [ "/tmp/grizzly-sshy-key" ];
-    };
-  };
-
   dconf.settings = {
     "org/gnome/desktop/background" = {
       picture-uri = "none";
