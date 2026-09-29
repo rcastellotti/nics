@@ -12,7 +12,10 @@
   sops.age.sshKeyPaths = [ "/tmp/grizzly-ssh-key" ];
   sops.secrets.icloud-password.owner = "rc";
 
-  imports = [ ./hardware-configuration.nix ];
+  imports = [
+    ./hardware-configuration.nix
+    ../../services/syncthing.nix
+  ];
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.kernelPackages = pkgs.linuxPackages_latest;
@@ -37,7 +40,6 @@
     LC_TIME = "en_US.UTF-8";
   };
 
-  services.xserver.enable = true;
   services.displayManager.gdm.enable = true;
   services.desktopManager.gnome.enable = true;
 
@@ -49,6 +51,7 @@
     alsa.support32Bit = true;
     pulse.enable = true;
   };
+
   sops.secrets.cloudflare-api-token = {
     key = "CLOUDFLARE_API_TOKEN";
     owner = "caddy";

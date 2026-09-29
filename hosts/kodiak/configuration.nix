@@ -14,6 +14,7 @@ in
     ./hardware-configuration.nix
     ./disko-config.nix
     ./services.nix
+    ../../services/syncthing.nix
   ];
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   nix.settings.experimental-features = "nix-command flakes";
