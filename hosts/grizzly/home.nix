@@ -17,6 +17,8 @@
     firefox-devedition
     caddy
     discord
+    flameshot
+    bluetui
   ];
 
   programs.ssh = {
@@ -29,6 +31,10 @@
     settings.polar = {
       HostName = "10.0.0.3";
       User = "rc";
+    };
+
+    matchBlocks."*" = {
+      identityFile = [ "/tmp/grizzly-sshy-key" ];
     };
   };
 
@@ -44,6 +50,7 @@
     "org/gnome/desktop/interface".enable-animations = false;
   };
 
+  programs.zathura.enable = true;
   programs.thunderbird = {
     enable = true;
     profiles.Default.isDefault = true;
@@ -69,8 +76,32 @@
     };
     thunderbird.enable = true;
   };
-
+  home.file.".config/net.imput.helium/NativeMessagingHosts/org.keepassxc.keepassxc_browser.json".text =
+    builtins.toJSON {
+      name = "org.keepassxc.keepassxc_browser";
+      description = "KeePassXC integration with native messaging support";
+      path = "${pkgs.keepassxc}/bin/keepassxc-proxy";
+      type = "stdio";
+      allowed_origins = [
+        "chrome-extension://oboonakemofpalcgghocfoadofidjkkk/"
+      ];
+    };
   programs.vscodium.enable = true;
+  programs.keepassxc = {
+    enable = true;
+    settings = {
+      GUI = {
+        ApplicationTheme = "dark";
+        HidePasswords = true;
+      };
+      Browser = {
+        Enabled = true;
+      };
+      SSHAgent = {
+        Enabled = true;
+      };
+    };
+  };
 
   wayland.windowManager.sway = {
     enable = true;
@@ -82,7 +113,6 @@
           natural_scroll = "enabled";
         };
       };
-
       modifier = "Mod4";
       terminal = "ghostty";
 
@@ -96,22 +126,29 @@
           }
         ];
       };
-
+      startup = [
+        { command = "${pkgs.keepassxc}/bin/keepassxc"; }
+      ];
       keybindings =
         let
           mod = "Mod4";
         in
         pkgs.lib.mkOptionDefault {
-          "${mod}+space" = "exec ${pkgs.rofi}/bin/rofi -show drun -show-icons";
+          "${mod}+Mod1+Left" = "workspace prev";
+          "${mod}+Mod1+Right" = "workspace next";
+          "${mod}+space" = "exec ${pkgs.rofi}/bin/rofi -show combi -combi-modes \"window,drun\" -show-icons";
           "${mod}+b" = "exec helium";
           "${mod}+z" = "exec zeditor";
+          "${mod}+t" = "exec Telegram";
           "${mod}+Return" = "exec ghostty";
           "${mod}+q" = "kill";
           "${mod}+Shift+Return" =
             "exec ghostty --class=com.example.scratch-terminal --gtk-single-instance=false";
-
+          "XF86AudioRaiseVolume" = "exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+";
+          "XF86AudioLowerVolume" = "exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-";
+          "XF86AudioMute" = "exec wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";
+          "Print" = "exec flameshot gui";
         };
     };
   };
-
 }

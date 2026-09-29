@@ -10,16 +10,18 @@ let
   delaPackage = dela.packages.${pkgs.stdenv.hostPlatform.system}.default;
   navidromePort = 4533;
   website = pkgs.callPackage ../../services/rcastellotti-dev/package.nix { };
-  headscalePolicy = pkgs.writeText "headscale-policy.json" (builtins.toJSON {
-    ssh = [
-      {
-        action = "accept";
-        src = [ "autogroup:member" ];
-        dst = [ "autogroup:self" ];
-        users = [ "autogroup:nonroot" ];
-      }
-    ];
-  });
+  headscalePolicy = pkgs.writeText "headscale-policy.json" (
+    builtins.toJSON {
+      ssh = [
+        {
+          action = "accept";
+          src = [ "autogroup:member" ];
+          dst = [ "autogroup:self" ];
+          users = [ "autogroup:nonroot" ];
+        }
+      ];
+    }
+  );
 in
 {
   system.activationScripts.fixWebDirPerms = ''
@@ -84,7 +86,7 @@ in
             {
               name = "m.kodiak.t.rcastellotti.dev";
               type = "A";
-              value = "100.64.0.2";
+              value = "100.64.0.3";
             }
           ];
           nameservers.global = [
@@ -149,7 +151,6 @@ in
       virtualHosts."https://m.kodiak.t.rcastellotti.dev".extraConfig = ''
         @outsideTailnet not remote_ip 100.64.0.0/10 fd7a:115c:a1e0::/48
         abort @outsideTailnet
-
         reverse_proxy 127.0.0.1:${toString config.services.navidrome.settings.Port}
         tls {
           dns cloudflare {file.${config.sops.secrets.cloudflare-api-token.path}}

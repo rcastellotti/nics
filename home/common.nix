@@ -7,7 +7,6 @@
     jetbrains-mono
     nil
     nixd
-    typst
     yt-dlp
     telegram-desktop
   ];

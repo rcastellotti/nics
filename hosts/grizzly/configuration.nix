@@ -29,7 +29,10 @@ in
   };
 
   networking.networkmanager.wifi.powersave = false;
-
+  hardware.graphics = {
+    enable = true;
+    enable32Bit = true;
+  };
   time.timeZone = "Europe/Rome";
   i18n.defaultLocale = "en_US.UTF-8";
   i18n.extraLocaleSettings = {
@@ -121,7 +124,7 @@ in
       "SyncDisabled" = true;
       "DefaultSearchProviderEnabled" = true;
       "ExtensionInstallForcelist" = [
-        "nngceckbapebfimnlniiiahkandclblb"
+        "oboonakemofpalcgghocfoadofidjkkk"
       ];
     };
   };

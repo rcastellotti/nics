@@ -117,7 +117,7 @@ resource "cloudflare_record" "apex_ipv6" {
 
 resource "hcloud_ssh_key" "rc-ssh-key" {
   name       = "rc-ssh-key"
-  public_key = file("/tmp/rc-ssh-key.pub")
+  public_key = file("/tmp/grizzly-ssh-key.pub")
 }
 
 resource "hcloud_firewall" "web-firewall" {
@@ -179,6 +179,6 @@ module "deploy" {
   nixos_partitioner_attr = ".#nixosConfigurations.kodiak.config.system.build.diskoScript"
   target_host            = hcloud_server.kodiak.ipv4_address
   instance_id            = hcloud_server.kodiak.id
-  install_ssh_key        = file("/tmp/rc-ssh-key")
-  deployment_ssh_key     = file("/tmp/rc-ssh-key")
+  install_ssh_key        = file("/tmp/grizzly-ssh-key")
+  deployment_ssh_key     = file("/tmp/grizzly-ssh-key")
 }
