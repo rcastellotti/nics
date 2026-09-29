@@ -1,7 +1,6 @@
 { osConfig, pkgs, ... }:
 
 let
-  # Move the script definition here so it is available globally in this file
   toggle-theme = pkgs.writeShellScriptBin "toggle-theme" ''
     CURRENT=$(${pkgs.glib}/bin/gsettings get org.gnome.desktop.interface color-scheme)
     if [ "$CURRENT" = "'prefer-dark'" ]; then
@@ -20,17 +19,13 @@ in
     gimp
     sqlitestudio
     vlc
-    obsidian
     transmission_4-gtk
-    gnome-music
     easytag
-    chromium
-    firefox-devedition
     caddy
     discord
     flameshot
     bluetui
-    toggle-theme # Now this works perfectly!
+    toggle-theme
   ];
 
   programs.ssh = {

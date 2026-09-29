@@ -6,9 +6,6 @@
   ...
 }:
 
-let
-  polarSSHKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGawr5pI2c6Mbk6c1d9slxH69i7UnoLYIQTAN5KwJ0zx";
-in
 {
   nix.settings.experimental-features = "nix-command flakes";
 
@@ -28,11 +25,6 @@ in
     extraSetFlags = [ "--ssh" ];
   };
 
-  networking.networkmanager.wifi.powersave = false;
-  hardware.graphics = {
-    enable = true;
-    enable32Bit = true;
-  };
   time.timeZone = "Europe/Rome";
   i18n.defaultLocale = "en_US.UTF-8";
   i18n.extraLocaleSettings = {
@@ -96,7 +88,6 @@ in
   users.users."rc" = {
     isNormalUser = true;
     description = "rc";
-    openssh.authorizedKeys.keys = [ polarSSHKey ];
     extraGroups = [
       "networkmanager"
       "wheel"
@@ -128,6 +119,7 @@ in
       ];
     };
   };
+
   services.gnome.gnome-keyring.enable = true;
 
   programs.sway = {
