@@ -105,11 +105,5 @@
             ;
         };
       };
-      homeConfigurations.polar = import ./hosts/polar {
-        inherit
-          nixpkgs
-          home-manager
-          ;
-      };
     };
 }

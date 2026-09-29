@@ -35,6 +35,7 @@
       "templ"
       "terraform"
       "svelte"
+      "typst"
     ];
     userSettings = {
       format_on_save = "on";

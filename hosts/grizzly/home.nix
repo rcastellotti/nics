@@ -1,5 +1,16 @@
 { osConfig, pkgs, ... }:
 
+let
+  # Move the script definition here so it is available globally in this file
+  toggle-theme = pkgs.writeShellScriptBin "toggle-theme" ''
+    CURRENT=$(${pkgs.glib}/bin/gsettings get org.gnome.desktop.interface color-scheme)
+    if [ "$CURRENT" = "'prefer-dark'" ]; then
+        ${pkgs.glib}/bin/gsettings set org.gnome.desktop.interface color-scheme 'default'
+    else
+        ${pkgs.glib}/bin/gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
+    fi
+  '';
+in
 {
   imports = [
     ../../home/common.nix
@@ -19,6 +30,7 @@
     discord
     flameshot
     bluetui
+    toggle-theme # Now this works perfectly!
   ];
 
   programs.ssh = {
@@ -76,6 +88,7 @@
     };
     thunderbird.enable = true;
   };
+
   home.file.".config/net.imput.helium/NativeMessagingHosts/org.keepassxc.keepassxc_browser.json".text =
     builtins.toJSON {
       name = "org.keepassxc.keepassxc_browser";
@@ -86,6 +99,7 @@
         "chrome-extension://oboonakemofpalcgghocfoadofidjkkk/"
       ];
     };
+
   programs.vscodium.enable = true;
   programs.keepassxc = {
     enable = true;
@@ -134,6 +148,7 @@
           mod = "Mod4";
         in
         pkgs.lib.mkOptionDefault {
+          "${mod}+Mod1+t" = "exec toggle-theme";
           "${mod}+Mod1+Left" = "workspace prev";
           "${mod}+Mod1+Right" = "workspace next";
           "${mod}+space" = "exec ${pkgs.rofi}/bin/rofi -show combi -combi-modes \"window,drun\" -show-icons";
