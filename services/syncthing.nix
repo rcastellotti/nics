@@ -39,6 +39,7 @@ in
     overrideFolders = true;
 
     settings = {
+      gui.user = "rc";
       inherit devices;
       folders.cloud = {
         path = "/srv/cloud";
