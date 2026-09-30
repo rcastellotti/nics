@@ -29,7 +29,7 @@ in
     bluetui
     toggle-theme
   ];
-  
+
   dconf.settings = {
     "org/gnome/desktop/background" = {
       picture-uri = "none";
@@ -52,7 +52,12 @@ in
         "type:pointer" = {
           natural_scroll = "enabled";
         };
+        "type:touchpad" = {
+          natural_scroll = "enabled";
+          tap = "enabled"; # optional
+        };
       };
+
       modifier = "Mod4";
       terminal = "ghostty";
 
@@ -93,7 +98,6 @@ in
     };
   };
 
-
   accounts.email.accounts."me@rcastellotti.dev" = {
     primary = true;
     realName = "Roberto Castellotti";
@@ -115,7 +119,6 @@ in
     thunderbird.enable = true;
   };
 
-
   fonts.fontconfig.enable = true;
 
   programs.zathura.enable = true;
@@ -124,7 +127,6 @@ in
     enable = true;
     profiles.Default.isDefault = true;
   };
-
 
   programs.vscodium.enable = true;
 

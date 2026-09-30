@@ -65,28 +65,46 @@
       };
 
       nixosConfigurations = {
-        grizzly = import ./hosts/grizzly {
-          inherit
-            system
-            self
-            nixpkgs
-            sops-nix
-            home-manager
-            helium-flake
-            ;
+        grizzly = nixpkgs.lib.nixosSystem {
+          inherit system;
+          specialArgs = {
+            inherit self;
+          };
+          modules = [
+            ./hosts/grizzly/configuration.nix
+            sops-nix.nixosModules.sops
+            home-manager.nixosModules.home-manager
+            helium-flake.nixosModules.default
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.users.rc = {
+                imports = [
+                  ./home/desktop.nix
+                ];
+              };
+            }
+          ];
         };
 
-        kodiak = import ./hosts/kodiak {
-          inherit
-            system
-            self
-            nixpkgs
-            sops-nix
-            disko
-            dela
-            home-manager
-            tma
-            ;
+        kodiak = nixpkgs.lib.nixosSystem {
+          inherit system;
+          specialArgs = {
+            inherit self dela tma;
+          };
+          modules = [
+            ./hosts/kodiak/configuration.nix
+            sops-nix.nixosModules.sops
+            disko.nixosModules.disko
+            dela.nixosModules.default
+            tma.nixosModules.default
+            home-manager.nixosModules.home-manager
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.users.rc = import ./home/core.nix;
+            }
+          ];
         };
       };
     };
