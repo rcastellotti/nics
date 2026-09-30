@@ -21,7 +21,7 @@ nixpkgs.lib.nixosSystem {
       home-manager.useUserPackages = true;
       home-manager.users.rc = {
         imports = [
-          ./home.nix
+          ../../home/desktop.nix
         ];
       };
     }
