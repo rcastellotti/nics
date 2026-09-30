@@ -7,14 +7,6 @@ nix-shell -p ssh-to-age --run "ssh-to-age -private-key -i /tmp/grizzly-ssh-key >
 sudo nixos-rebuild switch --flake .#grizzly
 ```
 
-# `polar`
-
-```sh
-curl --proto '=https' --tlsv1.2 -L https://nixos.org/nix/install | sh
-nix run --extra-experimental-features 'nix-command flakes' home-manager/master -- switch --flake .#polar
-home-manager switch --flake .#polar
-```
-
 # `kodiak`
 
 import private ssh key in `/tmp/kodiak-ssh-key`
