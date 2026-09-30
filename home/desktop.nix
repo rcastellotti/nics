@@ -8,6 +8,15 @@ let
         ${pkgs.glib}/bin/gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
     fi
   '';
+  rofi-themed = pkgs.writeShellScriptBin "rofi-themed" ''
+    scheme=$(${pkgs.glib}/bin/gsettings get org.gnome.desktop.interface color-scheme)
+    if [ "$scheme" = "'prefer-dark'" ]; then
+      theme=gh-dark-colorblind
+    else
+      theme=gh-light-colorblind
+    fi
+    exec ${pkgs.rofi}/bin/rofi -theme "$theme" "$@"
+  '';
 in
 {
   imports = [ ./core.nix ];
@@ -28,7 +37,12 @@ in
     flameshot
     bluetui
     toggle-theme
+    rofi-power-menu
+    rofi-themed
   ];
+
+  xdg.dataFile."rofi/themes/gh-dark-colorblind.rasi".source = ./rofi-gh-dark-colorblind.rasi;
+  xdg.dataFile."rofi/themes/gh-light-colorblind.rasi".source = ./rofi-gh-light-colorblind.rasi;
 
   dconf.settings = {
     "org/gnome/desktop/background" = {
@@ -45,7 +59,6 @@ in
   wayland.windowManager.sway = {
     enable = true;
     wrapperFeatures.gtk = true;
-
     config = {
       input = {
         "type:pointer" = {
@@ -74,8 +87,7 @@ in
       keybindings =
         let
           mod = "Mod4";
-          launcher = "exec ${pkgs.rofi}/bin/rofi -show combi -combi-modes \"window,drun\" -show-icons";
-
+          launcher = "exec ${rofi-themed}/bin/rofi-themed -show combi";
         in
         pkgs.lib.mkOptionDefault {
           "${mod}+Mod1+t" = "exec toggle-theme";
@@ -120,6 +132,18 @@ in
   };
 
   fonts.fontconfig.enable = true;
+
+  programs.rofi = {
+    enable = true;
+    package = pkgs.rofi;
+    terminal = "${pkgs.foot}/bin/foot"; # used by the ssh mode
+    extraConfig = {
+      modi = "combi,window,drun,ssh,power:${pkgs.rofi-power-menu}/bin/rofi-power-menu";
+      combi-modes = "window,drun,power";
+      show-icons = true;
+      icon-theme = "Papirus"; # whichever icon theme you have installed
+    };
+  };
 
   programs.zathura.enable = true;
 

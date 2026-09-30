@@ -1,0 +1,138 @@
+/* GitHub Dark Colorblind: rofi theme
+ * Colorblind-safe mapping: blue = active/accent, orange = urgent. */
+
+configuration {
+    show-icons: true;
+}
+
+* {
+    bg:         #0d1117;
+    bg-alt:     #161b22;
+    bg-sel:     #388bfd26;
+    border:     #30363d;
+    fg:         #e6edf3;
+    fg-muted:   #7d8590;
+    accent:     #58a6ff;
+    active:     #58a6ff;
+    urgent:     #ec8e2c;
+
+    background-color: transparent;
+    text-color:       @fg;
+    font:             "monospace 11";
+    margin:           0;
+    padding:          0;
+    spacing:          0;
+}
+
+window {
+    location:         center;
+    width:            600px;
+    background-color: @bg;
+    border:           1px;
+    border-color:     @border;
+}
+
+mainbox {
+    children: [ inputbar, message, listview, mode-switcher ];
+}
+
+inputbar {
+    padding:          6px 10px;
+    spacing:          12px;
+    background-color: @bg-alt;
+    border:           0 0 1px 0;
+    border-color:     @border;
+    children:         [ prompt, entry ];
+}
+
+prompt {
+    text-color: @accent;
+}
+
+entry {
+    placeholder:       "Search…";
+    placeholder-color: @fg-muted;
+}
+
+message {
+    padding:          4px 10px;
+    background-color: @bg-alt;
+    border:           0 0 1px 0;
+    border-color:     @border;
+}
+
+textbox {
+    text-color: @fg-muted;
+}
+
+listview {
+    lines:        8;
+    columns:      1;
+    fixed-height: true;
+    scrollbar:    false;
+    padding:      4px;
+    spacing:      0;
+}
+
+element {
+    padding:       4px 8px;
+    spacing:       8px;
+}
+
+element-icon {
+    size:           1.4em;
+    vertical-align: 0.5;
+}
+
+element-text {
+    vertical-align: 0.5;
+    highlight:      bold underline;
+}
+
+element normal.normal,
+element alternate.normal {
+    background-color: transparent;
+    text-color:       @fg;
+}
+
+element selected.normal {
+    background-color: @bg-sel;
+    text-color:       @accent;
+}
+
+element normal.active,
+element alternate.active {
+    text-color: @active;
+}
+
+element selected.active {
+    background-color: @bg-sel;
+    text-color:       @active;
+}
+
+element normal.urgent,
+element alternate.urgent {
+    text-color: @urgent;
+}
+
+element selected.urgent {
+    background-color: #ec8e2c26;
+    text-color:       @urgent;
+}
+
+mode-switcher {
+    padding:      4px;
+    spacing:      2px;
+    border:       1px 0 0 0;
+    border-color: @border;
+}
+
+button {
+    padding:       4px 8px;
+    text-color:    @fg-muted;
+}
+
+button selected {
+    background-color: @bg-sel;
+    text-color:       @accent;
+}
