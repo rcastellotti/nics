@@ -19,6 +19,7 @@
     ncdu
     sqlite
     rlwrap
+    file
   ];
 
   programs.vim = {

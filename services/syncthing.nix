@@ -29,11 +29,13 @@ in
 
   services.syncthing = {
     enable = true;
+    user = "rc";
+    dataDir = "/home/rc"; # config and state go in ~/.config/syncthing
     cert = config.sops.secrets."syncthing-${me}-cert".path;
     key = config.sops.secrets."syncthing-${me}-key".path;
     guiPasswordFile = config.sops.secrets."syncthing-gui-password".path;
 
-    overrideDevices = true; # config is the source of truth, GUI changes get wiped
+    overrideDevices = true;
     overrideFolders = true;
 
     settings = {
@@ -46,7 +48,6 @@ in
         ];
       };
       options = {
-        # tailnet only, so no need for discovery or relays
         globalAnnounceEnabled = false;
         localAnnounceEnabled = false;
         relaysEnabled = false;
@@ -55,7 +56,6 @@ in
     };
   };
 
-  # replaces openDefaultPorts: only reachable over tailscale
   networking.firewall.interfaces.tailscale0 = {
     allowedTCPPorts = [ 22000 ];
     allowedUDPPorts = [ 22000 ];
@@ -63,8 +63,7 @@ in
   users.users.rc.extraGroups = [ "syncthing" ];
 
   systemd.tmpfiles.rules = [
-    "d /srv/cloud 2770 syncthing syncthing -"
-    "A+ /srv/cloud - - - - d:g:syncthing:rwx" # default ACL so files rc creates stay group-writable
+    "d /srv/cloud 0750 rc users -"
   ];
 
   systemd.services.syncthing.serviceConfig.UMask = "0007";
