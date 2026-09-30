@@ -47,7 +47,7 @@ in
     wrapperFeatures.gtk = true;
 
     config = {
-      defaultWorkspace = "1";
+      defaultWorkspace = "worskpace number 1";
       input = {
         "type:pointer" = {
           natural_scroll = "enabled";
