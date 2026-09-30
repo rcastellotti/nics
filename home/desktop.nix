@@ -39,6 +39,7 @@ in
     toggle-theme
     rofi-power-menu
     rofi-themed
+    nerd-fonts.jetbrains-mono
   ];
 
   xdg.dataFile."rofi/themes/gh-dark-colorblind.rasi".source = ./rofi-gh-dark-colorblind.rasi;
