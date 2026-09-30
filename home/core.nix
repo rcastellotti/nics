@@ -21,7 +21,7 @@
     rlwrap
   ];
 
-  programs.neovim = {
+  programs.vim = {
     enable = true;
     defaultEditor = true;
   };

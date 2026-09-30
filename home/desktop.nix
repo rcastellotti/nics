@@ -17,6 +17,33 @@ let
     fi
     exec ${pkgs.rofi}/bin/rofi -theme "$theme" "$@"
   '';
+  rofi-bluetooth-mode = pkgs.writeShellScriptBin "rofi-bluetooth-mode" ''
+    bt=${pkgs.bluez}/bin/bluetoothctl
+
+    if [ -z "$1" ]; then
+      if $bt show | grep -q "Powered: yes"; then
+        echo "Power off"
+      else
+        echo "Power on"
+      fi
+      $bt devices | while read -r _ mac name; do
+        if $bt info "$mac" | grep -q "Connected: yes"; then
+          echo "Disconnect: $name ($mac)"
+        else
+          echo "Connect: $name ($mac)"
+        fi
+      done
+      exit 0
+    fi
+
+    mac=$(echo "$1" | grep -oE '([0-9A-F]{2}:){5}[0-9A-F]{2}')
+    case "$1" in
+      "Power on")    $bt power on >/dev/null 2>&1 ;;
+      "Power off")   $bt power off >/dev/null 2>&1 ;;
+      Connect:*)     $bt connect "$mac" >/dev/null 2>&1 ;;
+      Disconnect:*)  $bt disconnect "$mac" >/dev/null 2>&1 ;;
+    esac
+  '';
 in
 {
   imports = [ ./core.nix ];
@@ -139,10 +166,10 @@ in
     package = pkgs.rofi;
     terminal = "${pkgs.ghostty}/bin/ghostty";
     extraConfig = {
-      modi = "combi,window,drun,ssh,power:${pkgs.rofi-power-menu}/bin/rofi-power-menu";
-      combi-modes = "window,drun,power";
+      modi = "combi,window,drun,ssh,power:${pkgs.rofi-power-menu}/bin/rofi-power-menu,bluetooth:${rofi-bluetooth-mode}/bin/rofi-bluetooth-mode";
+      combi-modes = "window,drun,power,bluetooth";
       show-icons = true;
-      icon-theme = "Papirus"; # whichever icon theme you have installed
+      icon-theme = "Adwaita";
     };
   };
 

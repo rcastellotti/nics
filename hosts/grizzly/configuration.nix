@@ -93,7 +93,6 @@
     vim
     wl-clipboard
     mako
-    rofi
   ];
 
   programs.steam.enable = true;
