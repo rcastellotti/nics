@@ -54,13 +54,11 @@ in
         };
         "type:touchpad" = {
           natural_scroll = "enabled";
-          tap = "enabled"; # optional
+          tap = "enabled";
         };
       };
-
       modifier = "Mod4";
       terminal = "ghostty";
-
       window = {
         commands = [
           {
