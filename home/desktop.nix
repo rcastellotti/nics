@@ -47,7 +47,6 @@ in
     wrapperFeatures.gtk = true;
 
     config = {
-      defaultWorkspace = "worskpace number 1";
       input = {
         "type:pointer" = {
           natural_scroll = "enabled";
@@ -75,12 +74,15 @@ in
       keybindings =
         let
           mod = "Mod4";
+          launcher = "exec ${pkgs.rofi}/bin/rofi -show combi -combi-modes \"window,drun\" -show-icons";
+
         in
         pkgs.lib.mkOptionDefault {
           "${mod}+Mod1+t" = "exec toggle-theme";
           "${mod}+Mod1+Left" = "workspace prev";
           "${mod}+Mod1+Right" = "workspace next";
-          "${mod}+space" = "exec ${pkgs.rofi}/bin/rofi -show combi -combi-modes \"window,drun\" -show-icons";
+          "${mod}+space" = launcher;
+          "${mod}+0" = launcher;
           "${mod}+b" = "exec helium";
           "${mod}+z" = "exec zeditor";
           "${mod}+t" = "exec Telegram";
