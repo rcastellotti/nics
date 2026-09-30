@@ -137,7 +137,7 @@ in
   programs.rofi = {
     enable = true;
     package = pkgs.rofi;
-    terminal = "${pkgs.foot}/bin/foot"; # used by the ssh mode
+    terminal = "${pkgs.ghostty}/bin/ghostty";
     extraConfig = {
       modi = "combi,window,drun,ssh,power:${pkgs.rofi-power-menu}/bin/rofi-power-menu";
       combi-modes = "window,drun,power";
