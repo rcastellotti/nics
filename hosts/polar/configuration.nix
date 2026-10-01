@@ -20,7 +20,7 @@
   boot.loader.efi.canTouchEfiVariables = true;
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
-  networking.hostName = "grizzly";
+  networking.hostName = "polar";
   networking.firewall.enable = false;
   services.tailscale = {
     enable = true;
@@ -50,28 +50,6 @@
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
-  };
-
-  sops.secrets.cloudflare-api-token = {
-    key = "CLOUDFLARE_API_TOKEN";
-    owner = "caddy";
-    group = "caddy";
-    mode = "0400";
-  };
-  services.caddy = {
-    enable = true;
-    package = pkgs.caddy.withPlugins {
-      plugins = [
-        "github.com/caddy-dns/cloudflare@v0.2.4"
-      ];
-      hash = "sha256-7GoH8YLCoPmPExQxoga2FHB58zQDoZVf1BBwkVi0SsQ=";
-    };
-    virtualHosts."https://local.rcastellotti.dev".extraConfig = ''
-      reverse_proxy localhost:9172
-      tls {
-        dns cloudflare {file.${config.sops.secrets.cloudflare-api-token.path}}
-        }
-    '';
   };
 
   users.users."rc" = {
