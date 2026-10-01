@@ -138,8 +138,6 @@ in
     };
   };
 
-  services.gnome.gnome-keyring.enable = true;
-
   accounts.email.accounts."me@rcastellotti.dev" = {
     primary = true;
     realName = "Roberto Castellotti";
