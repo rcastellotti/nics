@@ -10,6 +10,10 @@ let
       id = "4W6B5RZ-YB6T3UR-BU56QNK-2YV6SLC-7UFBEUN-B3KR2LV-D22GXXI-E4EOKQW";
       addresses = [ "tcp://kodiak:22000" ];
     };
+    polar = {
+      id = "3VBQ7L4-B7E7YHH-UJPEYZS-C5ZYC42-KYLQTRH-CTW4I5P-YNQRHZF-YGJ55A3";
+      addresses = [ "tcp://polar:22000" ];
+    };
   };
   st = config.services.syncthing;
 in
@@ -30,7 +34,7 @@ in
   services.syncthing = {
     enable = true;
     user = "rc";
-    dataDir = "/home/rc"; # config and state go in ~/.config/syncthing
+    dataDir = "/home/rc";
     cert = config.sops.secrets."syncthing-${me}-cert".path;
     key = config.sops.secrets."syncthing-${me}-key".path;
     guiPasswordFile = config.sops.secrets."syncthing-gui-password".path;

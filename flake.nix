@@ -86,7 +86,7 @@
             }
           ];
         };
-        
+
         polar = nixpkgs.lib.nixosSystem {
           inherit system;
           specialArgs = {
@@ -108,7 +108,6 @@
             }
           ];
         };
-
 
         kodiak = nixpkgs.lib.nixosSystem {
           inherit system;

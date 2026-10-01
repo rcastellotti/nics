@@ -9,7 +9,7 @@
   nix.settings.experimental-features = "nix-command flakes";
 
   sops.defaultSopsFile = "${self}/secrets/secrets.yaml";
-  sops.age.sshKeyPaths = [ "/tmp/grizzly-ssh-key" ];
+  sops.age.sshKeyPaths = [ "/tmp/polar-ssh-key" ];
   sops.secrets.icloud-password.owner = "rc";
 
   imports = [
