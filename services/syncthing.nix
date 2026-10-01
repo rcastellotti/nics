@@ -50,6 +50,7 @@ in
         devices = [
           "grizzly"
           "kodiak"
+          "polar"
         ];
       };
       options = {

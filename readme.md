@@ -18,9 +18,7 @@ sops exec-env secrets/secrets.yaml 'terraform apply'
 ## join the tailnet
 
 Headscale is available at `https://vpn.rcastellotti.dev`. MagicDNS is enabled
-with the `t.rcastellotti.dev` base domain, so a machine named `grizzly` is
-reachable inside the tailnet as `grizzly.t.rcastellotti.dev` and, through the
-injected search domain, as `grizzly`.
+with the `t.rcastellotti.dev` base domain.
 
 Create a Headscale user once on `kodiak`:
 
@@ -28,30 +26,17 @@ Create a Headscale user once on `kodiak`:
 sudo headscale users create rc
 ```
 
-List users to find the numeric ID assigned to `rc`, then create a short-lived,
-single-use pre-authentication key using that ID:
+join with: 
 
 ```sh
-sudo headscale users list
-sudo headscale preauthkeys create --user USER_ID --expiration 1h
+sudo tailscale up --login-server https://vpn.rcastellotti.dev 
 ```
 
-Tailscale is installed declaratively on `kodiak`, `grizzly`, and `polar`.
-Deploy the relevant configuration (or install Tailscale on another client),
-then join using the generated key:
+accept from the server (VAL can be fetched from systemd logs):
 
 ```sh
-sudo tailscale up \
-  --login-server https://vpn.rcastellotti.dev \
-  --auth-key HEADSCALE_PREAUTH_KEY
-```
-
-Confirm the node from the server and test MagicDNS from any joined client:
-
-```sh
-sudo headscale nodes list
-tailscale ping CLIENT_HOSTNAME
-```
+ sudo headscale auth register --auth-id <VAL> --user rc
+ ```
 
 ### add ssh-key (run on machine with key in secrets/secrets.yaml)
 
