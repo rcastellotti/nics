@@ -4,7 +4,6 @@
   self,
   ...
 }:
-
 {
   nix.settings.experimental-features = "nix-command flakes";
 
@@ -74,6 +73,8 @@
     '';
   };
 
+  services.gnome.gnome-keyring.enable = true;
+
   users.users."rc" = {
     isNormalUser = true;
     description = "rc";
@@ -84,6 +85,7 @@
   };
 
   nixpkgs.config.allowUnfree = true;
+  nixpkgs.config.android_sdk.accept_license = true;
 
   hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = true;
@@ -93,8 +95,13 @@
     vim
     wl-clipboard
     mako
+    android-studio
+    jadx
+    (pkgs.writeShellScriptBin "jadx-gui" ''
+      export _JAVA_AWT_WM_NONREPARENTING=1
+      exec ${pkgs.jadx}/bin/jadx-gui "$@"
+    '')
   ];
-
   programs.steam.enable = true;
 
   programs.sway = {
@@ -128,6 +135,7 @@
       };
 
   security.polkit.enable = true;
+  security.pam.services.login.enableGnomeKeyring = true;
   system.stateVersion = "26.05";
 
 }

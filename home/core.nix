@@ -9,6 +9,7 @@
   home.packages = with pkgs; [
     eza
     fastfetch
+    htop
     btop
     git
     jq
