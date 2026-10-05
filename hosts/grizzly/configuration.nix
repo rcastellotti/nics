@@ -14,6 +14,7 @@
   imports = [
     ./hardware-configuration.nix
     ../../services/syncthing.nix
+    ../../modules/desktop.nix
   ];
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -122,20 +123,6 @@
     };
   };
 
-  environment.etc."chromium/native-messaging-hosts/org.keepassxc.keepassxc_browser.json".text =
-    builtins.toJSON
-      {
-        name = "org.keepassxc.keepassxc_browser";
-        description = "KeePassXC integration with native messaging support";
-        path = "${pkgs.keepassxc}/bin/keepassxc-proxy";
-        type = "stdio";
-        allowed_origins = [
-          "chrome-extension://oboonakemofpalcgghocfoadofidjkkk/"
-        ];
-      };
-
-  security.polkit.enable = true;
-  security.pam.services.login.enableGnomeKeyring = true;
   system.stateVersion = "26.05";
 
 }
