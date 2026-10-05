@@ -98,10 +98,6 @@
     mako
     android-studio
     jadx
-    (pkgs.writeShellScriptBin "jadx-gui" ''
-      export _JAVA_AWT_WM_NONREPARENTING=1
-      exec ${pkgs.jadx}/bin/jadx-gui "$@"
-    '')
   ];
   programs.steam.enable = true;
 
