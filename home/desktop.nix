@@ -54,6 +54,7 @@ in
     nixd
     yt-dlp
     telegram-desktop
+    element-desktop
     gimp
     sqlitestudio
     vlc
