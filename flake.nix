@@ -72,6 +72,9 @@
             inherit self;
           };
           modules = [
+            {
+              nixpkgs.config.allowUnfree = true;
+            }
             ./hosts/grizzly/configuration.nix
             sops-nix.nixosModules.sops
             home-manager.nixosModules.home-manager
@@ -94,6 +97,9 @@
             inherit self;
           };
           modules = [
+            {
+              nixpkgs.config.allowUnfree = true;
+            }
             ./hosts/polar/configuration.nix
             sops-nix.nixosModules.sops
             home-manager.nixosModules.home-manager
@@ -116,6 +122,9 @@
             inherit self dela tma;
           };
           modules = [
+            {
+              nixpkgs.config.allowUnfree = true;
+            }
             ./hosts/kodiak/configuration.nix
             sops-nix.nixosModules.sops
             disko.nixosModules.disko
