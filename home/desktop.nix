@@ -124,6 +124,7 @@ in
           "${mod}+Mod1+Right" = "workspace next";
           "${mod}+space" = launcher;
           "${mod}+0" = launcher;
+          "${mod}+s" = "exec ghostty sh - c 'caddy file-server --listen localhost:9172 --browse'";
           "${mod}+b" = "exec helium";
           "${mod}+z" = "exec zeditor";
           "${mod}+t" = "exec Telegram";
