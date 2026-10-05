@@ -100,6 +100,10 @@ in
       };
       modifier = "Mod4";
       terminal = "ghostty";
+      gaps = {
+        inner = 10;
+        outer = 5;
+      };
       window = {
         commands = [
           {
@@ -124,7 +128,7 @@ in
           "${mod}+Mod1+Right" = "workspace next";
           "${mod}+space" = launcher;
           "${mod}+0" = launcher;
-          "${mod}+s" = "exec ghostty sh - c 'caddy file-server --listen localhost:9172 --browse'";
+          "${mod}+s" = "exec ghostty -e caddy file-server --listen localhost:9172 --browse";
           "${mod}+b" = "exec helium";
           "${mod}+z" = "exec zeditor";
           "${mod}+t" = "exec Telegram";
