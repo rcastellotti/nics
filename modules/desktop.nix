@@ -9,6 +9,7 @@
 
   services.tailscale = {
     enable = true;
+    extraSetFlags = [ "--ssh" ];
   };
 
   services.displayManager.gdm.enable = true;
