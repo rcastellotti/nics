@@ -47,6 +47,8 @@
     mako
     android-studio
     jadx
+    jetbrains.idea
+    openjdk17
   ];
 
   programs.steam.enable = true;
