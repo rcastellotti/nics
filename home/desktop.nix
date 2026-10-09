@@ -204,6 +204,15 @@ in
     };
   };
 
+  programs.chromium = {
+    enable = true;
+    nativeMessagingHosts = [ pkgs.keepassxc ];
+    extensions = [
+      { id = "oboonakemofpalcgghocfoadofidjkkk"; }
+      { id = "ddkjiahejlhfcafbddmgiahcphecmpfh"; }
+    ];
+  };
+
   programs.ghostty = {
     enable = true;
     package = if pkgs.stdenv.hostPlatform.isDarwin then pkgs.ghostty-bin else pkgs.ghostty;
