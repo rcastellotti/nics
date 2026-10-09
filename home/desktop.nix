@@ -68,6 +68,7 @@ in
     rofi-power-menu
     rofi-themed
     nerd-fonts.jetbrains-mono
+    opencode
   ];
 
   xdg.dataFile."rofi/themes/gh-dark-colorblind.rasi".source = ./rofi-gh-dark-colorblind.rasi;
@@ -129,7 +130,8 @@ in
           "${mod}+space" = launcher;
           "${mod}+0" = launcher;
           "${mod}+s" = "exec ghostty -e caddy file-server --listen localhost:9172 --browse";
-          "${mod}+b" = "exec helium";
+          "${mod}+b" = "exec chromium";
+          "${mod}+n" = "exec zeditor /home/rc/g/nics";
           "${mod}+z" = "exec zeditor";
           "${mod}+t" = "exec Telegram";
           "${mod}+Return" = "exec ghostty";
@@ -206,6 +208,7 @@ in
 
   programs.chromium = {
     enable = true;
+    nativeMessagingHosts = [ pkgs.keepassxc ];
     extensions = [
       { id = "oboonakemofpalcgghocfoadofidjkkk"; }
       { id = "ddkjiahejlhfcafbddmgiahcphecmpfh"; }
