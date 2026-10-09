@@ -206,7 +206,6 @@ in
 
   programs.chromium = {
     enable = true;
-    nativeMessagingHosts = [ pkgs.keepassxc ];
     extensions = [
       { id = "oboonakemofpalcgghocfoadofidjkkk"; }
       { id = "ddkjiahejlhfcafbddmgiahcphecmpfh"; }

@@ -60,8 +60,4 @@
     wrapperFeatures.gtk = true;
   };
 
-  environment.systemPackages = with pkgs; [
-    chromium
-  ];
-
 }
