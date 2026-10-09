@@ -1,9 +1,16 @@
 { pkgs, ... }:
 
 {
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot = {
+    kernelPackages = pkgs.linuxPackages_latest;
+    loader = {
+      efi.canTouchEfiVariables = true;
+      systemd-boot = {
+        enable = true;
+        configurationLimit = 3;
+      };
+    };
+  };
 
   networking.firewall.enable = false;
 
@@ -59,15 +66,15 @@
 
   programs.chromium = {
     enable = true;
-    # extraOpts = {
-    #   "BrowserSignin" = 0;
-    #   "PasswordManagerEnabled" = false;
-    #   "SyncDisabled" = true;
-    #   "DefaultSearchProviderEnabled" = true;
-    #   "ExtensionInstallForcelist" = [
-    #     "oboonakemofpalcgghocfoadofidjkkk;https://google.com"
-    #     "ddkjiahejlhfcafbddmgiahcphecmpfh;https://google.com"
-    #   ];
-    # };
+    extraOpts = {
+      "BrowserSignin" = 0;
+      "PasswordManagerEnabled" = false;
+      "SyncDisabled" = true;
+      "DefaultSearchProviderEnabled" = true;
+      "ExtensionInstallForcelist" = [
+        "oboonakemofpalcgghocfoadofidjkkk;https://google.com"
+        "ddkjiahejlhfcafbddmgiahcphecmpfh;https://google.com"
+      ];
+    };
   };
 }
