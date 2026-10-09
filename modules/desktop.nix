@@ -14,6 +14,9 @@
 
   services.displayManager.gdm.enable = true;
   services.desktopManager.gnome.enable = true;
+  services.gnome.gnome-keyring.enable = true;
+  security.pam.services.gdm.enableGnomeKeyring = true;
+  security.pam.services.login.enableGnomeKeyring = true;
 
   services.pulseaudio.enable = false;
   security.rtkit.enable = true;
@@ -50,28 +53,18 @@
     wrapperFeatures.gtk = true;
   };
 
-  programs.helium = {
+  programs.chromium = {
     enable = true;
-    policies = {
+    extraOpts = {
       "BrowserSignin" = 0;
       "PasswordManagerEnabled" = false;
       "SyncDisabled" = true;
       "DefaultSearchProviderEnabled" = true;
       "ExtensionInstallForcelist" = [
-        "oboonakemofpalcgghocfoadofidjkkk"
+        "oboonakemofpalcgghocfoadofidjkkk;https://google.com"
+        "ddkjiahejlhfcafbddmgiahcphecmpfh;https://google.com"
       ];
     };
   };
 
-  environment.etc."chromium/native-messaging-hosts/org.keepassxc.keepassxc_browser.json".text =
-    builtins.toJSON
-      {
-        name = "org.keepassxc.keepassxc_browser";
-        description = "KeePassXC integration with native messaging support";
-        path = "${pkgs.keepassxc}/bin/keepassxc-proxy";
-        type = "stdio";
-        allowed_origins = [
-          "chrome-extension://oboonakemofpalcgghocfoadofidjkkk/"
-        ];
-      };
 }

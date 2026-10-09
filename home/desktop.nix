@@ -54,7 +54,7 @@ in
     nixd
     yt-dlp
     telegram-desktop
-    element-desktop
+    signal-desktop
     gimp
     sqlitestudio
     vlc
@@ -227,6 +227,7 @@ in
       "terraform"
       "svelte"
       "typst"
+      "java"
     ];
     userSettings = {
       format_on_save = "on";
