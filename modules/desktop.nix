@@ -53,6 +53,10 @@
     wrapperFeatures.gtk = true;
   };
 
+  environment.systemPackages = with pkgs; [
+    chromium
+  ];
+
   programs.chromium = {
     enable = true;
     # extraOpts = {
