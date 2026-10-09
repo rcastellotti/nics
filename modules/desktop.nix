@@ -66,15 +66,15 @@
 
   programs.chromium = {
     enable = true;
+    extensions = [
+      "oboonakemofpalcgghocfoadofidjkkk;https://clients2.google.com/service/update2/crx"
+      "ddkjiahejlhfcafbddmgiahcphecmpfh;https://clients2.google.com/service/update2/crx"
+    ];
     extraOpts = {
       "BrowserSignin" = 0;
       "PasswordManagerEnabled" = false;
       "SyncDisabled" = true;
       "DefaultSearchProviderEnabled" = true;
-      "ExtensionInstallForcelist" = [
-        "oboonakemofpalcgghocfoadofidjkkk;https://google.com"
-        "ddkjiahejlhfcafbddmgiahcphecmpfh;https://google.com"
-      ];
     };
   };
 }
