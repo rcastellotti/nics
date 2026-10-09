@@ -27,10 +27,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    helium-flake = {
-      url = "github:oxcl/nix-flake-helium-browser";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
   outputs =
@@ -42,7 +38,6 @@
       disko,
       dela,
       tma,
-      helium-flake,
       ...
     }:
     let
@@ -78,7 +73,6 @@
             ./hosts/grizzly/configuration.nix
             sops-nix.nixosModules.sops
             home-manager.nixosModules.home-manager
-            helium-flake.nixosModules.default
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
@@ -103,7 +97,6 @@
             ./hosts/polar/configuration.nix
             sops-nix.nixosModules.sops
             home-manager.nixosModules.home-manager
-            helium-flake.nixosModules.default
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
