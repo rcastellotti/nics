@@ -55,15 +55,15 @@
 
   programs.chromium = {
     enable = true;
-    extraOpts = {
-      "BrowserSignin" = 0;
-      "PasswordManagerEnabled" = false;
-      "SyncDisabled" = true;
-      "DefaultSearchProviderEnabled" = true;
-      "ExtensionInstallForcelist" = [
-        "oboonakemofpalcgghocfoadofidjkkk;https://google.com"
-        "ddkjiahejlhfcafbddmgiahcphecmpfh;https://google.com"
-      ];
-    };
+    # extraOpts = {
+    #   "BrowserSignin" = 0;
+    #   "PasswordManagerEnabled" = false;
+    #   "SyncDisabled" = true;
+    #   "DefaultSearchProviderEnabled" = true;
+    #   "ExtensionInstallForcelist" = [
+    #     "oboonakemofpalcgghocfoadofidjkkk;https://google.com"
+    #     "ddkjiahejlhfcafbddmgiahcphecmpfh;https://google.com"
+    #   ];
+    # };
   };
 }
