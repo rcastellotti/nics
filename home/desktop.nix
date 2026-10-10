@@ -55,6 +55,7 @@ in
     yt-dlp
     telegram-desktop
     signal-desktop
+    simplex-chat-desktop
     gimp
     sqlitestudio
     vlc
@@ -69,6 +70,7 @@ in
     rofi-themed
     nerd-fonts.jetbrains-mono
     opencode
+
   ];
 
   xdg.dataFile."rofi/themes/gh-dark-colorblind.rasi".source = ./rofi-gh-dark-colorblind.rasi;
@@ -130,7 +132,7 @@ in
           "${mod}+space" = launcher;
           "${mod}+0" = launcher;
           "${mod}+s" = "exec ghostty -e caddy file-server --listen localhost:9172 --browse";
-          "${mod}+b" = "exec chromium";
+          "${mod}+b" = "exec firefox";
           "${mod}+n" = "exec zeditor /home/rc/g/nics";
           "${mod}+z" = "exec zeditor";
           "${mod}+t" = "exec Telegram";
@@ -208,11 +210,81 @@ in
 
   programs.chromium = {
     enable = true;
-    nativeMessagingHosts = [ pkgs.keepassxc ];
-    extensions = [
-      { id = "oboonakemofpalcgghocfoadofidjkkk"; }
-      { id = "ddkjiahejlhfcafbddmgiahcphecmpfh"; }
-    ];
+  };
+
+  programs.firefox = {
+    enable = true;
+    languagePacks = [ "en-US" ];
+    policies = {
+      DontCheckDefaultBrowser = true;
+      DisableFirefoxAccounts = true;
+      ExtensionSettings =
+        let
+          moz = short: "https://addons.mozilla.org/firefox/downloads/latest/${short}/latest.xpi";
+        in
+        {
+
+          "uBlock0@raymondhill.net" = {
+            install_url = moz "ublock-origin";
+            installation_mode = "force_installed";
+            updates_disabled = true;
+          };
+
+          "keepassxc-browser@keepassxc.org" = {
+            install_url = moz "keepassxc-browser";
+            installation_mode = "force_installed";
+            updates_disabled = true;
+          };
+        };
+      profiles.default.search = {
+        force = true;
+        default = "google";
+        privateDefault = "google";
+
+        engines = {
+          "Nix Packages" = {
+            urls = [
+              {
+                template = "https://search.nixos.org/packages";
+                params = [
+                  {
+                    name = "channel";
+                    value = "unstable";
+                  }
+                  {
+                    name = "query";
+                    value = "{searchTerms}";
+                  }
+                ];
+              }
+            ];
+            icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
+            definedAliases = [ "@np" ];
+          };
+
+          "Nix Options" = {
+            urls = [
+              {
+                template = "https://search.nixos.org/options";
+                params = [
+                  {
+                    name = "channel";
+                    value = "unstable";
+                  }
+                  {
+                    name = "query";
+                    value = "{searchTerms}";
+                  }
+                ];
+              }
+            ];
+            icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
+            definedAliases = [ "@no" ];
+          };
+
+        };
+      };
+    };
   };
 
   programs.ghostty = {
