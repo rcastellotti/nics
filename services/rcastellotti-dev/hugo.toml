@@ -1,0 +1,13 @@
+baseURL = 'https://rcastellotti.dev/'
+locale = 'en-us'
+title = 'Roberto Castellotti'
+
+disableKinds = ['taxonomy', 'term']
+
+[markup]
+  [markup.highlight]
+    noClasses = false
+
+[outputs]
+  home = ['HTML', 'RSS']
+  section = ['HTML', 'RSS']

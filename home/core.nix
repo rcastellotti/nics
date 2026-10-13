@@ -1,0 +1,54 @@
+{ pkgs, ... }:
+
+{
+  home.username = "rc";
+  home.homeDirectory = "/home/rc";
+  home.stateVersion = "26.05";
+
+  home.packages = with pkgs; [
+    eza
+    fastfetch
+    htop
+    btop
+    git
+    jq
+    curl
+    ffmpeg
+    yazi
+    unzip
+    ncdu
+    sqlite
+    rlwrap
+    file
+  ];
+
+  programs.home-manager.enable = true;
+
+  programs.vim = {
+    enable = true;
+    defaultEditor = true;
+  };
+
+  programs.fish = {
+    enable = true;
+    interactiveShellInit = ''
+      set -g fish_greeting
+    '';
+  };
+
+  programs.direnv = {
+    enable = true;
+    enableFishIntegration = true;
+  };
+
+  programs.git = {
+    enable = true;
+    settings = {
+      user.name = "Roberto Castellotti";
+      user.email = "me@rcastellotti.dev";
+      init.defaultBranch = "main";
+    };
+  };
+
+  programs.zellij.enable = true;
+}

@@ -1,0 +1,104 @@
+* {
+  font-family: "JetBrainsMono Nerd Font";
+  font-size: 12px;
+  font-weight: 500;
+  box-shadow: none;
+  text-shadow: none;
+}
+
+window#waybar {
+  background: #ffffff;
+  color: #000000;
+  border-bottom: 2px solid #d0d0d0;
+}
+
+/* Default neon boxes */
+#workspaces,
+#mode,
+#scratchpad,
+#window,
+#cpu,
+#memory,
+#disk,
+#temperature,
+#tray,
+#bluetooth,
+#network,
+#battery,
+#custom-power,
+#pulseaudio {
+  background: #f5f5f5;
+  border-left: 1px solid #d0d0d0;
+  padding: 2px 8px;
+  margin: 4px 3px;
+}
+
+/* Workspace selector — black */
+#workspaces {
+  padding: 0 4px;
+  border-color: #d0d0d0;
+  color: #000000;
+}
+
+#workspaces button {
+  background: transparent;
+  color: #000000;
+  border: none;
+  border-radius: 0;
+  padding: 0 2px;
+  margin: 0;
+}
+
+#workspaces button.focused {
+  background: #e8e8e8;
+  color: #000000;
+  border: none;
+  border-bottom: 2px solid #000000;
+  border-radius: 0;
+}
+
+#workspaces button.urgent {
+  background: #dddddd;
+  color: #000000;
+  border-radius: 0;
+}
+
+#workspaces button:hover {
+  background: #000000;
+  color: #ffffff;
+  border-radius: 0;
+}
+
+/* Mode indicator */
+#mode {
+  background: #eef0ff;
+  color: #6a00d0;
+}
+
+/* Scratchpad */
+#scratchpad {
+  color: #c46a00;
+}
+
+#battery {
+  color: #1e8e3e;
+}
+
+#battery.charging,
+#battery.plugged {
+  color: #1a73e8;
+}
+
+#battery.warning {
+  color: #b26a00;
+}
+
+#battery.critical {
+  color: #c5221f;
+}
+
+tooltip {
+  background: #ffffff;
+  color: #000000;
+  border: 1px solid #000000;
+}
