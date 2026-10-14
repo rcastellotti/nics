@@ -5,15 +5,23 @@
 let
   username = "u691530";
   server = "${username}.your-storagebox.de";
-
-  # rc's uid is allocated at activation time when using mutable users, so it is
-  # not known at eval time; fall back to the first normal user's uid.
   uid = if config.users.users.rc.uid == null then 1000 else config.users.users.rc.uid;
 in
 {
   sops.secrets."bocs-ssh-key" = {
     mode = "0400";
+    owner = "rc";
+    group = "users";
   };
+
+  programs.ssh.extraConfig = ''
+    Host bocs
+      HostName ${server}
+      User ${username}
+      Port 23
+      IdentityFile ${config.sops.secrets."bocs-ssh-key".path}
+      StrictHostKeyChecking accept-new
+  '';
 
   programs.fuse.userAllowOther = true;
 
