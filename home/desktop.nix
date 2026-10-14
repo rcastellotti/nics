@@ -99,11 +99,66 @@
   programs.firefox = {
     enable = true;
     languagePacks = [ "en-US" ];
+    profiles.default.search = {
+      force = true;
+      engines = {
+        "nix-packages" = {
+          name = "Nix Packages";
+          urls = [
+            {
+              template = "https://search.nixos.org/packages";
+              params = [
+                {
+                  name = "channel";
+                  value = "unstable";
+                }
+                {
+                  name = "type";
+                  value = "packages";
+                }
+                {
+                  name = "query";
+                  value = "{searchTerms}";
+                }
+              ];
+            }
+          ];
+          icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
+          definedAliases = [ "@n" ];
+        };
+        "home-manager-options" = {
+          name = "Home Manager Options";
+          urls = [
+            {
+              template = "https://home-manager-options.extranix.com/";
+              params = [
+                {
+                  name = "release";
+                  value = "master";
+                }
+                {
+                  name = "query";
+                  value = "{searchTerms}";
+                }
+              ];
+            }
+          ];
+          icon = "https://home-manager-options.extranix.com/images/favicon.png";
+          definedAliases = [ "@hm" ];
+        };
+      };
+    };
     policies = {
       DontCheckDefaultBrowser = true;
       PasswordManagerEnabled = false;
       OfferToSaveLogins = false;
       DisableFirefoxAccounts = true;
+      DisplayBookmarksToolbar = "never";
+      FirefoxHome = {
+        TopSites = false;
+        Weather = false;
+        SponsoredTopSites = false;
+      };
       ExtensionSettings =
         let
           moz = short: "https://addons.mozilla.org/firefox/downloads/latest/${short}/latest.xpi";
