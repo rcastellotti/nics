@@ -204,8 +204,8 @@
       format_on_save = "on";
       theme = {
         mode = "system";
-        light = "Github Light High Contrast";
-        dark = "Github Dark High Contrast";
+        light = "GitHub Light High Contrast";
+        dark = "GitHub Dark High Contrast";
       };
       auto_update = false;
       terminal = {
