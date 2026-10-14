@@ -4,7 +4,7 @@ terraform {
   required_providers {
     hcloud = {
       source  = "hetznercloud/hcloud"
-      version = ">= 1.48.0"
+      version = ">= 1.60.0"
     }
     cloudflare = {
       source  = "cloudflare/cloudflare"
@@ -165,6 +165,47 @@ resource "hcloud_server" "kodiak" {
 moved {
   from = hcloud_server.rcastellotti-dev
   to   = hcloud_server.kodiak
+}
+
+resource "hcloud_storage_box" "bocs" {
+  name             = "bocs"
+  storage_box_type = "bx11"
+  location         = "hel1"
+  password         = data.sops_file.secrets.data["bocs-password"]
+  ssh_keys         = [trimspace(data.sops_file.secrets.data["bocs-ssh-key-pub"])]
+
+  access_settings = {
+    reachable_externally = true
+    ssh_enabled          = true
+    samba_enabled        = false
+    webdav_enabled       = false
+    zfs_enabled          = true
+  }
+
+  delete_protection = true
+
+  labels = {
+    managed-by = "terraform"
+  }
+
+  lifecycle {
+    ignore_changes = [ssh_keys]
+  }
+}
+
+output "storage_box_id" {
+  description = "Storage Box ID"
+  value       = hcloud_storage_box.bocs.id
+}
+
+output "storage_box_server" {
+  description = "Storage Box FQDN, used in the SSHFS mount on kodiak/polar/grizzly"
+  value       = hcloud_storage_box.bocs.server
+}
+
+output "storage_box_username" {
+  description = "Storage Box primary username, used in the SSHFS mount on kodiak/polar/grizzly"
+  value       = hcloud_storage_box.bocs.username
 }
 
 output "hostname" {

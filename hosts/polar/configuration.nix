@@ -27,6 +27,7 @@
   imports = [
     ./hardware-configuration.nix
     ../../services/syncthing.nix
+    ../../modules/bocs.nix
     ../../modules/desktop.nix
   ];
 

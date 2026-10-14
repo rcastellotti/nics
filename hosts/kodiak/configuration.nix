@@ -11,6 +11,7 @@
     ./disko-config.nix
     ./services.nix
     ../../services/syncthing.nix
+    ../../modules/bocs.nix
     ../../modules/ssh-keys.nix
   ];
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
