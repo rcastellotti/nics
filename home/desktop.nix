@@ -154,6 +154,9 @@
       OfferToSaveLogins = false;
       DisableFirefoxAccounts = true;
       DisplayBookmarksToolbar = "never";
+      Preferences = {
+        "dom.security.credentialmanagement.identity.enabled" = false;
+      };
       FirefoxHome = {
         TopSites = false;
         Weather = false;
