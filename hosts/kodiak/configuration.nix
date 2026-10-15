@@ -62,11 +62,30 @@
     80
     443
   ];
+  networking.firewall.allowedUDPPorts = [ 44821 ];
+  networking.firewall.trustedInterfaces = [ "wg0" ];
+
+  networking.wireguard.interfaces.wg0 = {
+    ips = [ "10.100.0.1/24" ];
+    listenPort = 44821;
+    privateKeyFile = config.sops.secrets."wireguard-kodiak-private-key".path;
+    peers = [ ];
+  };
+
+  networking.nat = {
+    enable = true;
+    externalInterface = "enp1s0";
+    internalInterfaces = [ "wg0" ];
+  };
+
   system.stateVersion = "26.05";
   programs.fish.enable = true;
 
   sops.secrets.kodiak-password.neededForUsers = true;
   sops.secrets.kodiak-password = { };
+  sops.secrets."wireguard-kodiak-private-key" = {
+    mode = "0400";
+  };
   users.users.rc = {
     shell = pkgs.fish;
     isNormalUser = true;

@@ -56,6 +56,7 @@
           terraform-ls
           hugo
           nixos-anywhere
+          wireguard-tools
         ];
       };
 
