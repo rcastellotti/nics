@@ -69,7 +69,12 @@
     ips = [ "10.100.0.1/24" ];
     listenPort = 44821;
     privateKeyFile = config.sops.secrets."wireguard-kodiak-private-key".path;
-    peers = [ ];
+    peers = [
+      {
+        publicKey = "CikbbsOo7gykEygcCCFTv/qIXfdnS+LDBOdzYC4S9n8="; # ll
+        allowedIPs = [ "10.100.0.2/32" ];
+      }
+    ];
   };
 
   networking.nat = {
