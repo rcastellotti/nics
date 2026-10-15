@@ -58,7 +58,7 @@ let
   '';
 
   popup = app_id: {
-    command = "floating enable, resize set 480 560, move position 100 ppt 0 ppt, move left 480 px";
+    command = "floating enable, resize set 800 600, move position 100 ppt 0 ppt, move left 480 px";
     criteria = { inherit app_id; };
   };
 in
@@ -127,6 +127,7 @@ in
           "${mod}+Mod1+Right" = "workspace next";
           "${mod}+space" = "exec ${config.wayland.windowManager.sway.config.menu}";
           "${mod}+q" = "kill";
+          "${mod}+Escape" = "exec rofi -no-show-icons -show p -modi p:'rofi-power-menu'";
           "${mod}+s" = "exec ghostty -e caddy file-server --listen localhost:9172 --browse";
           "${mod}+b" = "exec firefox";
           "${mod}+n" = "exec zeditor /home/rc/g/nics";
