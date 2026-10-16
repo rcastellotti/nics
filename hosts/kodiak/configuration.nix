@@ -9,7 +9,15 @@
   imports = [
     ./hardware-configuration.nix
     ./disko-config.nix
-    ./services.nix
+    ./services/caddy.nix
+    ./services/dela.nix
+    ./services/fail2ban.nix
+    ./services/forgejo.nix
+    ./services/headscale.nix
+    ./services/navidrome.nix
+    ./services/openssh.nix
+    ./services/tailscale.nix
+    ./services/tma.nix
     ../../services/syncthing.nix
     ../../modules/bocs.nix
     ../../modules/ssh-keys.nix
