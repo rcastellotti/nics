@@ -58,6 +58,8 @@
       };
     };
     network = {
+      "on-click" = "scratchpad-term wifi impala";
+      "on-click-right" = "scratchpad-term wifi impala";
       format-wifi = "  ({ipaddr})";
       "format-alt" = "  {essid} ({ipaddr})";
       "format-alt-click" = 1;
@@ -68,6 +70,8 @@
       tooltip-format-disconnected = "Disconnected";
     };
     bluetooth = {
+      "on-click" = "scratchpad-term bluetooth bluetui";
+      "on-click-right" = "scratchpad-term bluetooth bluetui";
       format = " {status}";
       format-disabled = "";
       format-connected = " {num_connections} connected";

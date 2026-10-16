@@ -40,6 +40,36 @@ let
     ${pkgs.mako}/bin/makoctl reload || true
   '';
 
+  scratchpad-term = pkgs.writeShellScriptBin "scratchpad-term" ''
+    set -eu
+
+    name=$1
+    shift || true
+    app="com.example.scratch-$name"
+    swaymsg=${pkgs.sway}/bin/swaymsg
+    grep=${pkgs.gnugrep}/bin/grep
+    seq=${pkgs.coreutils}/bin/seq
+    sleep=${pkgs.coreutils}/bin/sleep
+
+    if $swaymsg -t get_tree | $grep -qF "\"app_id\": \"$app\""; then
+      exec $swaymsg "[app_id=$app] scratchpad show"
+    fi
+
+    if [ "$#" -gt 0 ]; then
+      ${pkgs.ghostty}/bin/ghostty --class="$app" --gtk-single-instance=false -e "$@" &
+    else
+      ${pkgs.ghostty}/bin/ghostty --class="$app" --gtk-single-instance=false &
+    fi
+
+    for _ in $($seq 1 50); do
+      $swaymsg -t get_tree | $grep -qF "\"app_id\": \"$app\"" && break
+      $sleep 0.1
+    done
+    $sleep 0.2
+
+    $swaymsg "[app_id=$app] scratchpad show"
+  '';
+
   toggle-theme = pkgs.writeShellScriptBin "toggle-theme" ''
     set -eu
 
@@ -60,6 +90,7 @@ let
 in
 {
   home.packages = [
+    scratchpad-term
     toggle-theme
     apply-theme
   ];
@@ -94,7 +125,7 @@ in
           {
             command = "floating enable, move position center, move scratchpad";
             criteria = {
-              app_id = "com.example.scratch-terminal";
+              app_id = "com\\.example\\.scratch-.*";
             };
           }
         ];
@@ -128,8 +159,7 @@ in
           "${mod}+z" = "exec zeditor";
           "${mod}+t" = "exec Telegram";
           "${mod}+Return" = "exec ghostty";
-          "${mod}+Shift+Return" =
-            "exec ghostty --class=com.example.scratch-terminal --gtk-single-instance=false";
+          "${mod}+Shift+Return" = "exec scratchpad-term terminal";
           "XF86AudioRaiseVolume" = "exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+";
           "XF86AudioLowerVolume" = "exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-";
           "XF86AudioMute" = "exec wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";
