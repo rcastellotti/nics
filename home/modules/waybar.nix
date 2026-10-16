@@ -1,17 +1,5 @@
-{ pkgs, ... }:
+{ ... }:
 
-let
-  toggle-popup = pkgs.writeShellScriptBin "toggle-popup" ''
-    set -eu
-    app_id="$1"
-    shift
-    if ${pkgs.sway}/bin/swaymsg -t get_tree | ${pkgs.gnugrep}/bin/grep -qF "\"app_id\": \"$app_id\""; then
-      ${pkgs.sway}/bin/swaymsg "[app_id=\"$app_id\"]" kill
-    else
-      exec "$@"
-    fi
-  '';
-in
 {
   xdg.configFile."waybar/style.css" = {
     source = ./waybar-dark.css;
@@ -75,17 +63,17 @@ in
       "format-alt-click" = 1;
       format-ethernet = "󰈀 {ifname} ({ipaddr})";
       format-disconnected = "󰖪 Disconnected";
-      tooltip-format-wifi = "{essid} ({signalStrength}%)";
-      on-click-right = "exec ${toggle-popup}/bin/toggle-popup com.example.network-popup ghostty --class=com.example.network-popup --gtk-single-instance=false -e impala";
+      tooltip-format-wifi = "{essid}\n{ipaddr}\nSignal: {signalStrength}%";
+      tooltip-format-ethernet = "Wired: {ifname}\n{ipaddr}";
+      tooltip-format-disconnected = "Disconnected";
     };
     bluetooth = {
       format = " {status}";
       format-disabled = "";
       format-connected = " {num_connections} connected";
-      tooltip-format = "{controller_alias}\t{controller_address}";
-      tooltip-format-connected = "{controller_alias}\t{controller_address}\n\n{device_enumerate}";
+      tooltip-format = "{controller_alias}\t({controller_address})";
+      tooltip-format-connected = "{controller_alias}\t({controller_address})\nConnected: {num_connections}\n\n{device_enumerate}";
       tooltip-format-enumerate-connected = "{device_alias}\t{device_address}";
-      on-click = "exec ${toggle-popup}/bin/toggle-popup com.example.bluetooth-popup ghostty --class=com.example.bluetooth-popup --gtk-single-instance=false -e bluetui";
     };
     battery = {
       interval = 60;
@@ -111,6 +99,10 @@ in
         ""
         ""
       ];
+      tooltip-format-charging = "{capacity}% Charging ({time})";
+      tooltip-format-discharging = "{capacity}% Discharging ({time})";
+      tooltip-format-plugged = "{capacity}% Plugged in";
+      tooltip-format-full = "{capacity}% Full";
       max-length = 25;
     };
     wireplumber = {

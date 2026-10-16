@@ -57,10 +57,6 @@ let
     ${apply-theme}/bin/apply-theme
   '';
 
-  popup = app_id: {
-    command = "floating enable, resize set 800 600, move position 100 ppt 0 ppt, move left 480 px";
-    criteria = { inherit app_id; };
-  };
 in
 {
   home.packages = [
@@ -101,8 +97,6 @@ in
               app_id = "com.example.scratch-terminal";
             };
           }
-          (popup "com.example.bluetooth-popup")
-          (popup "com.example.network-popup")
         ];
       };
       startup = [
