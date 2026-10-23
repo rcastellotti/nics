@@ -29,6 +29,7 @@
     ];
   };
 
+  environment.systemPackages = [ pkgs.android-studio ];
   networking.hostName = "grizzly";
 
   sops.secrets.cloudflare-api-token = {

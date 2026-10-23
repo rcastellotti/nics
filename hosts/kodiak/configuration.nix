@@ -14,7 +14,6 @@
     ./services/fail2ban.nix
     ./services/forgejo.nix
     ./services/headscale.nix
-    ./services/navidrome.nix
     ./services/openssh.nix
     ./services/tailscale.nix
     ./services/tma.nix
