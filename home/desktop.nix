@@ -17,7 +17,7 @@
     vlc
     caddy
     flameshot
-    pi-coding-agent
+    opencode
   ];
 
   gtk = {
