@@ -34,22 +34,6 @@
     options = "--delete-older-than 7d";
   };
 
-  systemd.services.ballast = {
-    description = "Reserve fallback disk space that can be deleted when the disk fills up";
-    wantedBy = [ "multi-user.target" ];
-    after = [ "local-fs.target" ];
-    serviceConfig = {
-      Type = "oneshot";
-      RemainAfterExit = true;
-    };
-    script = ''
-      if [ ! -e /home/rc/ballast ]; then
-        ${pkgs.util-linux}/bin/fallocate -l 5G /home/rc/ballast || true
-        ${pkgs.coreutils}/bin/chown rc:users /home/rc/ballast
-      fi
-    '';
-  };
-
   environment.sessionVariables = {
     TERM = "xterm-256color";
   };
