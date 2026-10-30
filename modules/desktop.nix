@@ -1,4 +1,9 @@
-{ pkgs, lib, config, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
 
 {
   boot = {
@@ -36,6 +41,7 @@
       enable = true;
       extraSetFlags = [ "--ssh" ];
     };
+    ratbagd.enable = true;
   };
 
   security.rtkit.enable = true;
@@ -92,6 +98,7 @@
       wl-clipboard
       mako
       nautilus
+      piper
     ];
   };
 
