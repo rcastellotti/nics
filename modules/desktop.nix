@@ -99,6 +99,7 @@
       mako
       nautilus
       piper
+      pi-coding-agent
     ];
   };
 

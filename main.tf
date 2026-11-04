@@ -67,6 +67,15 @@ resource "cloudflare_record" "discord" {
   proxied = true
 }
 
+resource "cloudflare_record" "atproto" {
+  zone_id = data.cloudflare_zone.main.id
+  name    = "_atproto"
+  type    = "TXT"
+  content = "did=did:plc:mp7okkj6lnrok43dmlyterfq"
+  ttl     = 1
+  proxied = false
+}
+
 resource "cloudflare_ruleset" "discord_redirect" {
   zone_id = data.cloudflare_zone.main.id
   name    = "Discord redirect"

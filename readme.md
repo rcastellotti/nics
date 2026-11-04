@@ -7,6 +7,29 @@ nix-shell -p ssh-to-age --run "ssh-to-age -private-key -i /tmp/grizzly-ssh-key >
 sudo nixos-rebuild switch --flake .#grizzly
 ```
 
+## android mic
+
+`grizzly` can use an Android phone as a microphone with
+[AndroidMic](https://github.com/teamclouday/AndroidMic).
+
+1. Install the Android app from
+   [F-Droid](https://f-droid.org/packages/io.github.teamclouday.AndroidMic).
+2. Launch `android-mic` on `grizzly`.
+3. Select **AndroidMic Sink** as the output device and set channels to **Mono**.
+4. Pick a connection method:
+   - **WiFi (TCP/UDP)**: enter the PC IP shown in the app log.
+   - **USB ADB**: enable USB debugging on the phone, then enter the port shown
+     in the app log.
+   - **USB serial**: just connect the cable.
+5. In any other app, select **AndroidMic Microphone** as the input device.
+
+A systemd user service (`android-mic-virtual-mic`) creates the virtual sink and
+microphone source automatically. If it is missing after login, run:
+
+```sh
+systemctl --user restart android-mic-virtual-mic
+```
+
 # `kodiak`
 
 The kodiak admin/deploy SSH keypair lives in `secrets/secrets.yaml` as

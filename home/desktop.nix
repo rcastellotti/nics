@@ -17,7 +17,6 @@
     vlc
     caddy
     flameshot
-    opencode
   ];
 
   gtk = {
