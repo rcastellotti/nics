@@ -16,6 +16,7 @@
   imports = [
     ./hardware-configuration.nix
     ../../services/syncthing.nix
+    ../../modules/android-mic.nix
     ../../modules/bocs.nix
     ../../modules/desktop.nix
   ];
@@ -29,10 +30,6 @@
     ];
   };
 
-  environment.systemPackages = [
-    # adb for AndroidMic's USB ADB connection (systemd handles uaccess rules).
-    pkgs.android-tools
-  ];
   networking.hostName = "grizzly";
 
   sops.secrets.cloudflare-api-token = {
