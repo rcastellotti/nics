@@ -222,7 +222,6 @@
       buffer_font_family = "JetBrainsMono Nerd Font";
       ui_font_size = 12;
       buffer_font_size = 12;
-      disable_ai = true;
       autosave = "on_focus_change";
     };
   };
