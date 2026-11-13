@@ -17,6 +17,7 @@
     vlc
     caddy
     flameshot
+    obsidian
   ];
 
   gtk = {
@@ -217,6 +218,7 @@
       };
       vim_mode = false;
       load_direnv = "shell_hook";
+      disable_ai = false;
       tab_size = 2;
       ui_font_family = "JetBrainsMono Nerd Font";
       buffer_font_family = "JetBrainsMono Nerd Font";

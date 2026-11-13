@@ -11,6 +11,7 @@
     htop
     btop
     git
+    gh
     jq
     curl
     ffmpeg
