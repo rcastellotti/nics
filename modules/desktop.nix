@@ -81,6 +81,8 @@
 
   programs.ssh.startAgent = true;
 
+  programs.nix-index-database.comma.enable = true;
+
   programs.sway = {
     enable = true;
     extraPackages = with pkgs; [

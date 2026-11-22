@@ -27,6 +27,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nix-index-database = {
+      url = "github:nix-community/nix-index-database";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
   };
 
   outputs =
@@ -38,6 +43,7 @@
       disko,
       dela,
       tma,
+      nix-index-database,
       ...
     }:
     let
@@ -73,6 +79,7 @@
             ./hosts/grizzly/configuration.nix
             sops-nix.nixosModules.sops
             home-manager.nixosModules.home-manager
+            nix-index-database.nixosModules.default
           ];
         };
 
@@ -88,6 +95,7 @@
             ./hosts/polar/configuration.nix
             sops-nix.nixosModules.sops
             home-manager.nixosModules.home-manager
+            nix-index-database.nixosModules.default
           ];
         };
 

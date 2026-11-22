@@ -18,6 +18,8 @@
     caddy
     flameshot
     obsidian
+    wireguard-tools
+    discord
   ];
 
   gtk = {
@@ -73,7 +75,7 @@
 
   programs.zathura.enable = true;
 
-  programs.discord.enable = true;
+  programs.vscodium.enable = true;
 
   programs.thunderbird = {
     enable = true;
